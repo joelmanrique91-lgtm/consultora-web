@@ -26,4 +26,75 @@
     </footer>
   </body>
 </html>
+<style>
+  :root {
+    --max-width: 900px;
+    --color-text: #222;
+    --color-muted: #666;
+    --color-accent: #0b5ed7;
+    --bg-light: #f7f7f7;
+  }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+    color: var(--color-text);
+    background: white;
+    line-height: 1.6;
+  }
+
+  header {
+    background: var(--bg-light);
+    border-bottom: 1px solid #ddd;
+  }
+
+  nav {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  nav a:hover {
+    color: var(--color-accent);
+  }
+
+  main {
+    max-width: var(--max-width);
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    margin-top: 2rem;
+    font-size: 1.4rem;
+  }
+
+  section {
+    margin-top: 2rem;
+  }
+
+  footer {
+    margin-top: 4rem;
+    padding: 2rem 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    border-top: 1px solid #ddd;
+    background: var(--bg-light);
+  }
+</style>
 
