@@ -1,3 +1,9 @@
+---
+const { pathname } = Astro.url;
+const isActive = (href) =>
+  href === "/" ? pathname === "/" : pathname.startsWith(href);
+---
+
 <!doctype html>
 <html lang="es">
   <head>
@@ -9,11 +15,25 @@
   <body>
     <header>
       <nav>
-        <a href="/">Home</a> |
-        <a href="/servicios">Servicios</a> |
-        <a href="/sobre">Sobre</a> |
-        <a href="/casos">Casos</a> |
-        <a href="/contacto">Contacto</a>
+        <a class={`nav__link${isActive("/") ? " is-active" : ""}`} href="/"
+          >Home</a
+        > |
+        <a
+          class={`nav__link${isActive("/servicios") ? " is-active" : ""}`}
+          href="/servicios"
+          >Servicios</a
+        > |
+        <a class={`nav__link${isActive("/sobre") ? " is-active" : ""}`} href="/sobre"
+          >Sobre</a
+        > |
+        <a class={`nav__link${isActive("/casos") ? " is-active" : ""}`} href="/casos"
+          >Casos</a
+        > |
+        <a
+          class={`nav__link${isActive("/contacto") ? " is-active" : ""}`}
+          href="/contacto"
+          >Contacto</a
+        >
       </nav>
     </header>
 
@@ -57,14 +77,22 @@
     gap: 1rem;
   }
 
-  nav a {
+  .nav__link {
     text-decoration: none;
     color: var(--color-text);
     font-weight: 500;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    transition: color 0.2s ease, background-color 0.2s ease;
   }
 
-  nav a:hover {
+  .nav__link:hover {
     color: var(--color-accent);
+  }
+
+  .nav__link.is-active {
+    color: var(--color-accent);
+    background-color: rgba(11, 94, 215, 0.12);
   }
 
   main {
@@ -97,4 +125,3 @@
     background: var(--bg-light);
   }
 </style>
-
