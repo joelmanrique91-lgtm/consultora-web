@@ -20,9 +20,10 @@ import { site } from '../data/site';
             <div class="service-card__accent" aria-hidden="true"></div>
             <h3>{service.title}</h3>
             <p class="service-card__description">{service.description}</p>
-            <p class="service-card__badge">
-              <span>Cuándo conviene:</span> {service.when}
-            </p>
+            <div class="service-card__when">
+              <span class="service-card__when-label">Cuándo conviene</span>
+              <p class="service-card__when-text">{service.when}</p>
+            </div>
           </article>
         ))}
       </div>
@@ -114,21 +115,29 @@ import { site } from '../data/site';
     margin: 0 0 1.25rem;
   }
 
-  .service-card__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    background: #cff2a3;
-    border: 1px solid #8bcb3c;
-    color: #2f2f2f;
-    font-size: 0.85rem;
-    padding: 0.35rem 0.6rem;
-    border-radius: 999px;
-    margin: 0;
+  .service-card__when {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
 
-  .service-card__badge span {
+  .service-card__when-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #8a6b4f;
     font-weight: 600;
+  }
+
+  .service-card__when-text {
+    margin: 0;
+    color: #2f2f2f;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    padding: 0.55rem 0.75rem;
+    border-radius: 12px;
+    border: 1px solid rgba(139, 203, 60, 0.6);
+    background: rgba(207, 242, 163, 0.4);
   }
 
   .service-card:hover {
