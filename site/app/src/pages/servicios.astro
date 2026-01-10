@@ -89,7 +89,7 @@ import { site } from '../data/site';
     padding: 2rem 1.75rem 1.75rem;
     border-radius: 18px;
     background: #ffffff;
-    box-shadow: 0 12px 30px rgba(47, 47, 47, 0.08);
+    box-shadow: 0 12px 28px rgba(47, 47, 47, 0.08);
     border: 1px solid rgba(138, 107, 79, 0.12);
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   }
@@ -141,8 +141,8 @@ import { site } from '../data/site';
   }
 
   .service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 36px rgba(47, 47, 47, 0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(47, 47, 47, 0.12);
     border-color: rgba(94, 159, 46, 0.5);
   }
 
@@ -197,5 +197,17 @@ import { site } from '../data/site';
   .services a:focus-visible {
     outline: 2px solid #5e9f2e;
     outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card,
+    .services__cta-button {
+      transition: none;
+    }
+
+    .service-card:hover,
+    .services__cta-button:hover {
+      transform: none;
+    }
   }
 </style>
