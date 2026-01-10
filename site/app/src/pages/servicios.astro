@@ -4,24 +4,189 @@ import { site } from '../data/site';
 ---
 
 <Layout>
-  <main>
-    <h1>{site.brand.tagline}</h1>
-    <p>Consolidamos estrategia, planificación y acompañamiento para potenciar tu comunicación institucional.</p>
+  <main class="services">
+    <header class="services__header">
+      <h1>{site.brand.tagline}</h1>
+      <p class="services__lead">
+        Consolidamos estrategia, planificación y acompañamiento para potenciar tu comunicación institucional.
+      </p>
+    </header>
 
-    <section>
+    <section class="services__list">
       <h2>Servicios</h2>
-      {site.services.map((service) => (
-        <article>
-          <h3>{service.title}</h3>
-          <p>{service.description}</p>
-          <p>Cuándo conviene: {service.when}</p>
-        </article>
-      ))}
+      <div class="services__grid">
+        {site.services.map((service) => (
+          <article class="service-card">
+            <div class="service-card__accent" aria-hidden="true"></div>
+            <h3>{service.title}</h3>
+            <p class="service-card__description">{service.description}</p>
+            <p class="service-card__badge">
+              <span>Cuándo conviene:</span> {service.when}
+            </p>
+          </article>
+        ))}
+      </div>
     </section>
 
-    <section>
-      <p>{site.cta.text}</p>
-      <a href={site.cta.href}>{site.cta.text}</a>
+    <section class="services__cta">
+      <div class="services__cta-content">
+        <h3>Coordinar una reunión</h3>
+        <p>Contanos tu necesidad y te proponemos un plan de trabajo.</p>
+      </div>
+      <a class="services__cta-button" href={site.cta.href}>
+        {site.cta.text}
+      </a>
     </section>
   </main>
 </Layout>
+
+<style>
+  .services {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+    color: #2f2f2f;
+  }
+
+  .services__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .services h1 {
+    color: #2f2f2f;
+    letter-spacing: -0.02em;
+  }
+
+  .services h2 {
+    color: #8a6b4f;
+    margin-bottom: 1.75rem;
+  }
+
+  .services__lead {
+    color: #8c8c8c;
+    max-width: 58ch;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .services__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .services__grid {
+    display: grid;
+    gap: 1.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .service-card {
+    position: relative;
+    padding: 2rem 1.75rem 1.75rem;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(47, 47, 47, 0.08);
+    border: 1px solid rgba(138, 107, 79, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .service-card__accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #8bcb3c;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+  }
+
+  .service-card h3 {
+    margin: 0 0 0.75rem;
+    color: #2f2f2f;
+  }
+
+  .service-card__description {
+    color: #8c8c8c;
+    margin: 0 0 1.25rem;
+  }
+
+  .service-card__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #cff2a3;
+    border: 1px solid #8bcb3c;
+    color: #2f2f2f;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    margin: 0;
+  }
+
+  .service-card__badge span {
+    font-weight: 600;
+  }
+
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 36px rgba(47, 47, 47, 0.12);
+    border-color: rgba(94, 159, 46, 0.5);
+  }
+
+  .service-card:hover .service-card__accent {
+    background: #5e9f2e;
+  }
+
+  .services__cta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+    border-radius: 18px;
+    border-left: 4px solid #8bcb3c;
+    background: #f8f6f2;
+    box-shadow: 0 10px 28px rgba(47, 47, 47, 0.08);
+  }
+
+  .services__cta-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .services__cta-content h3 {
+    margin: 0;
+    color: #2f2f2f;
+  }
+
+  .services__cta-content p {
+    margin: 0;
+    color: #8c8c8c;
+  }
+
+  .services__cta-button {
+    align-self: flex-start;
+    background: #8bcb3c;
+    color: #2f2f2f;
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .services__cta-button:hover {
+    background: #5e9f2e;
+    transform: translateY(-2px);
+  }
+
+  .services__cta-button:focus-visible,
+  .services a:focus-visible {
+    outline: 2px solid #5e9f2e;
+    outline-offset: 3px;
+  }
+</style>
