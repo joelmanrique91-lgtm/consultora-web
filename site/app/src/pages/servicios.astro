@@ -210,4 +210,20 @@ import { site } from '../data/site';
       transform: none;
     }
   }
+
+  @media (max-width: 768px) {
+    .services {
+      width: 100%;
+    }
+
+    .services__grid {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+
+    .service-card {
+      width: 100%;
+      margin: 0;
+    }
+  }
 </style>
