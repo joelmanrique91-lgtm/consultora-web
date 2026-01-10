@@ -1,16 +1,27 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
 ---
 
 <Layout>
   <main>
-    <h1>Servicios</h1>
-    <p>Estas son las áreas en las que podemos ayudarte.</p>
+    <h1>{site.brand.tagline}</h1>
+    <p>Consolidamos estrategia, planificación y acompañamiento para potenciar tu comunicación institucional.</p>
 
-    <ul>
-      <li><strong>Consultoría técnica y estratégica:</strong> diagnóstico y recomendaciones accionables.</li>
-      <li><strong>Análisis y diseño de soluciones:</strong> definición de enfoque, plan y entregables.</li>
-      <li><strong>Acompañamiento en proyectos:</strong> soporte durante ejecución y seguimiento.</li>
-    </ul>
+    <section>
+      <h2>Servicios</h2>
+      {site.services.map((service) => (
+        <article>
+          <h3>{service.title}</h3>
+          <p>{service.description}</p>
+          <p>Cuándo conviene: {service.when}</p>
+        </article>
+      ))}
+    </section>
+
+    <section>
+      <p>{site.cta.text}</p>
+      <a href={site.cta.href}>{site.cta.text}</a>
+    </section>
   </main>
 </Layout>
