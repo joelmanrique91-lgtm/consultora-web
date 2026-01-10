@@ -62,6 +62,12 @@ const isActive = (href) =>
     --earth-mid: #cbb59a;
   }
 
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
   body {
     margin: 0;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -151,6 +157,7 @@ const isActive = (href) =>
     max-width: var(--max-width);
     margin: 2rem auto;
     padding: 0 1rem;
+    width: 100%;
   }
 
   h1 {
@@ -227,6 +234,13 @@ const isActive = (href) =>
 
   footer a:hover {
     color: var(--accent-hover);
+  }
+
+  @media (max-width: 768px) {
+    main {
+      margin: 1.5rem auto;
+      padding-inline: 1.25rem;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
