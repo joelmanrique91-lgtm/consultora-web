@@ -14,7 +14,7 @@ import Layout from '../layouts/Layout.astro';
       definir mensajes claros y acompañar la implementación con criterio
       estratégico.
     </p>
-    <div>
+    <div class="hero__actions">
       <a class="btn btn--primary" href="/contacto">Coordinar una reunión</a>
       <a class="btn btn--secondary" href="#servicios">Ver servicios</a>
     </div>
@@ -58,3 +58,19 @@ import Layout from '../layouts/Layout.astro';
     </section>
   </main>
 </Layout>
+
+<style>
+  .hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .hero__actions {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
