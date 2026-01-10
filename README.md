@@ -41,3 +41,13 @@ Codex será utilizado como apoyo para:
 🟢 Proyecto inicializado  
 🔜 Definición de estructura del sitio y stack tecnológico
 
+## Desarrollo local con actualización automática
+
+Para probar el proyecto Astro con sincronización automática desde la rama `main`:
+
+```sh
+cd site/app
+npm run dev:sync
+```
+
+Abrir en el navegador: http://localhost:4321
