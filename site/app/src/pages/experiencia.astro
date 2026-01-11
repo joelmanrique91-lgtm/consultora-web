@@ -15,38 +15,42 @@ import CTASection from '../components/CTASection.astro';
         </p>
       </header>
 
-      <section class="stack-lg experience-results">
-        <h2>Resultados típicos</h2>
-        <div class="results-grid">
-          <article class="card result-card">
-            <span class="result-card__icon" aria-hidden="true">✓</span>
-            <p>Mayor claridad entre áreas.</p>
-          </article>
-          <article class="card result-card">
-            <span class="result-card__icon" aria-hidden="true">✓</span>
-            <p>Menos retrabajo.</p>
-          </article>
-          <article class="card result-card">
-            <span class="result-card__icon" aria-hidden="true">✓</span>
-            <p>Discursos alineados.</p>
-          </article>
+      <section class="stack-lg experience-results experience-results--grouped">
+        <header class="reading stack">
+          <h2>Resultados y sectores</h2>
+        </header>
+        <div class="experience-duo">
+          <div class="experience-duo__block">
+            <h3 class="experience-subtitle">Resultados típicos</h3>
+            <div class="results-grid">
+              <article class="card result-card">
+                <span class="result-card__icon" aria-hidden="true">✓</span>
+                <p>Mayor claridad entre áreas.</p>
+              </article>
+              <article class="card result-card">
+                <span class="result-card__icon" aria-hidden="true">✓</span>
+                <p>Menos retrabajo.</p>
+              </article>
+              <article class="card result-card">
+                <span class="result-card__icon" aria-hidden="true">✓</span>
+                <p>Discursos alineados.</p>
+              </article>
+            </div>
+          </div>
+          <div class="experience-duo__block experience-duo__block--divider">
+            <h3 class="experience-subtitle">Sectores</h3>
+            <div class="tags">
+              <span class="tag tag--chip">Minería</span>
+              <span class="tag tag--chip">Servicios industriales</span>
+              <span class="tag tag--chip">Energía</span>
+              <span class="tag tag--chip">Industria manufacturera</span>
+              <span class="tag tag--chip">Logística</span>
+              <span class="tag tag--chip">PYMES B2B</span>
+              <span class="tag tag--chip">Operación territorial</span>
+            </div>
+          </div>
         </div>
       </section>
-    </div>
-  </section>
-
-  <section class="section experience-section experience-section--alt">
-    <div class="container stack">
-      <h2>Sectores</h2>
-      <div class="tags">
-        <span class="tag tag--chip">Minería</span>
-        <span class="tag tag--chip">Servicios industriales</span>
-        <span class="tag tag--chip">Energía</span>
-        <span class="tag tag--chip">Industria manufacturera</span>
-        <span class="tag tag--chip">Logística</span>
-        <span class="tag tag--chip">PYMES B2B</span>
-        <span class="tag tag--chip">Operación territorial</span>
-      </div>
     </div>
   </section>
 
@@ -158,6 +162,28 @@ import CTASection from '../components/CTASection.astro';
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 
+  .experience-duo {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .experience-duo__block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .experience-duo__block--divider {
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(106, 168, 58, 0.2);
+  }
+
+  .experience-subtitle {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--earth);
+  }
+
   .result-card {
     display: flex;
     gap: var(--s-12);
@@ -228,6 +254,18 @@ import CTASection from '../components/CTASection.astro';
   @media (min-width: 900px) {
     .experience-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .experience-duo {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xl);
+    }
+
+    .experience-duo__block--divider {
+      padding-top: 0;
+      padding-left: var(--space-lg);
+      border-top: 0;
+      border-left: 1px solid rgba(106, 168, 58, 0.2);
     }
   }
 </style>
