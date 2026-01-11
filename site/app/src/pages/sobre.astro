@@ -1,28 +1,227 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import CtaBlock from '../components/CtaBlock.astro';
+import CTASection from '../components/CTASection.astro';
+
+const teamMembers = [
+  {
+    name: 'Dirección estratégica',
+    role: 'Consultoría senior',
+    bio: 'Conduce el enfoque general del trabajo con foco en claridad institucional, toma de decisiones y consistencia de marca.',
+    expertise: [
+      'Estrategia de comunicación institucional',
+      'Relación con equipos directivos',
+      'Posicionamiento y reputación',
+      'Priorización de iniciativas',
+    ],
+    linkedin: null,
+    image: null,
+  },
+  {
+    name: 'Consultoría & planificación',
+    role: 'Diseño de planes',
+    bio: 'Estructura los diagnósticos y traduce la estrategia en planes accionables con procesos claros y medibles.',
+    expertise: [
+      'Diagnósticos y auditorías',
+      'Planificación trimestral',
+      'Gestión de contenidos',
+      'Coordinación operativa',
+    ],
+    linkedin: null,
+    image: null,
+  },
+  {
+    name: 'Implementación y acompañamiento',
+    role: 'Gestión y seguimiento',
+    bio: 'Acompaña la ejecución junto a los equipos internos, asegurando orden, ritmo y calidad en cada entrega.',
+    expertise: [
+      'Gestión de proyectos',
+      'Producción institucional',
+      'Seguimiento de indicadores',
+      'Mejora continua',
+    ],
+    linkedin: null,
+    image: null,
+  },
+];
 ---
 
 <Layout>
-  <main>
-    <h1>Sobre la consultora</h1>
-    <p>
-      Somos una consultora orientada a resolver problemas complejos con enfoque técnico,
-      claridad operativa y resultados medibles.
-    </p>
+  <section class="section">
+    <div class="container stack-lg">
+      <header class="reading stack">
+        <h1>Sobre la consultora</h1>
+        <p class="manifesto">
+          La claridad institucional se construye con método, criterio y decisiones responsables.
+        </p>
+        <p>
+          Somos una consultora orientada a resolver problemas complejos con enfoque técnico, claridad
+          operativa y resultados medibles.
+        </p>
+      </header>
 
-    <h2>Cómo trabajamos</h2>
-    <ul>
-      <li>Entendemos el contexto y el problema real</li>
-      <li>Proponemos opciones con pros y contras</li>
-      <li>Ejecutamos con trazabilidad y comunicación clara</li>
-    </ul>
+      <div class="reading stack-lg">
+        <section class="stack">
+          <h2>Qué creemos</h2>
+          <p>
+            La comunicación institucional necesita orden, coherencia y un hilo conductor que permita
+            tomar decisiones sin ruido.
+          </p>
+        </section>
 
-    <CtaBlock
-      title="¿Querés ordenar tu comunicación?"
-      description="Conversemos sobre el contexto y definamos un plan de trabajo claro."
-      href="/contacto"
-      buttonText="Coordinar una reunión"
-    />
-  </main>
+        <section class="stack">
+          <h2>Cómo pensamos</h2>
+          <ul>
+            <li>Entendemos el contexto y el problema real.</li>
+            <li>Proponemos opciones con pros y contras.</li>
+            <li>Ejecutamos con trazabilidad y comunicación clara.</li>
+          </ul>
+        </section>
+
+        <section class="stack">
+          <h2>Qué evitamos</h2>
+          <p>
+            Promesas grandilocuentes, acciones aisladas y decisiones sin respaldo operativo.
+          </p>
+        </section>
+      </div>
+
+      <section class="stack-lg">
+        <div class="reading stack">
+          <h2>Equipo</h2>
+          <p>
+            Un equipo con visión estratégica y experiencia en comunicación institucional para acompañar
+            cada etapa.
+          </p>
+        </div>
+        <div class="team-grid">
+          {teamMembers.map((member) => (
+            <article class="card team-card">
+              {member.image ? (
+                <img src={member.image} alt={`Foto de ${member.name}`} class="team-card__avatar" />
+              ) : (
+                <div
+                  class="team-card__avatar team-card__avatar--placeholder"
+                  role="img"
+                  aria-label={`Avatar de ${member.name}`}
+                >
+                  <svg viewBox="0 0 64 64" aria-hidden="true">
+                    <circle cx="32" cy="24" r="12" />
+                    <path d="M12 54c4.5-9 13-14 20-14s15.5 5 20 14" />
+                  </svg>
+                </div>
+              )}
+              <div class="team-card__body">
+                <div class="team-card__header">
+                  <div>
+                    <h3>{member.name}</h3>
+                    <p class="team-card__role">{member.role}</p>
+                  </div>
+                  {member.linkedin && (
+                    <a class="team-card__link" href={member.linkedin} rel="noopener noreferrer" target="_blank">
+                      LinkedIn
+                    </a>
+                  )}
+                </div>
+                <p>{member.bio}</p>
+                <ul class="team-card__expertise">
+                  {member.expertise.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <CTASection
+        title="¿Querés ordenar tu comunicación?"
+        text="Conversemos sobre el contexto y definamos un plan de trabajo claro."
+        ctaHref="/contacto"
+      />
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .manifesto {
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 2.2vw, 32px);
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .team-grid {
+    display: grid;
+    gap: var(--s-24);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .team-card {
+    display: grid;
+    gap: var(--s-16);
+  }
+
+  .team-card__avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--radius);
+    object-fit: cover;
+  }
+
+  .team-card__avatar--placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--earth-soft);
+    border: 1px solid var(--border);
+    color: var(--earth);
+  }
+
+  .team-card__avatar--placeholder svg {
+    width: 42px;
+    height: 42px;
+    fill: currentColor;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  .team-card__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-8);
+  }
+
+  .team-card__role {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .team-card__link {
+    font-size: var(--text-small);
+    font-weight: var(--w-semibold);
+    text-decoration: none;
+    color: var(--earth);
+  }
+
+  .team-card__link:hover {
+    color: var(--accent-hover);
+  }
+
+  .team-card__expertise {
+    margin: var(--s-16) 0 0;
+  }
+
+  @media (min-width: 900px) {
+    .team-card {
+      grid-template-columns: auto 1fr;
+      align-items: start;
+    }
+
+    .team-card__header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+</style>

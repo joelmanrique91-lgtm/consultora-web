@@ -1,0 +1,44 @@
+---
+const { items = [], class: className } = Astro.props;
+---
+
+<div class:list={["cards", className]}>
+  <div class="cards__grid">
+    {items.map((item) => (
+      <article class="card cards__card">
+        <h3>{item.title}</h3>
+        {item.subtitle && <p class="cards__subtitle">{item.subtitle}</p>}
+        {item.items?.length ? (
+          <ul class="cards__list">
+            {item.items.map((detail) => (
+              <li>{detail}</li>
+            ))}
+          </ul>
+        ) : null}
+      </article>
+    ))}
+  </div>
+</div>
+
+<style>
+  .cards__grid {
+    display: grid;
+    gap: var(--s-24);
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .cards__card h3 {
+    margin-top: 0;
+  }
+
+  .cards__subtitle {
+    margin: 0 0 var(--s-16);
+    color: var(--muted);
+  }
+
+  .cards__list {
+    display: grid;
+    gap: var(--s-8);
+    margin: 0;
+  }
+</style>

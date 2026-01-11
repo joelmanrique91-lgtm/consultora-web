@@ -4,82 +4,132 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
 ---
 
 <Layout>
-  <main>
-    <h1>Contacto</h1>
-    <p>Escribinos y coordinamos una llamada.</p>
+  <section class="section">
+    <div class="container stack-lg">
+      <header class="reading stack">
+        <h1>Contacto</h1>
+        <p>Escribinos y coordinamos una llamada.</p>
+      </header>
 
-    <form class="contact-form" id="contact-form" method="POST" action={contactEndpoint} data-endpoint={contactEndpoint}>
-      <div class="contact-form__grid">
-        <label class="contact-form__field">
-          <span>Nombre y apellido *</span>
-          <input type="text" name="name" required autocomplete="name" />
+      <section class="reading info-block">
+        <div>
+          <h2>Qué pasa después</h2>
+          <div class="info-grid">
+            <div>
+              <p class="info-label">Tiempo de respuesta</p>
+              <p>Te respondemos a la brevedad en días hábiles.</p>
+            </div>
+            <div>
+              <p class="info-label">Qué info pedimos y por qué</p>
+              <p>Nos ayuda a entender el contexto y preparar una conversación productiva.</p>
+            </div>
+            <div>
+              <p class="info-label">Cómo es la primera reunión</p>
+              <p>Una llamada de 20 a 30 minutos para alinear objetivos y próximos pasos.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <form
+        class="contact-form"
+        id="contact-form"
+        method="POST"
+        action={contactEndpoint}
+        data-endpoint={contactEndpoint}
+      >
+        <div class="contact-form__grid">
+          <label class="contact-form__field">
+            <span>Nombre y apellido *</span>
+            <input type="text" name="name" required autocomplete="name" />
+          </label>
+
+          <label class="contact-form__field">
+            <span>Empresa *</span>
+            <input type="text" name="company" required autocomplete="organization" />
+          </label>
+
+          <label class="contact-form__field">
+            <span>Email *</span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+
+          <label class="contact-form__field">
+            <span>Teléfono / WhatsApp</span>
+            <input type="tel" name="phone" autocomplete="tel" />
+          </label>
+
+          <label class="contact-form__field">
+            <span>Rubro</span>
+            <select name="industry">
+              <option value="">Seleccionar</option>
+              <option value="industria">Industria</option>
+              <option value="energia">Energía</option>
+              <option value="servicios-b2b">Servicios B2B</option>
+              <option value="organizaciones">Organizaciones</option>
+              <option value="otros">Otros</option>
+            </select>
+          </label>
+
+          <label class="contact-form__field">
+            <span>¿Qué buscás resolver?</span>
+            <select name="goal">
+              <option value="">Seleccionar</option>
+              <option value="ordenar-comunicacion">Ordenar la comunicación</option>
+              <option value="definir-mensajes">Definir mensajes clave</option>
+              <option value="planificar-acciones">Planificar acciones</option>
+              <option value="acompanamiento-proyecto">Acompañamiento de proyecto</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="contact-form__field contact-form__field--full">
+          <span>Mensaje *</span>
+          <textarea name="message" rows="5" required></textarea>
         </label>
 
-        <label class="contact-form__field">
-          <span>Empresa *</span>
-          <input type="text" name="company" required autocomplete="organization" />
+        <label class="contact-form__honeypot">
+          <span>Website</span>
+          <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
         </label>
 
-        <label class="contact-form__field">
-          <span>Email *</span>
-          <input type="email" name="email" required autocomplete="email" />
-        </label>
-
-        <label class="contact-form__field">
-          <span>Teléfono / WhatsApp</span>
-          <input type="tel" name="phone" autocomplete="tel" />
-        </label>
-
-        <label class="contact-form__field">
-          <span>Rubro</span>
-          <select name="industry">
-            <option value="">Seleccionar</option>
-            <option value="industria">Industria</option>
-            <option value="energia">Energía</option>
-            <option value="servicios-b2b">Servicios B2B</option>
-            <option value="organizaciones">Organizaciones</option>
-            <option value="otros">Otros</option>
-          </select>
-        </label>
-
-        <label class="contact-form__field">
-          <span>¿Qué buscás resolver?</span>
-          <select name="goal">
-            <option value="">Seleccionar</option>
-            <option value="ordenar-comunicacion">Ordenar la comunicación</option>
-            <option value="definir-mensajes">Definir mensajes clave</option>
-            <option value="planificar-acciones">Planificar acciones</option>
-            <option value="acompanamiento-proyecto">Acompañamiento de proyecto</option>
-          </select>
-        </label>
-      </div>
-
-      <label class="contact-form__field contact-form__field--full">
-        <span>Mensaje *</span>
-        <textarea name="message" rows="5" required></textarea>
-      </label>
-
-      <label class="contact-form__honeypot">
-        <span>Website</span>
-        <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
-      </label>
-
-      <div class="contact-form__actions">
-        <button class="btn btn--primary" type="submit">Enviar mensaje</button>
-        <p class="contact-form__status" role="status" aria-live="polite"></p>
-      </div>
-    </form>
-  </main>
+        <div class="contact-form__actions">
+          <button class="btn-primary" type="submit">Coordinar primera conversación</button>
+          <p class="contact-form__status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </section>
 </Layout>
 
 <style>
+  .info-block {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--s-24);
+    background: var(--surface);
+  }
+
+  .info-grid {
+    display: grid;
+    gap: var(--s-16);
+  }
+
+  .info-label {
+    margin: 0 0 var(--s-8);
+    font-size: var(--text-small);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--earth);
+    font-weight: var(--w-semibold);
+  }
+
   .contact-form {
-    margin-top: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 2rem;
-    border-radius: 18px;
+    gap: var(--s-24);
+    padding: var(--s-32);
+    border-radius: var(--radius);
     background: var(--surface);
     border: 1px solid var(--border);
     box-shadow: 0 12px 30px rgba(47, 47, 47, 0.08);
@@ -87,20 +137,22 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
 
   .contact-form__grid {
     display: grid;
-    gap: 1.5rem;
+    gap: var(--s-24);
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
 
   .contact-form__field {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    font-weight: 600;
+    gap: var(--s-8);
+    font-weight: var(--w-semibold);
     color: var(--text);
   }
 
   .contact-form__field span {
-    font-size: 0.95rem;
+    font-size: var(--text-small);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
   .contact-form input,
@@ -120,12 +172,12 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
   .contact-form__actions {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: var(--s-12);
   }
 
   .contact-form__status {
     margin: 0;
-    font-size: 0.95rem;
+    font-size: var(--text-small);
     color: var(--earth);
   }
 
@@ -143,52 +195,52 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
 
   @media (max-width: 640px) {
     .contact-form {
-      padding: 1.5rem;
+      padding: var(--s-24);
     }
   }
 </style>
 
 <script>
-  const form = document.querySelector("#contact-form");
-  const status = document.querySelector(".contact-form__status");
+  const form = document.querySelector('#contact-form');
+  const status = document.querySelector('.contact-form__status');
 
   if (form && status) {
-    form.addEventListener("submit", async (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      status.textContent = "";
-      status.classList.remove("is-error");
+      status.textContent = '';
+      status.classList.remove('is-error');
 
       const honeypot = form.querySelector('input[name="company_website"]');
       if (honeypot && honeypot.value) {
-        status.textContent = "No se pudo enviar el mensaje.";
-        status.classList.add("is-error");
+        status.textContent = 'No se pudo enviar el mensaje.';
+        status.classList.add('is-error');
         return;
       }
 
       const endpoint = form.dataset.endpoint;
       if (!endpoint) {
-        status.textContent = "No se pudo enviar el mensaje. Intentá nuevamente más tarde.";
-        status.classList.add("is-error");
+        status.textContent = 'No se pudo enviar el mensaje. Intentá nuevamente más tarde.';
+        status.classList.add('is-error');
         return;
       }
 
       try {
         const response = await fetch(endpoint, {
-          method: "POST",
-          headers: { Accept: "application/json" },
+          method: 'POST',
+          headers: { Accept: 'application/json' },
           body: new FormData(form),
         });
 
         if (response.ok) {
           form.reset();
-          status.textContent = "Mensaje enviado. Gracias por contactarnos.";
+          status.textContent = 'Mensaje enviado. Gracias por contactarnos.';
         } else {
-          status.textContent = "No se pudo enviar el mensaje. Intentá nuevamente.";
-          status.classList.add("is-error");
+          status.textContent = 'No se pudo enviar el mensaje. Intentá nuevamente.';
+          status.classList.add('is-error');
         }
       } catch (error) {
-        status.textContent = "No se pudo enviar el mensaje. Intentá nuevamente.";
-        status.classList.add("is-error");
+        status.textContent = 'No se pudo enviar el mensaje. Intentá nuevamente.';
+        status.classList.add('is-error');
       }
     });
   }

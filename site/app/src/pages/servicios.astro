@@ -1,181 +1,85 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import CtaBlock from '../components/CtaBlock.astro';
+import CTASection from '../components/CTASection.astro';
 import { site } from '../data/site';
 ---
 
 <Layout>
-  <main class="services">
-    <header class="services__header">
-      <h1>{site.brand.tagline}</h1>
-      <p class="services__lead">
-        Consolidamos estrategia, planificación y acompañamiento para potenciar tu comunicación institucional.
-      </p>
-    </header>
+  <section class="section">
+    <div class="container stack-lg">
+      <header class="reading stack">
+        <h1>{site.brand.tagline}</h1>
+        <p>
+          Consolidamos estrategia, planificación y acompañamiento para potenciar tu comunicación
+          institucional.
+        </p>
+      </header>
 
-    <section class="services__list">
-      <h2>Servicios</h2>
-      <div class="services__grid">
-        {site.services.map((service) => (
-          <article class="service-card">
-            <div class="service-card__accent" aria-hidden="true"></div>
-            <h3>{service.title}</h3>
-            <p class="service-card__description">{service.description}</p>
-            <div class="service-card__when">
-              <span class="service-card__when-label">Cuándo conviene</span>
-              <p class="service-card__when-text">{service.when}</p>
-            </div>
-          </article>
-        ))}
+      <div class="stack-lg">
+        <h2>Servicios</h2>
+        <div class="services-grid">
+          {site.services.map((service) => (
+            <article class="card service-card">
+              <h3>{service.title}</h3>
+              <p class="service-card__subtitle">{service.description}</p>
+              <div class="service-card__section">
+                <p class="service-card__label">Ideal para:</p>
+                <ul>
+                  {service.ideal.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div class="service-card__section">
+                <p class="service-card__label">Cuándo conviene</p>
+                <ul>
+                  {service.whenItems.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
-    </section>
 
-    <CtaBlock
-      class="services__cta"
-      title="Coordinar una reunión"
-      description="Contanos tu necesidad y te proponemos un plan de trabajo."
-      href={site.cta.href}
-      buttonText={site.cta.text}
-    />
-  </main>
+      <CTASection
+        title="¿Te identificás con alguno de estos escenarios?"
+        text="Contanos tu necesidad y definimos el plan más adecuado para ordenar tu comunicación institucional."
+        ctaHref={site.cta.href}
+      />
+    </div>
+  </section>
 </Layout>
 
 <style>
-  .services {
-    display: flex;
-    flex-direction: column;
-    gap: 3.5rem;
-    color: #2f2f2f;
-  }
-
-  .services__header {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .services h1 {
-    color: #2f2f2f;
-    letter-spacing: -0.02em;
-  }
-
-  .services h2 {
-    color: #8a6b4f;
-    margin-bottom: 1.75rem;
-  }
-
-  .services__lead {
-    color: #8c8c8c;
-    max-width: 58ch;
-    font-size: 1.1rem;
-    line-height: 1.6;
-  }
-
-  .services__list {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .services__grid {
+  .services-grid {
     display: grid;
-    gap: 1.75rem;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--s-24);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
   .service-card {
-    position: relative;
-    padding: 2rem 1.75rem 1.75rem;
-    border-radius: 18px;
-    background: #ffffff;
-    box-shadow: 0 12px 28px rgba(47, 47, 47, 0.08);
-    border: 1px solid rgba(138, 107, 79, 0.12);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    display: grid;
+    gap: var(--s-16);
   }
 
-  .service-card__accent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: #8bcb3c;
-    border-top-left-radius: 18px;
-    border-top-right-radius: 18px;
+  .service-card__subtitle {
+    margin: 0;
+    color: var(--muted);
   }
 
-  .service-card h3 {
-    margin: 0 0 0.75rem;
-    color: #2f2f2f;
-  }
-
-  .service-card__description {
-    color: #8c8c8c;
-    margin: 0 0 1.25rem;
-  }
-
-  .service-card__when {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .service-card__when-label {
-    font-size: 0.72rem;
+  .service-card__label {
+    margin: 0 0 var(--s-8);
+    font-size: var(--text-small);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #8a6b4f;
-    font-weight: 600;
+    color: var(--earth);
+    font-weight: var(--w-semibold);
   }
 
-  .service-card__when-text {
-    margin: 0;
-    color: #2f2f2f;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    padding: 0.55rem 0.75rem;
-    border-radius: 12px;
-    border: 1px solid rgba(139, 203, 60, 0.6);
-    background: rgba(207, 242, 163, 0.4);
-  }
-
-  .service-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 32px rgba(47, 47, 47, 0.12);
-    border-color: rgba(94, 159, 46, 0.5);
-  }
-
-  .service-card:hover .service-card__accent {
-    background: #5e9f2e;
-  }
-
-  .services__cta {
-    margin-top: 1rem;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .service-card {
-      transition: none;
-    }
-
-    .service-card:hover {
-      transform: none;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .services {
-      width: 100%;
-    }
-
-    .services__grid {
-      grid-template-columns: 1fr;
-      justify-items: center;
-    }
-
-    .service-card {
-      width: 100%;
-      margin: 0;
-    }
+  .service-card__section ul {
+    display: grid;
+    gap: var(--s-8);
   }
 </style>

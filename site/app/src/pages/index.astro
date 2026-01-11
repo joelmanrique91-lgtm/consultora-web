@@ -1,449 +1,177 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Callout from '../components/Callout.astro';
+import Stepper from '../components/Stepper.astro';
+import Cards from '../components/Cards.astro';
+import CTASection from '../components/CTASection.astro';
 
 const workflowSteps = [
   {
+    num: '01',
     title: 'Diagnóstico',
-    description:
-      'Relevamos el contexto institucional, objetivos y puntos críticos para ordenar prioridades.',
+    desc: 'Relevamos el contexto institucional, objetivos y puntos críticos para ordenar prioridades.',
   },
   {
+    num: '02',
     title: 'Estrategia',
-    description:
-      'Definimos enfoque, audiencias y mensajes clave para una comunicación consistente.',
+    desc: 'Definimos enfoque, audiencias y mensajes clave para una comunicación consistente.',
   },
   {
+    num: '03',
     title: 'Plan de acción',
-    description:
-      'Traducimos la estrategia en un plan concreto con responsables, tiempos y hitos.',
+    desc: 'Traducimos la estrategia en un plan concreto con responsables, tiempos y hitos.',
   },
   {
+    num: '04',
     title: 'Implementación y acompañamiento',
-    description:
-      'Trabajamos junto al equipo interno para ejecutar con claridad y seguimiento.',
+    desc: 'Trabajamos junto al equipo interno para ejecutar con claridad y seguimiento.',
   },
   {
+    num: '05',
     title: 'Medición y ajuste',
-    description:
-      'Monitoreamos avances, detectamos desvíos y ajustamos para sostener resultados.',
+    desc: 'Monitoreamos avances, detectamos desvíos y ajustamos para sostener resultados.',
   },
 ];
 
 const deliverables = [
   {
     title: 'Diagnóstico institucional (PDF)',
-    description:
-      'Documento base con hallazgos, mapa de situación y oportunidades de mejora.',
+    subtitle: 'Documento base con hallazgos, mapa de situación y oportunidades de mejora.',
+    items: ['Hallazgos clave', 'Mapa de situación', 'Oportunidades de mejora'],
   },
   {
     title: 'Mensajes clave',
-    description:
-      'Lineamientos de narrativa institucional para comunicación interna y externa.',
+    subtitle: 'Lineamientos de narrativa institucional para comunicación interna y externa.',
+    items: ['Narrativa institucional', 'Consistencia interna', 'Coherencia externa'],
   },
   {
     title: 'Plan estratégico trimestral',
-    description:
-      'Hoja de ruta con objetivos, prioridades y métricas de seguimiento.',
+    subtitle: 'Hoja de ruta con objetivos, prioridades y métricas de seguimiento.',
+    items: ['Objetivos claros', 'Prioridades compartidas', 'Métricas de seguimiento'],
   },
   {
     title: 'Calendario editorial',
-    description:
-      'Planificación mensual de contenidos y responsables para sostener continuidad.',
+    subtitle: 'Planificación mensual de contenidos y responsables para sostener continuidad.',
+    items: ['Planificación mensual', 'Roles definidos', 'Continuidad narrativa'],
   },
   {
     title: 'Guiones / piezas institucionales',
-    description:
-      'Guías para presentaciones, comunicados y materiales institucionales.',
+    subtitle: 'Guías para presentaciones, comunicados y materiales institucionales.',
+    items: ['Presentaciones claras', 'Comunicados consistentes', 'Materiales institucionales'],
   },
   {
     title: 'Reportes mensuales',
-    description:
-      'Resumen de avances, aprendizajes y próximos pasos para la toma de decisiones.',
-  },
-];
-
-const teamMembers = [
-  {
-    name: 'Dirección estratégica',
-    role: 'Consultoría senior',
-    bio: 'Conduce el enfoque general del trabajo con foco en claridad institucional, toma de decisiones y consistencia de marca.',
-    expertise: [
-      'Estrategia de comunicación institucional',
-      'Relación con equipos directivos',
-      'Posicionamiento y reputación',
-      'Priorización de iniciativas',
-    ],
-    linkedin: null,
-    image: null,
-  },
-  {
-    name: 'Consultoría & planificación',
-    role: 'Diseño de planes',
-    bio: 'Estructura los diagnósticos y traduce la estrategia en planes accionables con procesos claros y medibles.',
-    expertise: [
-      'Diagnósticos y auditorías',
-      'Planificación trimestral',
-      'Gestión de contenidos',
-      'Coordinación operativa',
-    ],
-    linkedin: null,
-    image: null,
-  },
-  {
-    name: 'Implementación y acompañamiento',
-    role: 'Gestión y seguimiento',
-    bio: 'Acompaña la ejecución junto a los equipos internos, asegurando orden, ritmo y calidad en cada entrega.',
-    expertise: [
-      'Gestión de proyectos',
-      'Producción institucional',
-      'Seguimiento de indicadores',
-      'Mejora continua',
-    ],
-    linkedin: null,
-    image: null,
+    subtitle: 'Resumen de avances, aprendizajes y próximos pasos para la toma de decisiones.',
+    items: ['Avances reales', 'Aprendizajes', 'Próximos pasos'],
   },
 ];
 ---
 
 <Layout>
-  <main>
-    <h1>
-      Comunicación institucional estratégica para empresas que necesitan orden y
-      claridad
-    </h1>
+  <Hero
+    title="Comunicación institucional estratégica para empresas que necesitan orden y claridad"
+    subtitle="Ayudamos a pymes industriales y empresas B2B a organizar su comunicación, definir mensajes claros y acompañar la implementación con criterio estratégico."
+    ctaHref="/contacto"
+  />
 
-    <p>
-      Ayudamos a pymes industriales y empresas B2B a organizar su comunicación,
-      definir mensajes claros y acompañar la implementación con criterio
-      estratégico.
-    </p>
-    <div class="hero__actions">
-      <a class="btn btn--primary" href="/contacto">Coordinar una reunión</a>
-      <a class="btn btn--secondary" href="#servicios">Ver servicios</a>
-    </div>
-
-    <section id="servicios">
-      <h2>Servicios</h2>
-      <ul>
-        <li>Consultoría en comunicación institucional y marketing estratégico.</li>
-        <li>Planificación y gestión de comunicación y marketing digital.</li>
-        <li>Desarrollo de proyectos de responsabilidad social empresaria.</li>
-        <li>Gestión integral de eventos corporativos e institucionales.</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Propuesta de valor</h2>
-      <ul>
-        <li>
-          Enfoque integral de la comunicación, con conciencia de marca y
-          responsabilidad social como ejes del posicionamiento institucional.
-        </li>
-        <li>
-          Acompañamiento cercano a las organizaciones, trabajando junto a sus
-          equipos internos en procesos de planificación y toma de decisiones.
-        </li>
-        <li>
-          Definición de objetivos claros y seguimiento de las acciones para
-          asegurar coherencia, continuidad y resultados a mediano y largo plazo.
-        </li>
-      </ul>
-    </section>
-
-    <section class="workflow">
-      <h2>Cómo trabajamos</h2>
-      <p>
-        Proponemos un proceso claro, con foco en orden, coordinación interna y
-        acompañamiento sostenido.
-      </p>
-      <ol class="workflow__steps">
-        {workflowSteps.map((step, index) => (
-          <li class="workflow__step">
-            <span class="workflow__index">{String(index + 1).padStart(2, '0')}</span>
-            <div>
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </section>
-
-    <section class="deliverables">
-      <h2>Entregables típicos</h2>
-      <p>
-        Documentación y materiales concretos para sostener la estrategia en el
-        tiempo, con foco en la consistencia y la toma de decisiones.
-      </p>
-      <div class="deliverables__grid">
-        {deliverables.map((deliverable) => (
-          <article class="deliverables__card">
-            <h3>{deliverable.title}</h3>
-            <p>{deliverable.description}</p>
-          </article>
-        ))}
+  <section class="section">
+    <div class="container stack-lg">
+      <div class="reading">
+        <Callout
+          text="Cuando una empresa crece, la comunicación también tiene que crecer: más áreas, más públicos, más riesgo de incoherencia."
+        />
       </div>
-    </section>
+      <div class="reading stack">
+        <h2>Problema típico en pymes B2B</h2>
+        <p>
+          Con el crecimiento aparecen más áreas, más voceros y más mensajes en juego. Sin un sistema
+          común, cada equipo comunica con sus propios criterios y se pierden foco y coherencia.
+        </p>
+        <p>
+          El resultado suele ser retrabajo, discursos que no se alinean entre sí y oportunidades que
+          se diluyen por falta de claridad institucional.
+        </p>
+        <p>
+          Nuestro trabajo ordena prioridades, alinea mensajes y establece un ritmo de comunicación
+          sostenido para decisiones más seguras.
+        </p>
+        <a class="btn-link" href="/servicios">Ver servicios</a>
+      </div>
+    </div>
+  </section>
 
-    <section class="fit">
-      <h2>Para quién / Para quién no</h2>
-      <p>
-        Buscamos trabajar con equipos que valoran el orden, la planificación y
-        la continuidad como base de la comunicación institucional.
-      </p>
-      <div class="fit__grid">
-        <div class="fit__card">
+  <section class="section section--tight">
+    <div class="container stack-lg">
+      <div class="reading stack">
+        <h2>Método</h2>
+        <p>
+          Proponemos un proceso claro, con foco en orden, coordinación interna y acompañamiento
+          sostenido.
+        </p>
+      </div>
+      <Stepper items={workflowSteps} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack-lg">
+      <div class="reading stack">
+        <h2>Entregables</h2>
+        <p>
+          Documentación y materiales concretos para sostener la estrategia en el tiempo, con foco
+          en la consistencia y la toma de decisiones.
+        </p>
+      </div>
+      <Cards items={deliverables} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container stack-lg">
+      <div class="reading stack">
+        <h2>Para quién / Para quién no</h2>
+        <p>
+          Buscamos trabajar con equipos que valoran el orden, la planificación y la continuidad como
+          base de la comunicación institucional.
+        </p>
+      </div>
+      <div class="fit-grid">
+        <article class="card">
           <h3>Para quién</h3>
           <ul>
             <li>Empresas B2B que necesitan ordenar su comunicación institucional.</li>
             <li>Equipos con múltiples áreas que requieren mensajes coherentes.</li>
             <li>Direcciones que buscan una hoja de ruta y seguimiento real.</li>
           </ul>
-        </div>
-        <div class="fit__card fit__card--muted">
+        </article>
+        <article class="card fit-card--muted">
           <h3>Para quién no</h3>
           <ul>
             <li>Organizaciones que buscan acciones aisladas sin planificación.</li>
             <li>Proyectos que no cuentan con tiempo para alinear equipos internos.</li>
             <li>Pedidos urgentes sin diagnóstico ni objetivos compartidos.</li>
           </ul>
-        </div>
+        </article>
       </div>
-    </section>
-
-    <section class="team">
-      <h2>Equipo</h2>
-      <p>
-        Un equipo con visión estratégica y experiencia en comunicación
-        institucional para acompañar cada etapa.
-      </p>
-      <div class="team__grid">
-        {teamMembers.map((member) => (
-          <article class="team__card">
-            {member.image ? (
-              <img src={member.image} alt={`Foto de ${member.name}`} class="team__avatar" />
-            ) : (
-              <div class="team__avatar team__avatar--placeholder" role="img" aria-label={`Avatar de ${member.name}`}>
-                <svg viewBox="0 0 64 64" aria-hidden="true">
-                  <circle cx="32" cy="24" r="12" />
-                  <path d="M12 54c4.5-9 13-14 20-14s15.5 5 20 14" />
-                </svg>
-              </div>
-            )}
-            <div class="team__body">
-              <div class="team__header">
-                <div>
-                  <h3>{member.name}</h3>
-                  <p class="team__role">{member.role}</p>
-                </div>
-                {member.linkedin && (
-                  <a class="team__link" href={member.linkedin} rel="noopener noreferrer" target="_blank">
-                    LinkedIn
-                  </a>
-                )}
-              </div>
-              <p>{member.bio}</p>
-              <ul class="team__expertise">
-                {member.expertise.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section>
-      <p>
-        Si buscás ordenar, fortalecer o desarrollar la comunicación de tu
-        empresa, te invitamos a ponerte en contacto para conversar sobre tu
-        proyecto y tus objetivos. Escribinos para coordinar una primera
-        conversación.
-      </p>
-      <a class="btn btn--primary" href="/contacto">Coordinar una reunión</a>
-    </section>
-  </main>
+      <CTASection
+        title="Cuando haya claridad, el siguiente paso es decidir"
+        text="Si buscás ordenar, fortalecer o desarrollar la comunicación de tu empresa, coordinemos una reunión para definir un plan claro."
+        ctaHref="/contacto"
+      />
+    </div>
+  </section>
 </Layout>
 
 <style>
-  .hero__actions {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .workflow__steps {
-    list-style: none;
-    padding: 0;
-    margin: 1.5rem 0 0;
+  .fit-grid {
     display: grid;
-    gap: 1rem;
+    gap: var(--s-24);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
-  .workflow__step {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 1.2rem;
-    display: grid;
-    gap: 0.75rem;
-    align-items: start;
-  }
-
-  .workflow__index {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.4rem;
-    height: 2.4rem;
-    border-radius: 999px;
-    background: var(--accent-soft);
-    color: var(--earth);
-    font-weight: 700;
-    font-size: 0.95rem;
-  }
-
-  .workflow__step h3 {
-    margin: 0 0 0.4rem;
-  }
-
-  .workflow__step p {
-    margin: 0;
-    color: var(--text);
-  }
-
-  .deliverables__grid,
-  .team__grid,
-  .fit__grid {
-    display: grid;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  .deliverables__card,
-  .team__card,
-  .fit__card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    padding: 1.2rem;
-  }
-
-  .deliverables__card h3,
-  .team__card h3,
-  .fit__card h3 {
-    margin-top: 0;
-  }
-
-  .deliverables__card p {
-    margin-bottom: 0;
-    color: var(--text);
-  }
-
-  .fit__card ul {
-    margin-bottom: 0;
-  }
-
-  .fit__card--muted {
+  .fit-card--muted {
     background: var(--earth-soft);
     border-color: var(--earth-mid);
-  }
-
-  .team__card {
-    display: grid;
-    gap: 1.2rem;
-  }
-
-  .team__avatar {
-    width: 72px;
-    height: 72px;
-    border-radius: 20px;
-    object-fit: cover;
-  }
-
-  .team__avatar--placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--earth-soft);
-    border: 1px solid var(--border);
-    color: var(--earth);
-  }
-
-  .team__avatar--placeholder svg {
-    width: 42px;
-    height: 42px;
-    fill: currentColor;
-    stroke: currentColor;
-    stroke-width: 2;
-  }
-
-  .team__header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .team__role {
-    margin: 0.2rem 0 0;
-    color: var(--muted);
-    font-size: 0.95rem;
-  }
-
-  .team__link {
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-    color: var(--earth);
-  }
-
-  .team__link:hover {
-    color: var(--accent-hover);
-  }
-
-  .team__expertise {
-    margin: 1rem 0 0;
-  }
-
-  @media (min-width: 768px) {
-    .workflow__steps {
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-    }
-
-    .workflow__step {
-      grid-template-rows: auto 1fr;
-    }
-
-    .deliverables__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .fit__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .team__grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .team__card {
-      grid-template-columns: auto 1fr;
-      align-items: start;
-    }
-
-    .team__header {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero__actions {
-      flex-direction: column;
-      align-items: flex-start;
-    }
   }
 </style>
