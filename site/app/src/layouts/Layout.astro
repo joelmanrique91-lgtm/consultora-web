@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import logo from '../assets/brand/logo.svg';
 import '../styles/tokens.css';
 import '../styles/global.css';
 
@@ -25,6 +26,9 @@ const isActive = (href) =>
   <body>
     <header class="site-header">
       <div class="container header__inner">
+        <a class="header__brand" href="/" aria-label="Consultora">
+          <img src={logo} alt="Consultora" width="160" height="48" />
+        </a>
         <nav class="site-nav">
           <a class={`nav__link${isActive('/') ? ' is-active' : ''}`} href="/"
             >Home</a

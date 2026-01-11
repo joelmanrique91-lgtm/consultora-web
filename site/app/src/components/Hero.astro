@@ -4,6 +4,8 @@ const {
   subtitle,
   ctaHref = '/contacto',
   ctaLabel = 'Coordinar una reunión',
+  backgroundSrc = null,
+  backgroundAlt = '',
 } = Astro.props;
 ---
 
@@ -18,11 +20,21 @@ const {
         <a class="btn-primary" href={ctaHref}>{ctaLabel}</a>
       </div>
     </div>
+    {backgroundSrc && (
+      <div class="hero__visual" aria-hidden={backgroundAlt ? undefined : 'true'}>
+        <img src={backgroundSrc} alt={backgroundAlt} loading="lazy" />
+      </div>
+    )}
   </div>
 </section>
 
 <style>
   .hero__content {
+    gap: var(--s-32);
+  }
+
+  .hero .container {
+    display: grid;
     gap: var(--s-32);
   }
 
@@ -38,5 +50,26 @@ const {
     align-items: center;
     gap: var(--s-12);
     flex-wrap: wrap;
+  }
+
+  .hero__visual {
+    align-self: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero__visual img {
+    width: min(420px, 100%);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--earth-soft);
+    box-shadow: 0 16px 28px rgba(47, 47, 47, 0.08);
+  }
+
+  @media (min-width: 900px) {
+    .hero .container {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      align-items: center;
+    }
   }
 </style>
