@@ -11,104 +11,123 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
         <p>Escribinos y coordinamos una llamada.</p>
       </header>
 
-      <section class="reading info-block">
-        <div>
-          <h2>Qué pasa después</h2>
-          <div class="info-grid">
-            <div>
-              <p class="info-label">Tiempo de respuesta</p>
-              <p>Te respondemos a la brevedad en días hábiles.</p>
-            </div>
-            <div>
-              <p class="info-label">Qué info pedimos y por qué</p>
-              <p>Nos ayuda a entender el contexto y preparar una conversación productiva.</p>
-            </div>
-            <div>
-              <p class="info-label">Cómo es la primera reunión</p>
-              <p>Una llamada de 20 a 30 minutos para alinear objetivos y próximos pasos.</p>
+      <section class="contact-layout">
+        <div class="contact-layout__info">
+          <div class="info-block">
+            <h2>Qué pasa después</h2>
+            <div class="info-grid">
+              <div>
+                <p class="info-label">Tiempo de respuesta</p>
+                <p>Te respondemos a la brevedad en días hábiles.</p>
+              </div>
+              <div>
+                <p class="info-label">Qué info pedimos y por qué</p>
+                <p>Nos ayuda a entender el contexto y preparar una conversación productiva.</p>
+              </div>
+              <div>
+                <p class="info-label">Cómo es la primera reunión</p>
+                <p>Una llamada de 20 a 30 minutos para alinear objetivos y próximos pasos.</p>
+              </div>
             </div>
           </div>
         </div>
+
+        <div class="contact-layout__form">
+          <form
+            class="contact-form card"
+            id="contact-form"
+            method="POST"
+            action={contactEndpoint}
+            data-endpoint={contactEndpoint}
+          >
+            <div class="contact-form__grid">
+              <label class="contact-form__field">
+                <span>Nombre y apellido *</span>
+                <input class="form-control" type="text" name="name" required autocomplete="name" />
+              </label>
+
+              <label class="contact-form__field">
+                <span>Empresa *</span>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="company"
+                  required
+                  autocomplete="organization"
+                />
+              </label>
+
+              <label class="contact-form__field">
+                <span>Email *</span>
+                <input class="form-control" type="email" name="email" required autocomplete="email" />
+              </label>
+
+              <label class="contact-form__field">
+                <span>Teléfono / WhatsApp</span>
+                <input class="form-control" type="tel" name="phone" autocomplete="tel" />
+              </label>
+
+              <label class="contact-form__field">
+                <span>Rubro</span>
+                <select class="form-control" name="industry">
+                  <option value="">Seleccionar</option>
+                  <option value="industria">Industria</option>
+                  <option value="energia">Energía</option>
+                  <option value="servicios-b2b">Servicios B2B</option>
+                  <option value="organizaciones">Organizaciones</option>
+                  <option value="otros">Otros</option>
+                </select>
+              </label>
+
+              <label class="contact-form__field">
+                <span>¿Qué buscás resolver?</span>
+                <select class="form-control" name="goal">
+                  <option value="">Seleccionar</option>
+                  <option value="ordenar-comunicacion">Ordenar la comunicación</option>
+                  <option value="definir-mensajes">Definir mensajes clave</option>
+                  <option value="planificar-acciones">Planificar acciones</option>
+                  <option value="acompanamiento-proyecto">Acompañamiento de proyecto</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="contact-form__field contact-form__field--full">
+              <span>Mensaje *</span>
+              <textarea class="form-control" name="message" rows="5" required></textarea>
+            </label>
+
+            <label class="contact-form__honeypot">
+              <span>Website</span>
+              <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
+            </label>
+
+            <div class="contact-form__actions">
+              <button class="btn-primary" type="submit">Coordinar primera conversación</button>
+              <p class="contact-form__status" role="status" aria-live="polite"></p>
+            </div>
+          </form>
+        </div>
       </section>
-
-      <form
-        class="contact-form card"
-        id="contact-form"
-        method="POST"
-        action={contactEndpoint}
-        data-endpoint={contactEndpoint}
-      >
-        <div class="contact-form__grid">
-          <label class="contact-form__field">
-            <span>Nombre y apellido *</span>
-            <input class="form-control" type="text" name="name" required autocomplete="name" />
-          </label>
-
-          <label class="contact-form__field">
-            <span>Empresa *</span>
-            <input
-              class="form-control"
-              type="text"
-              name="company"
-              required
-              autocomplete="organization"
-            />
-          </label>
-
-          <label class="contact-form__field">
-            <span>Email *</span>
-            <input class="form-control" type="email" name="email" required autocomplete="email" />
-          </label>
-
-          <label class="contact-form__field">
-            <span>Teléfono / WhatsApp</span>
-            <input class="form-control" type="tel" name="phone" autocomplete="tel" />
-          </label>
-
-          <label class="contact-form__field">
-            <span>Rubro</span>
-            <select class="form-control" name="industry">
-              <option value="">Seleccionar</option>
-              <option value="industria">Industria</option>
-              <option value="energia">Energía</option>
-              <option value="servicios-b2b">Servicios B2B</option>
-              <option value="organizaciones">Organizaciones</option>
-              <option value="otros">Otros</option>
-            </select>
-          </label>
-
-          <label class="contact-form__field">
-            <span>¿Qué buscás resolver?</span>
-            <select class="form-control" name="goal">
-              <option value="">Seleccionar</option>
-              <option value="ordenar-comunicacion">Ordenar la comunicación</option>
-              <option value="definir-mensajes">Definir mensajes clave</option>
-              <option value="planificar-acciones">Planificar acciones</option>
-              <option value="acompanamiento-proyecto">Acompañamiento de proyecto</option>
-            </select>
-          </label>
-        </div>
-
-        <label class="contact-form__field contact-form__field--full">
-          <span>Mensaje *</span>
-          <textarea class="form-control" name="message" rows="5" required></textarea>
-        </label>
-
-        <label class="contact-form__honeypot">
-          <span>Website</span>
-          <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
-        </label>
-
-        <div class="contact-form__actions">
-          <button class="btn-primary" type="submit">Coordinar primera conversación</button>
-          <p class="contact-form__status" role="status" aria-live="polite"></p>
-        </div>
-      </form>
     </div>
   </section>
 </Layout>
 
 <style>
+  .contact-layout {
+    display: grid;
+    gap: var(--s-32);
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .contact-layout__info {
+    max-width: 600px;
+  }
+
+  .contact-layout__form {
+    width: 100%;
+  }
+
   .info-block {
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -136,10 +155,11 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
     flex-direction: column;
     gap: var(--space-md);
     padding: var(--space-lg);
-    max-width: 600px;
-    margin-inline: auto;
+    width: 100%;
+    margin: 0;
     align-items: stretch;
     margin-bottom: var(--s-32);
+    background: var(--surface);
   }
 
   .contact-form__grid {
@@ -157,17 +177,18 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
   }
 
   .contact-form__field span {
-    font-size: var(--text-small);
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
   }
 
   .form-control {
     font: inherit;
-    padding: 12px 14px;
-    border-radius: var(--radius);
+    padding: 10px 14px;
+    border-radius: 12px;
     border: 1px solid var(--border);
     background: #ffffff;
+    min-height: 44px;
   }
 
   .form-control:focus {
@@ -188,7 +209,7 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
   }
 
   .contact-form textarea.form-control {
-    min-height: 140px;
+    min-height: 160px;
   }
 
   .contact-form__field--full {
@@ -231,6 +252,15 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
   }
 
   @media (min-width: 768px) {
+    .contact-layout {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--s-48);
+    }
+
+    .contact-layout__info {
+      align-self: start;
+    }
+
     .contact-form__actions {
       flex-direction: row;
       justify-content: flex-end;

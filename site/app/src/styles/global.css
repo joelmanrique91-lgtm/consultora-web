@@ -135,14 +135,24 @@ li + li {
   margin-inline: auto;
 }
 
-/* Aporta separación vertical generosa entre secciones. */
+/* Aporta separación vertical generosa entre secciones con ritmo editorial. */
 .section {
-  padding-block: var(--space-lg);
+  padding-block: clamp(52px, 6vw, 72px);
 }
 
 /* Reduce scroll en bloques secundarios sin perder aire. */
 .section--tight {
-  padding-block: var(--space-lg);
+  padding-block: clamp(36px, 4vw, 56px);
+}
+
+/* Alterna fondos para distinguir módulos editoriales. */
+.section--alt {
+  background: var(--bg-alt);
+}
+
+/* Suaviza paneles intermedios y CTA sin competir con el hero. */
+.section--soft {
+  background: var(--bg-soft);
 }
 
 /* Ordena elementos en vertical con separaciones claras. */
@@ -368,6 +378,14 @@ a.btn-link:focus-visible {
 .section-cta {
   display: flex;
   justify-content: flex-start;
+}
+
+/* Panel CTA compacto con mismo lenguaje visual. */
+.cta-panel {
+  padding: var(--space-md);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--earth-soft);
 }
 
 /* Cierra el sitio con bloque visual equilibrado. */
