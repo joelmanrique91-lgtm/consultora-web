@@ -15,32 +15,39 @@ const isActive = (href) =>
 
   <body>
     <header class="site-header">
-      <nav>
-        <a class={`nav__link${isActive("/") ? " is-active" : ""}`} href="/"
-          >Home</a
-        > |
-        <a
-          class={`nav__link${isActive("/servicios") ? " is-active" : ""}`}
-          href="/servicios"
-          >Servicios</a
-        > |
-        <a class={`nav__link${isActive("/sobre") ? " is-active" : ""}`} href="/sobre"
-          >Sobre</a
-        > |
-        <a
-          class={`nav__link${isActive("/experiencia") ? " is-active" : ""}`}
-          href="/experiencia"
-          >Experiencia</a
-        > |
-        <a class={`nav__link${isActive("/posts") ? " is-active" : ""}`} href="/posts"
-          >Posts</a
-        > |
-        <a
-          class={`nav__link${isActive("/contacto") ? " is-active" : ""}`}
-          href="/contacto"
-          >Contacto</a
-        >
-      </nav>
+      <div class="header__inner">
+        <nav>
+          <a class={`nav__link${isActive("/") ? " is-active" : ""}`} href="/"
+            >Home</a
+          > |
+          <a
+            class={`nav__link${isActive("/servicios") ? " is-active" : ""}`}
+            href="/servicios"
+            >Servicios</a
+          > |
+          <a class={`nav__link${isActive("/sobre") ? " is-active" : ""}`} href="/sobre"
+            >Sobre</a
+          > |
+          <a
+            class={`nav__link${isActive("/experiencia") ? " is-active" : ""}`}
+            href="/experiencia"
+            >Experiencia</a
+          > |
+          <a
+            class={`nav__link${isActive("/posts") ? " is-active" : ""}`}
+            href="/posts"
+            >Posts</a
+          > |
+          <a
+            class={`nav__link${isActive("/contacto") ? " is-active" : ""}`}
+            href="/contacto"
+            >Contacto</a
+          >
+        </nav>
+        <a class="header__cta" href="/contacto" aria-label="Coordinar reunión">
+          Coordinar reunión
+        </a>
+      </div>
     </header>
 
     <main>
@@ -57,6 +64,9 @@ const isActive = (href) =>
       />
       <p>© Consultora — Todos los derechos reservados</p>
     </footer>
+    <a class="cta-mobile" href="/contacto" aria-label="Coordinar reunión">
+      Coordinar reunión
+    </a>
   </body>
 </html>
 <style>
@@ -103,12 +113,20 @@ const isActive = (href) =>
     box-shadow: 0 6px 16px rgba(47, 47, 47, 0.08);
   }
 
-  nav {
+  .header__inner {
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 1rem;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 1rem;
+  }
+
+  nav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 
   a {
@@ -164,6 +182,55 @@ const isActive = (href) =>
   .nav__link:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 4px;
+  }
+
+  .header__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--accent-soft);
+    border: 1px solid rgba(139, 203, 60, 0.6);
+    transition: background-color 0.2s ease, border-color 0.2s ease,
+      box-shadow 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .header__cta:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 6px 14px rgba(94, 159, 46, 0.2);
+  }
+
+  .header__cta:focus-visible,
+  .cta-mobile:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  .cta-mobile {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    box-shadow: 0 8px 18px rgba(94, 159, 46, 0.18);
+    z-index: 60;
+    display: none;
+  }
+
+  .cta-mobile:hover {
+    background: var(--accent-hover);
   }
 
   main {
@@ -250,6 +317,21 @@ const isActive = (href) =>
   }
 
   @media (max-width: 768px) {
+    .header__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .header__cta {
+      display: none;
+    }
+
+    .cta-mobile {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     main {
       margin: 1.5rem auto;
       padding-inline: 1.25rem;
