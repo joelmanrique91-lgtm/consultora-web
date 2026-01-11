@@ -153,8 +153,9 @@ const deliverables = [
           base de la comunicación institucional.
         </p>
       </div>
-      <div class="fit-grid">
-        <article class="card">
+      <div class="fit-grid cards-grid">
+        <article class="card fit-card fit-card--positive">
+          <span class="fit-card__icon" aria-hidden="true">✓</span>
           <h3 class="card__title">Para quién</h3>
           <ul>
             <li>Empresas B2B que necesitan ordenar su comunicación institucional.</li>
@@ -162,7 +163,8 @@ const deliverables = [
             <li>Direcciones que buscan una hoja de ruta y seguimiento real.</li>
           </ul>
         </article>
-        <article class="card fit-card--muted">
+        <article class="card fit-card fit-card--negative">
+          <span class="fit-card__icon" aria-hidden="true">×</span>
           <h3 class="card__title">Para quién no</h3>
           <ul>
             <li>Organizaciones que buscan acciones aisladas sin planificación.</li>
@@ -182,21 +184,41 @@ const deliverables = [
 
 <style>
   .fit-grid {
-    display: grid;
-    gap: var(--card-gap);
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    align-items: stretch;
   }
 
-  .fit-card--muted {
-    background: var(--earth-soft);
-    border-color: var(--earth-mid);
+  .fit-card {
+    position: relative;
+    padding-top: calc(var(--space-md) + 12px);
+  }
+
+  .fit-card__icon {
+    position: absolute;
+    top: var(--space-sm);
+    left: var(--space-sm);
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  .fit-card--positive {
+    background: #e8f4da;
+  }
+
+  .fit-card--negative {
+    background: #f3e6dc;
   }
 
   .method-seal {
     display: flex;
     align-items: center;
-    gap: var(--s-16);
-    padding: var(--s-16);
+    gap: var(--space-md);
+    padding: var(--space-md);
     border-radius: var(--radius);
     border: 1px dashed var(--earth-mid);
     background: var(--earth-soft);

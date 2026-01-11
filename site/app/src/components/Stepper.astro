@@ -4,7 +4,7 @@ const { items = [], class: className } = Astro.props;
 
 <ol class:list={["stepper", className]}>
   {items.map((item) => (
-    <li class="stepper__item">
+    <li class="stepper__item card">
       <span class="stepper__num">{item.num}</span>
       <div class="stepper__body">
         <h3>{item.title}</h3>
@@ -29,11 +29,6 @@ const { items = [], class: className } = Astro.props;
     display: grid;
     gap: var(--s-12);
     align-items: start;
-    padding: var(--s-24);
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: var(--surface);
-    box-shadow: var(--shadow-card);
   }
 
   /* Mejora la jerarquía numérica con un badge visible. */
