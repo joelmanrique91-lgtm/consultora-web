@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
 ---
 
 <Layout>
@@ -7,8 +8,188 @@ import Layout from '../layouts/Layout.astro';
     <h1>Contacto</h1>
     <p>Escribinos y coordinamos una llamada.</p>
 
-    <ul>
-      <li>Email: <a href="mailto:contacto@tudominio.com">contacto@tudominio.com</a></li>
-    </ul>
+    <form class="contact-form" id="contact-form" method="POST" action={contactEndpoint} data-endpoint={contactEndpoint}>
+      <div class="contact-form__grid">
+        <label class="contact-form__field">
+          <span>Nombre y apellido *</span>
+          <input type="text" name="name" required autocomplete="name" />
+        </label>
+
+        <label class="contact-form__field">
+          <span>Empresa *</span>
+          <input type="text" name="company" required autocomplete="organization" />
+        </label>
+
+        <label class="contact-form__field">
+          <span>Email *</span>
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+
+        <label class="contact-form__field">
+          <span>Teléfono / WhatsApp</span>
+          <input type="tel" name="phone" autocomplete="tel" />
+        </label>
+
+        <label class="contact-form__field">
+          <span>Rubro</span>
+          <select name="industry">
+            <option value="">Seleccionar</option>
+            <option value="industria">Industria</option>
+            <option value="energia">Energía</option>
+            <option value="servicios-b2b">Servicios B2B</option>
+            <option value="organizaciones">Organizaciones</option>
+            <option value="otros">Otros</option>
+          </select>
+        </label>
+
+        <label class="contact-form__field">
+          <span>¿Qué buscás resolver?</span>
+          <select name="goal">
+            <option value="">Seleccionar</option>
+            <option value="ordenar-comunicacion">Ordenar la comunicación</option>
+            <option value="definir-mensajes">Definir mensajes clave</option>
+            <option value="planificar-acciones">Planificar acciones</option>
+            <option value="acompanamiento-proyecto">Acompañamiento de proyecto</option>
+          </select>
+        </label>
+      </div>
+
+      <label class="contact-form__field contact-form__field--full">
+        <span>Mensaje *</span>
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+
+      <label class="contact-form__honeypot">
+        <span>Website</span>
+        <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
+      </label>
+
+      <div class="contact-form__actions">
+        <button class="btn btn--primary" type="submit">Enviar mensaje</button>
+        <p class="contact-form__status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
   </main>
 </Layout>
+
+<style>
+  .contact-form {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+    border-radius: 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 30px rgba(47, 47, 47, 0.08);
+  }
+
+  .contact-form__grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .contact-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .contact-form__field span {
+    font-size: 0.95rem;
+  }
+
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+    font: inherit;
+    padding: 0.7rem 0.8rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+  }
+
+  .contact-form__field--full {
+    grid-column: 1 / -1;
+  }
+
+  .contact-form__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contact-form__status {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--earth);
+  }
+
+  .contact-form__status.is-error {
+    color: #c0392b;
+  }
+
+  .contact-form__honeypot {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 640px) {
+    .contact-form {
+      padding: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector("#contact-form");
+  const status = document.querySelector(".contact-form__status");
+
+  if (form && status) {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      status.textContent = "";
+      status.classList.remove("is-error");
+
+      const honeypot = form.querySelector('input[name="company_website"]');
+      if (honeypot && honeypot.value) {
+        status.textContent = "No se pudo enviar el mensaje.";
+        status.classList.add("is-error");
+        return;
+      }
+
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) {
+        status.textContent = "No se pudo enviar el mensaje. Intentá nuevamente más tarde.";
+        status.classList.add("is-error");
+        return;
+      }
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new FormData(form),
+        });
+
+        if (response.ok) {
+          form.reset();
+          status.textContent = "Mensaje enviado. Gracias por contactarnos.";
+        } else {
+          status.textContent = "No se pudo enviar el mensaje. Intentá nuevamente.";
+          status.classList.add("is-error");
+        }
+      } catch (error) {
+        status.textContent = "No se pudo enviar el mensaje. Intentá nuevamente.";
+        status.classList.add("is-error");
+      }
+    });
+  }
+</script>

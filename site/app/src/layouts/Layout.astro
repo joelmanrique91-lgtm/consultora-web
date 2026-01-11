@@ -1,4 +1,5 @@
 ---
+import CtaBlock from '../components/CtaBlock.astro';
 const { pathname } = Astro.url;
 const isActive = (href) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -47,6 +48,13 @@ const isActive = (href) =>
     </main>
 
     <footer>
+      <CtaBlock
+        class="cta-block--footer"
+        title="¿Listos para coordinar una reunión?"
+        description="Respondemos en menos de 48 horas hábiles."
+        href="/contacto"
+        buttonText="Coordinar una reunión"
+      />
       <p>© Consultora — Todos los derechos reservados</p>
     </footer>
   </body>

@@ -52,6 +52,19 @@ npm run dev:sync
 
 Abrir en el navegador: http://localhost:4321
 
+## Formulario de contacto
+
+Para enviar mensajes reales desde el formulario de contacto, configurar la variable de entorno
+`PUBLIC_CONTACT_FORM_ENDPOINT` con el endpoint del proveedor (Formspree, Getform, etc.).
+
+Ejemplo:
+
+```sh
+cd site/app
+export PUBLIC_CONTACT_FORM_ENDPOINT="https://formspree.io/f/tu-endpoint"
+npm run dev
+```
+
 ## Crear un post nuevo
 
 1. Crear un archivo `.md` en `site/app/src/content/posts/`.
