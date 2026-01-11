@@ -49,12 +49,13 @@ small,
   color: var(--muted);
 }
 
+/* Jerarquía tipográfica general: tamaños y márgenes más claros. */
 h1,
 h2,
 h3 {
   font-family: var(--font-serif);
   letter-spacing: -0.01em;
-  margin: 0 0 var(--s-12);
+  margin: 0 0 var(--s-16);
   color: var(--text);
 }
 
@@ -131,31 +132,32 @@ li + li {
   align-items: center;
   justify-content: center;
   gap: var(--s-8);
-  padding: var(--s-16) var(--s-32);
+  padding: var(--button-padding-y) var(--button-padding-x);
   border-radius: 999px;
-  font-weight: var(--w-semibold);
+  font-weight: var(--w-bold);
   text-decoration: none;
   border: 1px solid transparent;
   transition: background-color 0.2s ease, color 0.2s ease,
     border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Estilos mejorados para botones: mayor tamaño, legibilidad y contraste. */
 .btn-primary {
   background: var(--accent);
-  color: var(--text);
+  color: var(--surface);
   box-shadow: 0 10px 22px rgba(94, 159, 46, 0.2);
-  font-size: 1.125rem;
+  font-size: var(--button-font-size);
 }
 
 .btn-primary:hover {
   background: var(--accent-hover);
-  color: var(--text);
+  color: var(--surface);
 }
 
 .btn-secondary {
   background: transparent;
   border-color: var(--accent);
-  font-size: 1.125rem;
+  font-size: var(--button-font-size);
 }
 
 .btn-secondary:hover {
@@ -166,6 +168,7 @@ li + li {
   padding: 0;
   border: none;
   text-decoration: underline;
+  font-weight: var(--w-semibold);
   font-size: 1rem;
 }
 
@@ -185,12 +188,39 @@ a.btn-link:focus-visible {
   outline-offset: 2px;
 }
 
+/* Estilos mejorados para tarjetas: más aire, sombra suave y bordes consistentes. */
 .card {
   background: var(--surface);
-  border-radius: var(--radius);
+  border-radius: var(--radius-card);
   border: 1px solid var(--border);
-  padding: var(--s-24);
-  box-shadow: 0 12px 30px rgba(47, 47, 47, 0.06);
+  padding: var(--card-padding);
+  box-shadow: var(--shadow-card);
+}
+
+/* Tipografía dentro de tarjetas: jerarquía clara y mejor lectura. */
+.card h3 {
+  margin-top: 0;
+  margin-bottom: var(--s-12);
+}
+
+.card__title {
+  font-size: clamp(22px, 2.2vw, 26px);
+  font-weight: var(--w-semibold);
+}
+
+.card p,
+.card li {
+  font-size: var(--text-base);
+  line-height: 1.5;
+}
+
+.card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.card ul li::marker {
+  color: var(--accent-muted);
 }
 
 .tag {

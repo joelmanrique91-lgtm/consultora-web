@@ -146,7 +146,7 @@ const deliverables = [
       </div>
       <div class="fit-grid">
         <article class="card">
-          <h3>Para quién</h3>
+          <h3 class="card__title">Para quién</h3>
           <ul>
             <li>Empresas B2B que necesitan ordenar su comunicación institucional.</li>
             <li>Equipos con múltiples áreas que requieren mensajes coherentes.</li>
@@ -154,7 +154,7 @@ const deliverables = [
           </ul>
         </article>
         <article class="card fit-card--muted">
-          <h3>Para quién no</h3>
+          <h3 class="card__title">Para quién no</h3>
           <ul>
             <li>Organizaciones que buscan acciones aisladas sin planificación.</li>
             <li>Proyectos que no cuentan con tiempo para alinear equipos internos.</li>
@@ -174,7 +174,7 @@ const deliverables = [
 <style>
   .fit-grid {
     display: grid;
-    gap: var(--s-32);
+    gap: var(--card-gap);
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 

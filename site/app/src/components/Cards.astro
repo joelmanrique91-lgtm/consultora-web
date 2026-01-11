@@ -6,7 +6,7 @@ const { items = [], class: className } = Astro.props;
   <div class="cards__grid">
     {items.map((item) => (
       <article class="card cards__card">
-        <h3>{item.title}</h3>
+        <h3 class="card__title">{item.title}</h3>
         {item.subtitle && <p class="cards__subtitle">{item.subtitle}</p>}
         {item.items?.length ? (
           <ul class="cards__list">
@@ -23,7 +23,7 @@ const { items = [], class: className } = Astro.props;
 <style>
   .cards__grid {
     display: grid;
-    gap: var(--s-28);
+    gap: var(--card-gap);
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
 
