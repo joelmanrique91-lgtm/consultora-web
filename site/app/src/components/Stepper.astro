@@ -21,7 +21,7 @@ const { items = [], class: className } = Astro.props;
     padding: 0;
     margin: 0;
     display: grid;
-    gap: var(--s-20);
+    gap: var(--card-gap);
   }
 
   /* Destaca cada etapa con fondo y borde sutil. */
@@ -65,7 +65,7 @@ const { items = [], class: className } = Astro.props;
   /* Usa 2 columnas en tablet/desktop para acortar scroll. */
   @media (min-width: 768px) {
     .stepper {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
   }
 </style>
