@@ -1,0 +1,138 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { site } from '../../data/site';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const formatter = new Intl.DateTimeFormat('es-AR', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Layout>
+  <main class="post">
+    <header class="post__header">
+      <p class="post__date">{formatter.format(post.data.date)}</p>
+      <h1>{post.data.title}</h1>
+      <p class="post__description">{post.data.description}</p>
+      <div class="post__tags">
+        {post.data.tags.map((tag) => (
+          <span class="post__tag">{tag}</span>
+        ))}
+      </div>
+    </header>
+
+    <article class="post__content">
+      <Content />
+    </article>
+
+    <section class="post__cta">
+      <div>
+        <h2>¿Querés ordenar tu comunicación?</h2>
+        <p>
+          Coordinemos una reunión para revisar tus mensajes clave y definir los
+          próximos pasos.
+        </p>
+      </div>
+      <a class="btn btn--primary" href={site.cta.href}>
+        {site.cta.text}
+      </a>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .post {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .post__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e6e6e6;
+  }
+
+  .post__date {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    color: #8a6b4f;
+    margin: 0;
+  }
+
+  .post__description {
+    color: #8c8c8c;
+    max-width: 65ch;
+    margin: 0;
+  }
+
+  .post__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .post__tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background: #cff2a3;
+    color: #2f2f2f;
+    border: 1px solid rgba(94, 159, 46, 0.4);
+  }
+
+  .post__content :global(h2) {
+    margin-top: 2rem;
+    color: #8a6b4f;
+  }
+
+  .post__content :global(p) {
+    color: #2f2f2f;
+  }
+
+  .post__content :global(ul) {
+    margin: 1rem 0 0;
+  }
+
+  .post__cta {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.75rem;
+    border-radius: 18px;
+    background: #f8f6f2;
+    border-left: 4px solid #8bcb3c;
+    box-shadow: 0 10px 26px rgba(47, 47, 47, 0.08);
+  }
+
+  .post__cta h2 {
+    margin: 0 0 0.35rem;
+  }
+
+  .post__cta p {
+    margin: 0;
+    color: #8c8c8c;
+  }
+
+  @media (max-width: 768px) {
+    .post {
+      gap: 2rem;
+    }
+  }
+</style>
