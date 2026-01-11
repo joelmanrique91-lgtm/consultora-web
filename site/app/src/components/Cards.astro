@@ -3,7 +3,7 @@ const { items = [], class: className } = Astro.props;
 ---
 
 <div class:list={["cards", className]}>
-  <div class="cards__grid">
+  <div class="cards__grid card-grid">
     {items.map((item) => (
       <article class="card cards__card">
         <h3 class="card__title">{item.title}</h3>
@@ -21,31 +21,59 @@ const { items = [], class: className } = Astro.props;
 </div>
 
 <style>
+  /* Usa grid responsivo para reducir scroll en entregables. */
   .cards__grid {
     display: grid;
     gap: var(--card-gap);
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
 
+  /* Ordena el contenido interno de cada tarjeta. */
   .cards__card {
     display: grid;
     gap: var(--s-12);
   }
 
+  /* Evita saltos en títulos de tarjetas. */
   .cards__card h3 {
     margin-top: 0;
   }
 
+  /* Mejora la lectura del subtítulo con tono suave. */
   .cards__subtitle {
     margin: 0 0 var(--s-16);
     color: var(--muted);
     line-height: 1.6;
   }
 
+  /* Usa bullets con icono para mayor escaneo visual. */
   .cards__list {
     display: grid;
     gap: var(--s-8);
     margin: 0;
-    padding-left: 1.1rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .cards__list li {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: var(--s-8);
+    align-items: start;
+  }
+
+  .cards__list li::before {
+    content: '✓';
+    color: var(--accent);
+    font-weight: var(--w-bold);
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  /* Fuerza una columna en móviles para evitar cortes. */
+  @media (max-width: 600px) {
+    .cards__grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

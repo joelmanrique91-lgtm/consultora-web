@@ -15,6 +15,7 @@ const { items = [], class: className } = Astro.props;
 </ol>
 
 <style>
+  /* Ordena el proceso en tarjetas con separación clara. */
   .stepper {
     list-style: none;
     padding: 0;
@@ -23,16 +24,19 @@ const { items = [], class: className } = Astro.props;
     gap: var(--s-20);
   }
 
+  /* Destaca cada etapa con fondo y borde sutil. */
   .stepper__item {
     display: grid;
     gap: var(--s-12);
     align-items: start;
-    padding: var(--s-20);
+    padding: var(--s-24);
     border-radius: var(--radius);
     border: 1px solid var(--border);
     background: var(--surface);
+    box-shadow: var(--shadow-card);
   }
 
+  /* Mejora la jerarquía numérica con un badge visible. */
   .stepper__num {
     display: inline-flex;
     align-items: center;
@@ -46,23 +50,22 @@ const { items = [], class: className } = Astro.props;
     font-size: var(--text-small);
   }
 
+  /* Reduce el espacio superior para títulos compactos. */
   .stepper__body h3 {
     margin: 0 0 var(--s-6);
   }
 
+  /* Mantiene descripción legible y secundaria. */
   .stepper__body p {
     margin: 0;
     color: var(--muted);
     line-height: 1.6;
   }
 
-  @media (min-width: 900px) {
+  /* Usa 2 columnas en tablet/desktop para acortar scroll. */
+  @media (min-width: 768px) {
     .stepper {
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-    }
-
-    .stepper__item {
-      grid-template-rows: auto 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>
