@@ -29,20 +29,25 @@ const {
 </section>
 
 <style>
+  /* Refuerza el hero con fondo suave y padding amplio. */
   .hero {
     background: linear-gradient(120deg, rgba(218, 243, 185, 0.55), rgba(249, 244, 237, 0.3));
     border-bottom: 1px solid rgba(125, 95, 70, 0.15);
+    padding-block: clamp(72px, 10vw, 128px);
   }
 
+  /* Ajusta la separación entre título y CTA. */
   .hero__content {
     gap: var(--s-32);
   }
 
+  /* Ordena el hero en grid para mejor jerarquía visual. */
   .hero .container {
     display: grid;
     gap: var(--s-32);
   }
 
+  /* Mejora la legibilidad del subtítulo con tamaño responsivo. */
   .hero__subtitle {
     margin: 0;
     color: var(--muted);
@@ -50,6 +55,7 @@ const {
     line-height: 1.6;
   }
 
+  /* Asegura CTAs visibles y alineados. */
   .hero__actions {
     display: flex;
     align-items: center;
@@ -57,12 +63,14 @@ const {
     flex-wrap: wrap;
   }
 
+  /* Centra el visual para balancear el layout. */
   .hero__visual {
     align-self: center;
     display: flex;
     justify-content: center;
   }
 
+  /* Aporta profundidad y orden al asset visual. */
   .hero__visual img {
     width: min(420px, 100%);
     border-radius: var(--radius);
@@ -71,6 +79,7 @@ const {
     box-shadow: 0 16px 28px rgba(47, 47, 47, 0.08);
   }
 
+  /* Pasa a dos columnas en desktop para reducir scroll. */
   @media (min-width: 900px) {
     .hero .container {
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);

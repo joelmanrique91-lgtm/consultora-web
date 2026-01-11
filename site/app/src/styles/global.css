@@ -1,9 +1,11 @@
+/* Mejora la consistencia del layout al normalizar el box model. */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* Mejora la lectura base con tipografía y contraste global. */
 body {
   margin: 0;
   font-family: var(--font-sans);
@@ -15,12 +17,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Evita desbordes visuales en imágenes y mantiene proporciones. */
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
+/* Mejora la visibilidad de enlaces con subrayado consistente. */
 a {
   color: var(--accent-hover);
   text-decoration: underline;
@@ -29,19 +33,23 @@ a {
   text-decoration-color: rgba(90, 152, 50, 0.45);
 }
 
+/* Refuerza feedback visual en hover. */
 a:hover {
   color: var(--accent);
   text-decoration-color: var(--accent);
 }
 
+/* Destaca énfasis con peso adecuado. */
 strong {
   font-weight: var(--w-semibold);
 }
 
+/* Mantiene ritmo vertical entre párrafos. */
 p {
   margin: 0 0 var(--s-16);
 }
 
+/* Baja jerarquía sin perder legibilidad. */
 small,
 .small {
   font-size: var(--text-small);
@@ -59,6 +67,7 @@ h3 {
   color: var(--text);
 }
 
+/* Mejora el impacto del título principal en hero. */
 h1 {
   font-size: var(--h1);
   line-height: var(--lh-h1);
@@ -66,6 +75,7 @@ h1 {
   margin-bottom: var(--s-16);
 }
 
+/* Refuerza secciones con un subtítulo de jerarquía clara. */
 h2 {
   font-size: var(--h2);
   line-height: var(--lh-h2);
@@ -73,6 +83,7 @@ h2 {
   margin-top: var(--s-32);
 }
 
+/* Define títulos de tarjetas con ritmo estable. */
 h3 {
   font-size: var(--h3);
   line-height: var(--lh-h3);
@@ -80,21 +91,25 @@ h3 {
   margin-top: var(--s-24);
 }
 
+/* Ordena listas con sangría cómoda. */
 ul,
 ol {
   margin: 0 0 var(--s-16);
   padding-left: 1.2rem;
 }
 
+/* Aporta color de marca en bullets. */
 ul li::marker,
 ol li::marker {
   color: var(--accent);
 }
 
+/* Mejora la lectura separando items. */
 li + li {
   margin-top: var(--s-8);
 }
 
+/* Mantiene el contenido centrado y respirado. */
 .container {
   max-width: var(--container);
   margin: 0 auto;
@@ -102,29 +117,42 @@ li + li {
   width: 100%;
 }
 
+/* Mejora la legibilidad limitando el ancho de lectura. */
 .reading {
   max-width: var(--reading);
   margin-inline: auto;
 }
 
+/* Aporta separación vertical generosa entre secciones. */
 .section {
   padding-block: clamp(var(--s-64), 8vw, var(--s-96));
 }
 
+/* Reduce scroll en bloques secundarios sin perder aire. */
 .section--tight {
   padding-block: clamp(var(--s-48), 6vw, var(--s-64));
 }
 
+/* Ordena elementos en vertical con separaciones claras. */
 .stack {
   display: grid;
   gap: var(--s-16);
 }
 
+/* Aumenta la separación en bloques principales. */
 .stack-lg {
   display: grid;
   gap: clamp(24px, 3vw, 32px);
 }
 
+/* Optimiza grids de tarjetas para reducir scroll vertical. */
+.card-grid {
+  display: grid;
+  gap: var(--card-gap);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+/* Unifica botones para mejorar clicabilidad y consistencia. */
 .btn-primary,
 .btn-secondary,
 .btn-link {
@@ -138,7 +166,7 @@ li + li {
   text-decoration: none;
   border: 1px solid transparent;
   transition: background-color 0.2s ease, color 0.2s ease,
-    border-color 0.2s ease, box-shadow 0.2s ease;
+    border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 /* Estilos mejorados para botones: mayor tamaño, legibilidad y contraste. */
@@ -149,21 +177,27 @@ li + li {
   font-size: var(--button-font-size);
 }
 
+/* Aporta feedback y profundidad en hover. */
 .btn-primary:hover {
   background: var(--accent-hover);
   color: var(--surface);
+  box-shadow: 0 14px 26px rgba(90, 152, 50, 0.28);
+  transform: translateY(-1px);
 }
 
+/* Botón secundario visible sin competir con el CTA. */
 .btn-secondary {
   background: transparent;
   border-color: var(--accent);
   font-size: var(--button-font-size);
 }
 
+/* Sutil destacador para hover secundario. */
 .btn-secondary:hover {
   background: var(--accent-soft);
 }
 
+/* Enlaces con estilo botón para acciones terciarias. */
 .btn-link {
   padding: 0;
   border: none;
@@ -172,6 +206,7 @@ li + li {
   font-size: 1rem;
 }
 
+/* Mantiene accesibilidad y cursor en botones nativos. */
 button.btn-primary,
 button.btn-secondary,
 button.btn-link {
@@ -179,6 +214,7 @@ button.btn-link {
   font: inherit;
 }
 
+/* Refuerza foco visible para navegación accesible. */
 button.btn-primary:focus-visible,
 button.btn-secondary:focus-visible,
 a.btn-primary:focus-visible,
@@ -203,26 +239,31 @@ a.btn-link:focus-visible {
   margin-bottom: var(--s-12);
 }
 
+/* Aporta consistencia en títulos de tarjetas. */
 .card__title {
   font-size: clamp(22px, 2.2vw, 26px);
   font-weight: var(--w-semibold);
 }
 
+/* Mejora la legibilidad interna en tarjetas. */
 .card p,
 .card li {
   font-size: var(--text-base);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
+/* Normaliza listas dentro de tarjetas. */
 .card ul {
   margin: 0;
   padding-left: 1.2rem;
 }
 
+/* Atenúa bullets para dejar el texto como foco. */
 .card ul li::marker {
   color: var(--accent-muted);
 }
 
+/* Refuerza etiquetas de contexto con color de marca. */
 .tag {
   display: inline-flex;
   align-items: center;
@@ -235,6 +276,7 @@ a.btn-link:focus-visible {
   letter-spacing: 0.08em;
 }
 
+/* Mantiene el header visible con sombra sutil. */
 .site-header {
   position: sticky;
   top: 0;
@@ -244,10 +286,12 @@ a.btn-link:focus-visible {
   transition: box-shadow 0.2s ease;
 }
 
+/* Agrega profundidad cuando el header se desplaza. */
 .site-header.is-scrolled {
   box-shadow: 0 6px 16px rgba(47, 47, 47, 0.08);
 }
 
+/* Mejora alineación del header y navegación. */
 .header__inner {
   display: flex;
   align-items: center;
@@ -256,6 +300,7 @@ a.btn-link:focus-visible {
   padding-block: var(--s-16);
 }
 
+/* Presenta marca con separación equilibrada. */
 .header__brand {
   display: inline-flex;
   align-items: center;
@@ -263,18 +308,21 @@ a.btn-link:focus-visible {
   text-decoration: none;
 }
 
+/* Ajusta tamaño del logo sin distorsiones. */
 .header__brand img {
   display: block;
   height: 40px;
   width: auto;
 }
 
+/* Mantiene la navegación ordenada en varias líneas. */
 .site-nav {
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-12);
 }
 
+/* Hace los links más clicables. */
 .site-nav a {
   padding: 0.35rem 0.7rem;
   border-radius: 999px;
@@ -282,16 +330,19 @@ a.btn-link:focus-visible {
   border: 1px solid transparent;
 }
 
+/* Destaca la página activa en navegación. */
 .site-nav a.is-active {
   background: var(--accent-soft);
   border-color: rgba(139, 203, 60, 0.6);
 }
 
+/* Evita que el contenido toque el header fijo. */
 .site-main {
   width: 100%;
   padding-top: var(--s-32);
 }
 
+/* Cierra el sitio con bloque visual equilibrado. */
 .site-footer {
   background: var(--earth-soft);
   border-top: 1px solid var(--border);
@@ -301,6 +352,7 @@ a.btn-link:focus-visible {
   color: var(--earth);
 }
 
+/* Organiza los elementos del footer en columna. */
 .footer__content {
   display: flex;
   flex-direction: column;
@@ -309,6 +361,7 @@ a.btn-link:focus-visible {
   margin-bottom: var(--s-16);
 }
 
+/* Destaca la marca dentro del footer. */
 .footer__brand {
   font-size: 1.05rem;
   font-weight: var(--w-semibold);
@@ -316,6 +369,7 @@ a.btn-link:focus-visible {
   color: var(--text);
 }
 
+/* Mantiene datos secundarios alineados y legibles. */
 .footer__details {
   display: flex;
   flex-wrap: wrap;
@@ -324,6 +378,7 @@ a.btn-link:focus-visible {
   font-size: var(--text-small);
 }
 
+/* Ubica CTA flotante para móvil sin tapar contenido. */
 .cta-mobile {
   position: fixed;
   right: var(--s-16);
@@ -332,6 +387,7 @@ a.btn-link:focus-visible {
   display: none;
 }
 
+/* Reacomoda el header en tablet para evitar cortes. */
 @media (max-width: 900px) {
   .header__inner {
     flex-direction: column;
@@ -339,12 +395,14 @@ a.btn-link:focus-visible {
   }
 }
 
+/* Muestra CTA móvil cuando hay menos espacio horizontal. */
 @media (max-width: 768px) {
   .cta-mobile {
     display: inline-flex;
   }
 }
 
+/* Reduce animaciones para usuarios con preferencia de movimiento reducido. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
