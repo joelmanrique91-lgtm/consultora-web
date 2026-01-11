@@ -1,0 +1,51 @@
+---
+const {
+  title,
+  text,
+  ctaHref = '/contacto',
+  ctaLabel = 'Coordinar una reunión',
+  class: className,
+} = Astro.props;
+---
+
+<section class:list={["cta-section", className]}>
+  <div class="cta-section__content">
+    <h2>{title}</h2>
+    <p>{text}</p>
+  </div>
+  <a class="btn-primary" href={ctaHref}>{ctaLabel}</a>
+</section>
+
+<style>
+  .cta-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-24);
+    padding: var(--s-32);
+    border-radius: var(--radius);
+    background: var(--earth-soft);
+    border: 1px solid var(--border);
+  }
+
+  .cta-section__content {
+    display: grid;
+    gap: var(--s-12);
+  }
+
+  .cta-section__content h2 {
+    margin: 0;
+  }
+
+  .cta-section__content p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  @media (min-width: 900px) {
+    .cta-section {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+</style>

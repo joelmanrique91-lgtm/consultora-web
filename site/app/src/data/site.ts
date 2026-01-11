@@ -7,17 +7,29 @@ export const site = {
     {
       title: 'Consultoría técnica y estratégica',
       description: 'Diagnóstico y recomendaciones accionables.',
-      when: 'Cuando necesitás claridad sobre el estado actual y el mejor camino a seguir.',
+      ideal: ['Direcciones con necesidad de diagnóstico', 'Equipos que requieren foco institucional'],
+      whenItems: [
+        'Necesitás claridad sobre el estado actual.',
+        'Querés definir el mejor camino a seguir.',
+      ],
     },
     {
       title: 'Análisis y diseño de soluciones',
       description: 'Definición de enfoque, plan y entregables.',
-      when: 'Cuando buscás ordenar objetivos, planificar acciones y definir entregables.',
+      ideal: ['Responsables de comunicación y marketing', 'Áreas que buscan ordenar prioridades'],
+      whenItems: [
+        'Buscás ordenar objetivos.',
+        'Necesitás planificar acciones con entregables claros.',
+      ],
     },
     {
       title: 'Acompañamiento en proyectos',
       description: 'Soporte durante ejecución y seguimiento.',
-      when: 'Cuando necesitás sostén durante la implementación y el seguimiento de avances.',
+      ideal: ['Equipos internos en implementación', 'Proyectos con múltiples áreas involucradas'],
+      whenItems: [
+        'Necesitás sostén durante la implementación.',
+        'Querés seguimiento de avances con criterio.',
+      ],
     },
   ],
   valueProps: [

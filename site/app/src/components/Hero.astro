@@ -1,0 +1,36 @@
+---
+const {
+  title,
+  subtitle,
+  ctaHref = '/contacto',
+  ctaLabel = 'Coordinar una reunión',
+} = Astro.props;
+---
+
+<section class="hero section">
+  <div class="container">
+    <div class="hero__content reading stack-lg">
+      <div class="stack">
+        <h1>{title}</h1>
+        <p class="hero__subtitle">{subtitle}</p>
+      </div>
+      <div class="hero__actions">
+        <a class="btn-primary" href={ctaHref}>{ctaLabel}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero__subtitle {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .hero__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s-16);
+    flex-wrap: wrap;
+  }
+</style>

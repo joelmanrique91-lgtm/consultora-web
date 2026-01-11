@@ -1,0 +1,65 @@
+---
+const { items = [], class: className } = Astro.props;
+---
+
+<ol class:list={["stepper", className]}>
+  {items.map((item) => (
+    <li class="stepper__item">
+      <span class="stepper__num">{item.num}</span>
+      <div class="stepper__body">
+        <h3>{item.title}</h3>
+        <p>{item.desc}</p>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .stepper {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--s-24);
+  }
+
+  .stepper__item {
+    display: grid;
+    gap: var(--s-16);
+    align-items: start;
+    padding: var(--s-24);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .stepper__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--earth);
+    font-weight: var(--w-semibold);
+  }
+
+  .stepper__body h3 {
+    margin: 0 0 var(--s-8);
+  }
+
+  .stepper__body p {
+    margin: 0;
+  }
+
+  @media (min-width: 900px) {
+    .stepper {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .stepper__item {
+      grid-template-rows: auto 1fr;
+    }
+  }
+</style>

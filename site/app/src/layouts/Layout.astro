@@ -1,8 +1,11 @@
 ---
 import { site } from '../data/site';
+import '../styles/tokens.css';
+import '../styles/global.css';
+
 const { pathname } = Astro.url;
 const isActive = (href) =>
-  href === "/" ? pathname === "/" : pathname.startsWith(href);
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
 ---
 
 <!doctype html>
@@ -11,51 +14,59 @@ const isActive = (href) =>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Consultora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
     <header class="site-header">
-      <div class="header__inner">
-        <nav>
-          <a class={`nav__link${isActive("/") ? " is-active" : ""}`} href="/"
+      <div class="container header__inner">
+        <nav class="site-nav">
+          <a class={`nav__link${isActive('/') ? ' is-active' : ''}`} href="/"
             >Home</a
-          > |
+          >
           <a
-            class={`nav__link${isActive("/servicios") ? " is-active" : ""}`}
+            class={`nav__link${isActive('/servicios') ? ' is-active' : ''}`}
             href="/servicios"
             >Servicios</a
-          > |
-          <a class={`nav__link${isActive("/sobre") ? " is-active" : ""}`} href="/sobre"
-            >Sobre</a
-          > |
+          >
           <a
-            class={`nav__link${isActive("/experiencia") ? " is-active" : ""}`}
+            class={`nav__link${isActive('/sobre') ? ' is-active' : ''}`}
+            href="/sobre"
+            >Sobre</a
+          >
+          <a
+            class={`nav__link${isActive('/experiencia') ? ' is-active' : ''}`}
             href="/experiencia"
             >Experiencia</a
-          > |
+          >
           <a
-            class={`nav__link${isActive("/posts") ? " is-active" : ""}`}
+            class={`nav__link${isActive('/posts') ? ' is-active' : ''}`}
             href="/posts"
             >Posts</a
-          > |
+          >
           <a
-            class={`nav__link${isActive("/contacto") ? " is-active" : ""}`}
+            class={`nav__link${isActive('/contacto') ? ' is-active' : ''}`}
             href="/contacto"
             >Contacto</a
           >
         </nav>
-        <a class="header__cta" href="/contacto" aria-label="Coordinar reunión">
-          Coordinar reunión
+        <a class="btn-primary" href="/contacto" aria-label="Coordinar una reunión">
+          Coordinar una reunión
         </a>
       </div>
     </header>
 
-    <main>
+    <main class="site-main">
       <slot />
     </main>
 
     <footer>
-      <div class="footer__content">
+      <div class="container footer__content">
         <p class="footer__brand">{site.footer.name}</p>
         <p class="footer__positioning">{site.footer.positioning}</p>
         <div class="footer__details">
@@ -74,350 +85,21 @@ const isActive = (href) =>
       </div>
       <p>© Consultora — Todos los derechos reservados</p>
     </footer>
-    <a class="cta-mobile" href="/contacto" aria-label="Coordinar reunión">
-      Coordinar reunión
+    <a class="btn-primary cta-mobile" href="/contacto" aria-label="Coordinar una reunión">
+      Coordinar una reunión
     </a>
   </body>
 </html>
-<style>
-  :root {
-    --container-max: 1040px;
-    --pad-x: clamp(1.25rem, 2.4vw, 1.5rem);
-    --h1-size: clamp(2.2rem, 1.6rem + 2.6vw, 3.2rem);
-    --h2-size: clamp(1.5rem, 1.2rem + 1.6vw, 2.2rem);
-    --h3-size: clamp(1.25rem, 1.1rem + 0.9vw, 1.6rem);
-    --body-size: clamp(1rem, 0.96rem + 0.35vw, 1.125rem);
-    --line-height-body: 1.6;
-    --line-length: 68ch;
-    --max-width: var(--container-max);
-    --bg: #faf7f1;
-    --surface: #ffffff;
-    --border: #e6e6e6;
-    --text: #2f2f2f;
-    --muted: #8c8c8c;
-    --accent: #8bcb3c;
-    --accent-hover: #5e9f2e;
-    --accent-soft: #cff2a3;
-    --earth: #8a6b4f;
-    --earth-soft: #e8ddcf;
-    --earth-mid: #cbb59a;
-  }
-
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-      Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
-    color: var(--text);
-    background: var(--bg);
-    font-size: var(--body-size);
-    line-height: var(--line-height-body);
-  }
-
-  header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    transition: box-shadow 0.2s ease;
-  }
-
-  header.is-scrolled {
-    box-shadow: 0 6px 16px rgba(47, 47, 47, 0.08);
-  }
-
-  .header__inner {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 1rem var(--pad-x);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
-  nav {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  a {
-    color: var(--text);
-    transition: color 0.2s ease;
-  }
-
-  a:hover {
-    color: var(--accent-hover);
-  }
-
-  .nav__link {
-    position: relative;
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 500;
-    padding: 0.35rem 0.7rem;
-    border-radius: 999px;
-    border: 1px solid transparent;
-    transition: color 0.2s ease, background-color 0.2s ease,
-      border-color 0.2s ease;
-  }
-
-  .nav__link:hover {
-    color: var(--accent-hover);
-  }
-
-  .nav__link::after {
-    content: "";
-    position: absolute;
-    left: 0.7rem;
-    right: 0.7rem;
-    bottom: 0.2rem;
-    height: 2px;
-    background: var(--accent);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.2s ease;
-  }
-
-  .nav__link:hover::after,
-  .nav__link:focus-visible::after,
-  .nav__link.is-active::after {
-    transform: scaleX(1);
-  }
-
-  .nav__link.is-active {
-    color: var(--text);
-    background-color: var(--accent-soft);
-    border-color: var(--accent);
-  }
-
-  .nav__link:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 4px;
-  }
-
-  .header__cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.45rem 1.1rem;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-decoration: none;
-    color: var(--text);
-    background: var(--accent-soft);
-    border: 1px solid rgba(139, 203, 60, 0.6);
-    transition: background-color 0.2s ease, border-color 0.2s ease,
-      box-shadow 0.2s ease, color 0.2s ease;
-    white-space: nowrap;
-  }
-
-  .header__cta:hover {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 6px 14px rgba(94, 159, 46, 0.2);
-  }
-
-  .header__cta:focus-visible,
-  .cta-mobile:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 4px;
-  }
-
-  .cta-mobile {
-    position: fixed;
-    right: 1rem;
-    bottom: 1rem;
-    padding: 0.55rem 1rem;
-    border-radius: 999px;
-    background: var(--accent);
-    color: var(--text);
-    font-weight: 600;
-    font-size: 0.85rem;
-    text-decoration: none;
-    box-shadow: 0 8px 18px rgba(94, 159, 46, 0.18);
-    z-index: 60;
-    display: none;
-  }
-
-  .cta-mobile:hover {
-    background: var(--accent-hover);
-  }
-
-  main {
-    max-width: var(--max-width);
-    margin: 2rem auto;
-    padding: 0 var(--pad-x);
-    width: 100%;
-  }
-
-  h1 {
-    font-size: var(--h1-size);
-    margin-bottom: 1rem;
-    color: var(--text);
-  }
-
-  h2 {
-    margin-top: 2rem;
-    font-size: var(--h2-size);
-    color: var(--earth);
-  }
-
-  h3 {
-    margin-top: 1.5rem;
-    font-size: var(--h3-size);
-    color: var(--text);
-  }
-
-  main p {
-    max-width: var(--line-length);
-  }
-
-  section {
-    margin-top: 2rem;
-  }
-
-  ul {
-    padding-left: 1.2rem;
-  }
-
-  ul li::marker {
-    color: var(--accent);
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.6rem 1.4rem;
-    border-radius: 999px;
-    font-weight: 600;
-    text-decoration: none;
-    border: 1px solid transparent;
-    transition: background-color 0.2s ease, color 0.2s ease,
-      border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .btn--primary {
-    background: var(--accent);
-    color: var(--text);
-    box-shadow: 0 6px 14px rgba(94, 159, 46, 0.18);
-  }
-
-  .btn--primary:hover {
-    background: var(--accent-hover);
-    color: var(--text);
-  }
-
-  .btn--secondary {
-    background: transparent;
-    color: var(--text);
-    border-color: var(--accent);
-  }
-
-  .btn--secondary:hover {
-    background: var(--accent-soft);
-  }
-
-  footer {
-    margin-top: 4rem;
-    padding: 2rem var(--pad-x);
-    text-align: center;
-    font-size: 0.9rem;
-    color: var(--earth);
-    border-top: 1px solid var(--border);
-    background: var(--earth-soft);
-  }
-
-  .footer__content {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-
-  .footer__brand {
-    font-size: 1.05rem;
-    font-weight: 600;
-    margin: 0;
-    color: var(--text);
-  }
-
-  .footer__positioning {
-    margin: 0;
-    color: var(--earth);
-  }
-
-  .footer__details {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    justify-content: center;
-    font-size: 0.85rem;
-  }
-
-  footer a {
-    color: var(--earth);
-  }
-
-  footer a:hover {
-    color: var(--accent-hover);
-  }
-
-  @media (max-width: 768px) {
-    .header__inner {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .header__cta {
-      display: none;
-    }
-
-    .cta-mobile {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    main {
-      margin: 1.5rem auto;
-      padding-inline: var(--pad-x);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    header,
-    .nav__link,
-    .nav__link::after,
-    .btn {
-      transition: none;
-    }
-
-    .nav__link::after {
-      transform: none;
-    }
-  }
-</style>
 
 <script>
-  const header = document.querySelector("header");
+  const header = document.querySelector('.site-header');
 
   if (header) {
     const toggleHeaderShadow = () => {
-      header.classList.toggle("is-scrolled", window.scrollY > 10);
+      header.classList.toggle('is-scrolled', window.scrollY > 10);
     };
 
     toggleHeaderShadow();
-    window.addEventListener("scroll", toggleHeaderShadow, { passive: true });
+    window.addEventListener('scroll', toggleHeaderShadow, { passive: true });
   }
 </script>

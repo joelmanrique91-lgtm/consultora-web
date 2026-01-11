@@ -1,0 +1,57 @@
+:root {
+  /* Typography families */
+  --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-serif: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+
+  /* Font sizes (desktop base) */
+  --text-base: 18px;
+  --text-small: 14px;
+
+  --h1: clamp(34px, 4vw, 56px);
+  --h2: clamp(24px, 2.2vw, 32px);
+  --h3: clamp(18px, 1.6vw, 22px);
+
+  /* Line heights */
+  --lh-h1: 1.1;
+  --lh-h2: 1.2;
+  --lh-h3: 1.25;
+  --lh-body: 1.65;
+  --lh-small: 1.45;
+
+  /* Weights */
+  --w-regular: 400;
+  --w-medium: 500;
+  --w-semibold: 600;
+  --w-bold: 700;
+
+  /* Spacing scale */
+  --s-8: 8px;
+  --s-12: 12px;
+  --s-16: 16px;
+  --s-24: 24px;
+  --s-32: 32px;
+  --s-48: 48px;
+  --s-64: 64px;
+  --s-96: 96px;
+  --s-120: 120px;
+
+  /* Layout widths */
+  --container: 1120px;
+  --reading: 720px;
+
+  /* UI */
+  --radius: 14px;
+  --border: rgba(0, 0, 0, 0.1);
+  --muted: rgba(0, 0, 0, 0.65);
+
+  /* Colors */
+  --bg: #faf7f1;
+  --surface: #ffffff;
+  --text: #2f2f2f;
+  --accent: #8bcb3c;
+  --accent-hover: #5e9f2e;
+  --accent-soft: #cff2a3;
+  --earth: #8a6b4f;
+  --earth-soft: #f5efe8;
+  --earth-mid: #cbb59a;
+}

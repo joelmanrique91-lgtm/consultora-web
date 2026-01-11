@@ -3,6 +3,11 @@ title: "Mensajes clave: cómo ordenar lo que tu empresa dice"
 description: "Una guía breve para alinear discurso institucional, ventas y cultura interna sin perder autenticidad."
 date: 2024-08-12
 tags: ["mensajes clave", "estrategia", "posicionamiento"]
+idea: "Ordenar los mensajes clave es el primer paso para dejar de improvisar."
+takeaways:
+  - "Consistencia entre equipos comerciales, técnicos y directivos."
+  - "Claridad para priorizar qué decir en cada canal."
+  - "Ahorro de tiempo al crear piezas con un mismo marco."
 ---
 
 Ordenar los mensajes clave es el primer paso para dejar de improvisar. No se trata de elegir frases lindas, sino de definir **qué necesita entender el público** para confiar en tu empresa.

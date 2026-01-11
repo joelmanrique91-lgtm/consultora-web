@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import CTASection from '../../components/CTASection.astro';
+import Callout from '../../components/Callout.astro';
 import { site } from '../../data/site';
 import { getCollection } from 'astro:content';
 
@@ -22,117 +24,91 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
 ---
 
 <Layout>
-  <main class="post">
-    <header class="post__header">
-      <p class="post__date">{formatter.format(post.data.date)}</p>
-      <h1>{post.data.title}</h1>
-      <p class="post__description">{post.data.description}</p>
-      <div class="post__tags">
-        {post.data.tags.map((tag) => (
-          <span class="post__tag">{tag}</span>
-        ))}
-      </div>
-    </header>
+  <section class="section">
+    <div class="container stack-lg">
+      <header class="post-header reading stack">
+        <p class="post-date small">{formatter.format(post.data.date)}</p>
+        <h1>{post.data.title}</h1>
+        <p class="post-description">{post.data.description}</p>
+        <div class="post-tags">
+          {post.data.tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      </header>
 
-    <article class="post__content">
-      <Content />
-    </article>
+      <div class="reading stack-lg">
+        <div>
+          <p class="idea-label small">Idea clave</p>
+          <Callout text={post.data.idea} />
+        </div>
 
-    <section class="post__cta">
-      <div>
-        <h2>¿Querés ordenar tu comunicación?</h2>
-        <p>
-          Coordinemos una reunión para revisar tus mensajes clave y definir los
-          próximos pasos.
-        </p>
+        <article class="post-content">
+          <Content />
+        </article>
+
+        <section class="post-takeaways">
+          <h2>Takeaways</h2>
+          <ul>
+            {post.data.takeaways.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </section>
       </div>
-      <a class="btn btn--primary" href={site.cta.href}>
-        {site.cta.text}
-      </a>
-    </section>
-  </main>
+
+      <CTASection
+        title="Acción recomendada"
+        text="Si querés revisar tus mensajes clave y ordenar prioridades, coordinemos una reunión."
+        ctaHref={site.cta.href}
+      />
+    </div>
+  </section>
 </Layout>
 
 <style>
-  .post {
-    display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
+  .post-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--s-24);
   }
 
-  .post__header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #e6e6e6;
-  }
-
-  .post__date {
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 0.8rem;
-    color: #8a6b4f;
+  .post-description {
     margin: 0;
+    color: var(--muted);
   }
 
-  .post__description {
-    color: #8c8c8c;
-    max-width: 65ch;
-    margin: 0;
-  }
-
-  .post__tags {
+  .post-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: var(--s-8);
   }
 
-  .post__tag {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.65rem;
-    border-radius: 999px;
-    background: #cff2a3;
-    color: #2f2f2f;
-    border: 1px solid rgba(94, 159, 46, 0.4);
+  .post-date {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
-  .post__content :global(h2) {
-    margin-top: 2rem;
-    color: #8a6b4f;
+  .idea-label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--s-8);
   }
 
-  .post__content :global(p) {
-    color: #2f2f2f;
+  .post-content :global(h2) {
+    margin-top: var(--s-32);
+    color: var(--earth);
   }
 
-  .post__content :global(ul) {
-    margin: 1rem 0 0;
+  .post-content :global(p) {
+    color: var(--text);
   }
 
-  .post__cta {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1.75rem;
-    border-radius: 18px;
-    background: #f8f6f2;
-    border-left: 4px solid #8bcb3c;
-    box-shadow: 0 10px 26px rgba(47, 47, 47, 0.08);
+  .post-content :global(ul) {
+    margin-top: var(--s-16);
   }
 
-  .post__cta h2 {
-    margin: 0 0 0.35rem;
-  }
-
-  .post__cta p {
-    margin: 0;
-    color: #8c8c8c;
-  }
-
-  @media (max-width: 768px) {
-    .post {
-      gap: 2rem;
-    }
+  .post-takeaways ul {
+    display: grid;
+    gap: var(--s-8);
   }
 </style>
