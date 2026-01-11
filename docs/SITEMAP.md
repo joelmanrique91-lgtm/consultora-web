@@ -13,8 +13,8 @@ Detalle de los servicios ofrecidos, enfoque de trabajo y tipo de clientes.
 ### Sobre la consultora
 Información institucional, experiencia y diferencial profesional.
 
-### Casos / Proyectos
-Ejemplos de trabajos, proyectos o tipos de soluciones implementadas.
+### Experiencia
+Panorama de la experiencia del equipo, tipos de proyectos y sectores abordados.
 
 ### Contacto
 Canales de contacto y formulario para consultas.

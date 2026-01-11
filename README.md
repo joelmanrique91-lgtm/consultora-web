@@ -4,7 +4,7 @@ Repositorio base para el desarrollo del sitio web institucional de la consultora
 
 ## Objetivo del proyecto
 
-Construir una web profesional, clara y escalable que represente a la consultora, sirva como carta de presentación y pueda crecer con el tiempo (nuevos servicios, casos de éxito, contacto, contenidos, etc.).
+Construir una web profesional, clara y escalable que represente a la consultora, sirva como carta de presentación y pueda crecer con el tiempo (nuevos servicios, experiencia del equipo, contacto, contenidos, etc.).
 
 Este repositorio también se utiliza como entorno de aprendizaje práctico para:
 - Uso de GitHub
