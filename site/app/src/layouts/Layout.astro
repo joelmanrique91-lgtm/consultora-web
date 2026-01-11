@@ -1,5 +1,5 @@
 ---
-import CtaBlock from '../components/CtaBlock.astro';
+import { site } from '../data/site';
 const { pathname } = Astro.url;
 const isActive = (href) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -55,13 +55,23 @@ const isActive = (href) =>
     </main>
 
     <footer>
-      <CtaBlock
-        class="cta-block--footer"
-        title="¿Listos para coordinar una reunión?"
-        description="Respondemos en menos de 48 horas hábiles."
-        href="/contacto"
-        buttonText="Coordinar una reunión"
-      />
+      <div class="footer__content">
+        <p class="footer__brand">{site.footer.name}</p>
+        <p class="footer__positioning">{site.footer.positioning}</p>
+        <div class="footer__details">
+          <a href={`mailto:${site.footer.email}`}>{site.footer.email}</a>
+          <span>{site.footer.location}</span>
+          {site.footer.linkedin && (
+            <a
+              href={site.footer.linkedin}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              LinkedIn
+            </a>
+          )}
+        </div>
+      </div>
       <p>© Consultora — Todos los derechos reservados</p>
     </footer>
     <a class="cta-mobile" href="/contacto" aria-label="Coordinar reunión">
@@ -306,6 +316,34 @@ const isActive = (href) =>
     color: var(--earth);
     border-top: 1px solid var(--border);
     background: var(--earth-soft);
+  }
+
+  .footer__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .footer__brand {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--text);
+  }
+
+  .footer__positioning {
+    margin: 0;
+    color: var(--earth);
+  }
+
+  .footer__details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    font-size: 0.85rem;
   }
 
   footer a {
