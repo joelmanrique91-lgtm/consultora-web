@@ -203,6 +203,18 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
     .contact-form {
       padding: var(--s-24);
     }
+
+    .contact-form__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .contact-form__actions {
+      align-items: stretch;
+    }
+
+    .contact-form__actions .btn-primary {
+      width: 100%;
+    }
   }
 </style>
 
