@@ -81,7 +81,15 @@ const isActive = (href) =>
 </html>
 <style>
   :root {
-    --max-width: 900px;
+    --container-max: 1040px;
+    --pad-x: clamp(1.25rem, 2.4vw, 1.5rem);
+    --h1-size: clamp(2.2rem, 1.6rem + 2.6vw, 3.2rem);
+    --h2-size: clamp(1.5rem, 1.2rem + 1.6vw, 2.2rem);
+    --h3-size: clamp(1.25rem, 1.1rem + 0.9vw, 1.6rem);
+    --body-size: clamp(1rem, 0.96rem + 0.35vw, 1.125rem);
+    --line-height-body: 1.6;
+    --line-length: 68ch;
+    --max-width: var(--container-max);
     --bg: #faf7f1;
     --surface: #ffffff;
     --border: #e6e6e6;
@@ -107,7 +115,8 @@ const isActive = (href) =>
       Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
     color: var(--text);
     background: var(--bg);
-    line-height: 1.6;
+    font-size: var(--body-size);
+    line-height: var(--line-height-body);
   }
 
   header {
@@ -126,7 +135,7 @@ const isActive = (href) =>
   .header__inner {
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 1rem;
+    padding: 1rem var(--pad-x);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -246,20 +255,30 @@ const isActive = (href) =>
   main {
     max-width: var(--max-width);
     margin: 2rem auto;
-    padding: 0 1rem;
+    padding: 0 var(--pad-x);
     width: 100%;
   }
 
   h1 {
-    font-size: 2.2rem;
+    font-size: var(--h1-size);
     margin-bottom: 1rem;
     color: var(--text);
   }
 
   h2 {
     margin-top: 2rem;
-    font-size: 1.4rem;
+    font-size: var(--h2-size);
     color: var(--earth);
+  }
+
+  h3 {
+    margin-top: 1.5rem;
+    font-size: var(--h3-size);
+    color: var(--text);
+  }
+
+  main p {
+    max-width: var(--line-length);
   }
 
   section {
@@ -310,7 +329,7 @@ const isActive = (href) =>
 
   footer {
     margin-top: 4rem;
-    padding: 2rem 1rem;
+    padding: 2rem var(--pad-x);
     text-align: center;
     font-size: 0.9rem;
     color: var(--earth);
@@ -372,7 +391,7 @@ const isActive = (href) =>
 
     main {
       margin: 1.5rem auto;
-      padding-inline: 1.25rem;
+      padding-inline: var(--pad-x);
     }
   }
 
