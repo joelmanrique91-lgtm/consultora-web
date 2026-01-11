@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
+const hasContactEndpoint = Boolean(contactEndpoint);
 ---
 
 <Layout>
@@ -37,8 +38,8 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
             class="contact-form card"
             id="contact-form"
             method="POST"
-            action={contactEndpoint}
-            data-endpoint={contactEndpoint}
+            action={hasContactEndpoint ? contactEndpoint : undefined}
+            data-endpoint={hasContactEndpoint ? contactEndpoint : undefined}
           >
             <div class="contact-form__grid">
               <label class="contact-form__field">
@@ -102,7 +103,14 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
             </label>
 
             <div class="contact-form__actions">
-              <button class="btn-primary" type="submit">Coordinar primera conversación</button>
+              <button class="btn-primary" type="submit" disabled={!hasContactEndpoint}>
+                Coordinar primera conversación
+              </button>
+              {!hasContactEndpoint && (
+                <p class="contact-form__status is-error" role="status" aria-live="polite">
+                  Formulario temporalmente no disponible.
+                </p>
+              )}
               <p class="contact-form__status" role="status" aria-live="polite"></p>
             </div>
           </form>
@@ -292,7 +300,7 @@ const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
 
       const endpoint = form.dataset.endpoint;
       if (!endpoint) {
-        status.textContent = 'No se pudo enviar el mensaje. Intentá nuevamente más tarde.';
+        status.textContent = 'Formulario temporalmente no disponible.';
         status.classList.add('is-error');
         return;
       }
