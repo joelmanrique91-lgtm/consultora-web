@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="48" viewBox="0 0 160 48" role="img" aria-label="Consultora">
+  <rect width="160" height="48" rx="12" fill="#F5F2ED" />
+  <circle cx="26" cy="24" r="12" fill="#5E9F2E" />
+  <circle cx="26" cy="24" r="6" fill="#F5F2ED" />
+  <text x="48" y="29" font-family="Inter, sans-serif" font-size="16" fill="#2F2F2F" font-weight="600">
+    Consultora
+  </text>
+</svg>

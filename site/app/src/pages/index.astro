@@ -5,6 +5,8 @@ import Callout from '../components/Callout.astro';
 import Stepper from '../components/Stepper.astro';
 import Cards from '../components/Cards.astro';
 import CTASection from '../components/CTASection.astro';
+import heroBackground from '../assets/brand/hero-background.svg';
+import seal from '../assets/brand/seal.svg';
 
 const workflowSteps = [
   {
@@ -73,6 +75,8 @@ const deliverables = [
     title="Comunicación institucional estratégica para empresas que necesitan orden y claridad"
     subtitle="Ayudamos a pymes industriales y empresas B2B a organizar su comunicación, definir mensajes claros y acompañar la implementación con criterio estratégico."
     ctaHref="/contacto"
+    backgroundSrc={heroBackground}
+    backgroundAlt="Fondo abstracto con sello institucional"
   />
 
   <section class="section">
@@ -109,6 +113,10 @@ const deliverables = [
           Proponemos un proceso claro, con foco en orden, coordinación interna y acompañamiento
           sostenido.
         </p>
+      </div>
+      <div class="method-seal">
+        <img src={seal} alt="Sello de enfoque institucional" width="120" height="120" />
+        <p>Sello metodológico: orden, claridad y seguimiento.</p>
       </div>
       <Stepper items={workflowSteps} />
     </div>
@@ -173,5 +181,26 @@ const deliverables = [
   .fit-card--muted {
     background: var(--earth-soft);
     border-color: var(--earth-mid);
+  }
+
+  .method-seal {
+    display: flex;
+    align-items: center;
+    gap: var(--s-16);
+    padding: var(--s-16);
+    border-radius: var(--radius);
+    border: 1px dashed var(--earth-mid);
+    background: var(--earth-soft);
+    color: var(--earth);
+  }
+
+  .method-seal img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .method-seal p {
+    margin: 0;
+    font-weight: var(--w-medium);
   }
 </style>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240" role="img" aria-label="Placeholder equipo 2">
+  <rect width="240" height="240" rx="32" fill="#F5F2ED" />
+  <circle cx="120" cy="90" r="46" fill="#5E9F2E" opacity="0.2" />
+  <path d="M48 202c16-36 46-54 72-54s56 18 72 54" fill="#5E9F2E" opacity="0.25" />
+  <text x="120" y="222" text-anchor="middle" font-family="Inter, sans-serif" font-size="14" fill="#2F2F2F">
+    Equipo 02
+  </text>
+</svg>
