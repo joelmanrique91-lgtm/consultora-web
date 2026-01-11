@@ -20,14 +20,14 @@ const { items = [], class: className } = Astro.props;
     padding: 0;
     margin: 0;
     display: grid;
-    gap: var(--s-24);
+    gap: var(--s-20);
   }
 
   .stepper__item {
     display: grid;
-    gap: var(--s-16);
+    gap: var(--s-12);
     align-items: start;
-    padding: var(--s-24);
+    padding: var(--s-20);
     border-radius: var(--radius);
     border: 1px solid var(--border);
     background: var(--surface);
@@ -43,14 +43,17 @@ const { items = [], class: className } = Astro.props;
     background: var(--accent-soft);
     color: var(--earth);
     font-weight: var(--w-semibold);
+    font-size: var(--text-small);
   }
 
   .stepper__body h3 {
-    margin: 0 0 var(--s-8);
+    margin: 0 0 var(--s-6);
   }
 
   .stepper__body p {
     margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
   }
 
   @media (min-width: 900px) {

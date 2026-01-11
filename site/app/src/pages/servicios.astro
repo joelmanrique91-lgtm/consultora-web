@@ -55,18 +55,19 @@ import { site } from '../data/site';
 <style>
   .services-grid {
     display: grid;
-    gap: var(--s-24);
+    gap: var(--s-32);
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
   .service-card {
     display: grid;
-    gap: var(--s-16);
+    gap: var(--s-20);
   }
 
   .service-card__subtitle {
     margin: 0;
     color: var(--muted);
+    line-height: 1.6;
   }
 
   .service-card__label {
@@ -81,5 +82,7 @@ import { site } from '../data/site';
   .service-card__section ul {
     display: grid;
     gap: var(--s-8);
+    margin: 0;
+    padding-left: 1.1rem;
   }
 </style>

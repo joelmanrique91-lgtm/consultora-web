@@ -23,8 +23,13 @@ const { items = [], class: className } = Astro.props;
 <style>
   .cards__grid {
     display: grid;
-    gap: var(--s-24);
+    gap: var(--s-28);
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .cards__card {
+    display: grid;
+    gap: var(--s-12);
   }
 
   .cards__card h3 {
@@ -34,11 +39,13 @@ const { items = [], class: className } = Astro.props;
   .cards__subtitle {
     margin: 0 0 var(--s-16);
     color: var(--muted);
+    line-height: 1.6;
   }
 
   .cards__list {
     display: grid;
     gap: var(--s-8);
     margin: 0;
+    padding-left: 1.1rem;
   }
 </style>
