@@ -17,7 +17,7 @@ import CTASection from '../components/CTASection.astro';
 
       <section class="reading stack">
         <h2>Resultados típicos</h2>
-        <ul>
+        <ul class="icon-list">
           <li>Mayor claridad entre áreas.</li>
           <li>Menos retrabajo.</li>
           <li>Discursos alineados.</li>
@@ -41,7 +41,7 @@ import CTASection from '../components/CTASection.astro';
         <div class="reading stack">
           <h2>Tipos de proyectos</h2>
         </div>
-        <div class="projects-grid">
+        <div class="projects-grid cards-grid compact-grid">
           <article class="card">
             <h3 class="card__title">Diagnósticos de comunicación interna y externa</h3>
             <p>Relevamos mensajes, públicos y puntos críticos para ordenar prioridades.</p>
@@ -67,7 +67,7 @@ import CTASection from '../components/CTASection.astro';
 
       <section class="reading stack">
         <h2>Qué resolvemos típicamente</h2>
-        <ul>
+        <ul class="icon-list">
           <li>Falta de claridad sobre mensajes clave y públicos prioritarios.</li>
           <li>Necesidad de ordenar acciones, responsables y cronograma.</li>
           <li>Inconsistencias entre lo que se dice y lo que se implementa.</li>
@@ -80,7 +80,7 @@ import CTASection from '../components/CTASection.astro';
         <div class="reading stack">
           <h2>Entregables habituales</h2>
         </div>
-        <div class="deliverables-grid">
+        <div class="deliverables-grid cards-grid compact-grid">
           <article class="card">
             <h3 class="card__title">Diagnóstico con hallazgos, riesgos y oportunidades</h3>
           </article>
@@ -112,14 +112,12 @@ import CTASection from '../components/CTASection.astro';
   .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--s-12);
+    gap: var(--space-sm);
   }
 
   .projects-grid,
   .deliverables-grid {
-    display: grid;
-    gap: var(--card-gap);
-    grid-template-columns: 1fr;
+    align-items: stretch;
   }
 
   .projects-grid p {
@@ -128,17 +126,34 @@ import CTASection from '../components/CTASection.astro';
     line-height: 1.6;
   }
 
-  @media (min-width: 768px) {
-    .projects-grid,
-    .deliverables-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+  .icon-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: var(--space-sm);
+  }
+
+  .icon-list li {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: flex-start;
+  }
+
+  .icon-list li::before {
+    content: '✓';
+    color: var(--color-acento);
+    font-weight: 700;
+  }
+
+  .compact-grid {
+    gap: var(--space-md);
   }
 
   @media (min-width: 1024px) {
-    .projects-grid,
-    .deliverables-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .projects-grid .card,
+    .deliverables-grid .card {
+      min-height: 220px;
     }
   }
 </style>

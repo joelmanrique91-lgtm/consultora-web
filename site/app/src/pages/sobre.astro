@@ -59,8 +59,8 @@ const teamMembers = [
         </p>
       </header>
 
-      <div class="reading stack-lg">
-        <section class="stack">
+      <div class="beliefs-grid">
+        <section class="belief-card stack">
           <h2>Qué creemos</h2>
           <p>
             La comunicación institucional necesita orden, coherencia y un hilo conductor que permita
@@ -68,7 +68,7 @@ const teamMembers = [
           </p>
         </section>
 
-        <section class="stack">
+        <section class="belief-card stack">
           <h2>Cómo pensamos</h2>
           <ul>
             <li>Entendemos el contexto y el problema real.</li>
@@ -77,7 +77,7 @@ const teamMembers = [
           </ul>
         </section>
 
-        <section class="stack">
+        <section class="belief-card stack">
           <h2>Qué evitamos</h2>
           <p>
             Promesas grandilocuentes, acciones aisladas y decisiones sin respaldo operativo.
@@ -93,7 +93,7 @@ const teamMembers = [
             cada etapa.
           </p>
         </div>
-        <div class="team-grid">
+        <div class="team-grid cards-grid">
           {teamMembers.map((member) => (
             <article class="card team-card">
               {member.image ? (
@@ -103,12 +103,7 @@ const teamMembers = [
                   class="team-card__avatar team-card__avatar--placeholder"
                   role="img"
                   aria-label={`Avatar de ${member.name}`}
-                >
-                  <svg viewBox="0 0 64 64" aria-hidden="true">
-                    <circle cx="32" cy="24" r="12" />
-                    <path d="M12 54c4.5-9 13-14 20-14s15.5 5 20 14" />
-                  </svg>
-                </div>
+                />
               )}
               <div class="team-card__body">
                 <div class="team-card__header">
@@ -152,9 +147,21 @@ const teamMembers = [
     max-width: 28ch;
   }
 
+  .beliefs-grid {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .belief-card {
+    background: #fffaf2;
+    border-bottom: 1px solid rgba(47, 47, 47, 0.1);
+    padding: var(--space-md);
+    border-radius: var(--radius);
+  }
+
   .team-grid {
     display: grid;
-    gap: var(--s-32);
+    gap: var(--space-lg);
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
@@ -173,27 +180,15 @@ const teamMembers = [
   }
 
   .team-card__avatar {
-    width: 72px;
-    height: 72px;
-    border-radius: var(--radius);
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
     object-fit: cover;
+    background: #e4e4e4;
   }
 
   .team-card__avatar--placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--earth-soft);
-    border: 1px solid var(--border);
-    color: var(--earth);
-  }
-
-  .team-card__avatar--placeholder svg {
-    width: 42px;
-    height: 42px;
-    fill: currentColor;
-    stroke: currentColor;
-    stroke-width: 2;
+    background: #e4e4e4;
   }
 
   .team-card__header {
@@ -232,6 +227,12 @@ const teamMembers = [
       flex-direction: row;
       justify-content: space-between;
       align-items: flex-start;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .beliefs-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>

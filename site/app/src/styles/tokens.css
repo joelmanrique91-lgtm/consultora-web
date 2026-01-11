@@ -1,16 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
 /* Variables de diseño */
 :root {
   /* Mejora la consistencia visual al centralizar tipografías base. */
-  --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  --font-serif: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+  --font-title: "Playfair Display", "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-title);
 
   /* Mejora la legibilidad con tamaños responsivos en encabezados y cuerpo. */
-  --text-base: clamp(16px, 1.1vw, 18px);
+  --text-base: clamp(1rem, 1.1vw, 1.125rem);
   --text-small: 15px;
 
-  --h1: clamp(36px, 5vw, 48px);
-  --h2: clamp(28px, 4vw, 36px);
-  --h3: clamp(22px, 3vw, 28px);
+  --h1: clamp(2.4rem, 5vw, 4rem);
+  --h2: clamp(2rem, 4vw, 3rem);
+  --h3: clamp(1.4rem, 3vw, 2rem);
 
   /* Mejora el ritmo de lectura con line-height consistente. */
   --lh-h1: 1.08;
@@ -39,20 +43,21 @@
   --s-120: 128px;
 
   /* Mejora el layout manteniendo anchos máximos previsibles. */
-  --container: 1120px;
+  --container: 1200px;
   --reading: 720px;
 
   /* Mejora la percepción táctil con radios y bordes suaves. */
-  --radius: 12px;
-  --radius-button: 10px;
-  --radius-card: 12px;
+  --radius: 14px;
+  --radius-button: var(--radius);
+  --radius-card: var(--radius);
   --border: rgba(21, 23, 27, 0.12);
   --muted: rgba(47, 47, 47, 0.62);
 
   /* Mejora el contraste con un set de color coherente. */
   --color-primario: #2f4858;
-  --color-acento: #92c064;
-  --color-fondo: #f6f5f0;
+  --color-acento: #6aa83a;
+  --color-fondo: #f8f5e6;
+  --color-fondo-rgb: 248, 245, 230;
   --color-superficie: #ffffff;
   --color-texto: #252422;
   --color-neutro: #5a5856;
@@ -62,12 +67,16 @@
   --surface: var(--color-superficie);
   --text: var(--color-texto);
   --accent: var(--color-acento);
-  --accent-hover: #6aa83a;
+  --accent-hover: #5a9330;
   --accent-soft: #daf3b9;
   --accent-muted: rgba(90, 152, 50, 0.65);
   --earth: #7d5f46;
   --earth-soft: #f2ebe1;
   --earth-mid: #c9b199;
+
+  --space-sm: 12px;
+  --space-md: 24px;
+  --space-lg: 48px;
 
   /* Mejora la consistencia de botones y tarjetas con tokens dedicados. */
   --button-font-size: 18px;
