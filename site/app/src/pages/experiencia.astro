@@ -43,23 +43,23 @@ import CTASection from '../components/CTASection.astro';
         </div>
         <div class="projects-grid">
           <article class="card">
-            <h3>Diagnósticos de comunicación interna y externa</h3>
+            <h3 class="card__title">Diagnósticos de comunicación interna y externa</h3>
             <p>Relevamos mensajes, públicos y puntos críticos para ordenar prioridades.</p>
           </article>
           <article class="card">
-            <h3>Planes integrales de comunicación institucional</h3>
+            <h3 class="card__title">Planes integrales de comunicación institucional</h3>
             <p>Definimos objetivos, tácticas y métricas con responsables claros.</p>
           </article>
           <article class="card">
-            <h3>Identidad verbal y lineamientos de marca</h3>
+            <h3 class="card__title">Identidad verbal y lineamientos de marca</h3>
             <p>Claridad en tono, mensajes clave y criterios de comunicación.</p>
           </article>
           <article class="card">
-            <h3>Campañas informativas y materiales de soporte</h3>
+            <h3 class="card__title">Campañas informativas y materiales de soporte</h3>
             <p>Diseño de piezas con foco en coherencia y continuidad.</p>
           </article>
           <article class="card">
-            <h3>Acompañamiento en procesos de cambio organizacional</h3>
+            <h3 class="card__title">Acompañamiento en procesos de cambio organizacional</h3>
             <p>Orden y seguimiento en proyectos sensibles.</p>
           </article>
         </div>
@@ -82,19 +82,19 @@ import CTASection from '../components/CTASection.astro';
         </div>
         <div class="deliverables-grid">
           <article class="card">
-            <h3>Diagnóstico con hallazgos, riesgos y oportunidades</h3>
+            <h3 class="card__title">Diagnóstico con hallazgos, riesgos y oportunidades</h3>
           </article>
           <article class="card">
-            <h3>Plan de comunicación con objetivos, tácticas y métricas</h3>
+            <h3 class="card__title">Plan de comunicación con objetivos, tácticas y métricas</h3>
           </article>
           <article class="card">
-            <h3>Guías de tono, mensajes clave y criterios de comunicación</h3>
+            <h3 class="card__title">Guías de tono, mensajes clave y criterios de comunicación</h3>
           </article>
           <article class="card">
-            <h3>Tablero de seguimiento con hitos y responsables</h3>
+            <h3 class="card__title">Tablero de seguimiento con hitos y responsables</h3>
           </article>
           <article class="card">
-            <h3>Materiales institucionales y kits de comunicación interna</h3>
+            <h3 class="card__title">Materiales institucionales y kits de comunicación interna</h3>
           </article>
         </div>
       </section>
@@ -118,7 +118,7 @@ import CTASection from '../components/CTASection.astro';
   .projects-grid,
   .deliverables-grid {
     display: grid;
-    gap: var(--s-28);
+    gap: var(--card-gap);
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
 

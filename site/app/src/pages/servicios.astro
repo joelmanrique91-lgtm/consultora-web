@@ -20,7 +20,7 @@ import { site } from '../data/site';
         <div class="services-grid">
           {site.services.map((service) => (
             <article class="card service-card">
-              <h3>{service.title}</h3>
+              <h3 class="card__title">{service.title}</h3>
               <p class="service-card__subtitle">{service.description}</p>
               <div class="service-card__section">
                 <p class="service-card__label">Ideal para:</p>
@@ -55,7 +55,7 @@ import { site } from '../data/site';
 <style>
   .services-grid {
     display: grid;
-    gap: var(--s-32);
+    gap: var(--card-gap);
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
