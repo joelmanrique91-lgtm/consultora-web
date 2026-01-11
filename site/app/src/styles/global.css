@@ -484,6 +484,10 @@ a.btn-link:focus-visible {
   .cta-mobile {
     display: inline-flex;
   }
+
+  body {
+    padding-bottom: var(--s-120);
+  }
 }
 
 /* Reduce animaciones para usuarios con preferencia de movimiento reducido. */
