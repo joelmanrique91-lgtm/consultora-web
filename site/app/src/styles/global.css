@@ -22,16 +22,16 @@ img {
 }
 
 a {
-  color: inherit;
+  color: var(--accent-hover);
   text-decoration: underline;
   text-underline-offset: 0.18em;
   text-decoration-thickness: 1px;
-  text-decoration-color: rgba(37, 36, 34, 0.35);
+  text-decoration-color: rgba(90, 152, 50, 0.45);
 }
 
 a:hover {
-  color: var(--accent-hover);
-  text-decoration-color: var(--accent-hover);
+  color: var(--accent);
+  text-decoration-color: var(--accent);
 }
 
 strong {
@@ -55,6 +55,7 @@ h3 {
   font-family: var(--font-serif);
   letter-spacing: -0.01em;
   margin: 0 0 var(--s-12);
+  color: var(--text);
 }
 
 h1 {
@@ -120,7 +121,7 @@ li + li {
 
 .stack-lg {
   display: grid;
-  gap: var(--s-32);
+  gap: clamp(24px, 3vw, 32px);
 }
 
 .btn-primary,
@@ -130,7 +131,7 @@ li + li {
   align-items: center;
   justify-content: center;
   gap: var(--s-8);
-  padding: 0.65rem 1.6rem;
+  padding: var(--s-16) var(--s-32);
   border-radius: 999px;
   font-weight: var(--w-semibold);
   text-decoration: none;
@@ -143,6 +144,7 @@ li + li {
   background: var(--accent);
   color: var(--text);
   box-shadow: 0 10px 22px rgba(94, 159, 46, 0.2);
+  font-size: 1.125rem;
 }
 
 .btn-primary:hover {
@@ -153,6 +155,7 @@ li + li {
 .btn-secondary {
   background: transparent;
   border-color: var(--accent);
+  font-size: 1.125rem;
 }
 
 .btn-secondary:hover {
@@ -163,6 +166,7 @@ li + li {
   padding: 0;
   border: none;
   text-decoration: underline;
+  font-size: 1rem;
 }
 
 button.btn-primary,
