@@ -4,7 +4,7 @@ const { items = [], class: className } = Astro.props;
 
 <ol class:list={["stepper", className]}>
   {items.map((item) => (
-    <li class="stepper__item card">
+    <li class="stepper__item">
       <span class="stepper__num">{item.num}</span>
       <div class="stepper__body">
         <h3>{item.title}</h3>
@@ -24,13 +24,24 @@ const { items = [], class: className } = Astro.props;
     gap: var(--card-gap);
   }
 
-  /* Destaca cada etapa con fondo y borde sutil. */
+  /* Destaca cada etapa con un separador sutil. */
   .stepper__item {
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: var(--s-16);
     row-gap: var(--s-6);
     align-items: start;
+    padding: var(--s-16) 0;
+    border-bottom: 1px solid rgba(47, 47, 47, 0.12);
+  }
+
+  .stepper__item:first-child {
+    padding-top: 0;
+  }
+
+  .stepper__item:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
   }
 
   /* Mejora la jerarquía numérica con un badge visible. */
