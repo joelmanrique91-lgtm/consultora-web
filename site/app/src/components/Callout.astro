@@ -8,14 +8,16 @@ const { text, variant = 'default', class: className } = Astro.props;
 
 <style>
   .callout {
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--accent);
-    background: var(--surface);
+    border: 1px solid rgba(47, 47, 47, 0.1);
+    border-left: 3px solid rgba(47, 47, 47, 0.2);
+    background: rgba(249, 246, 240, 0.7);
     border-radius: var(--radius);
-    padding: clamp(20px, 2vw, 28px);
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-weight: var(--w-medium);
+    padding: clamp(16px, 2vw, 22px);
+    font-family: var(--font-sans);
+    font-style: normal;
+    font-weight: var(--w-regular);
+    font-size: 0.98rem;
+    color: var(--earth);
     margin: 0;
   }
 

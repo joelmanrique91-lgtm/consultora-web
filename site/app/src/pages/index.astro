@@ -195,13 +195,17 @@ const deliverables = [
 <style>
   .home-intro {
     display: grid;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     align-items: start;
   }
 
   .home-intro__callout,
   .home-intro__text {
-    max-width: 560px;
+    max-width: 540px;
+  }
+
+  .home-intro__callout {
+    opacity: 0.85;
   }
 
   .method-layout {
@@ -276,7 +280,7 @@ const deliverables = [
   @media (min-width: 900px) {
     .home-intro {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: var(--s-48);
+      gap: var(--space-lg);
     }
 
     .method-layout {
