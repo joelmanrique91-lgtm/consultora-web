@@ -50,18 +50,24 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
 <style>
   .posts-grid {
     display: grid;
-    gap: var(--s-24);
+    gap: var(--s-32);
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
 
   .post-card {
     display: grid;
-    gap: var(--s-12);
+    gap: var(--s-16);
+  }
+
+  .post-card__meta {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
   .post-card__description {
     margin: 0;
     color: var(--muted);
+    line-height: 1.6;
   }
 
   .post-card__tags {

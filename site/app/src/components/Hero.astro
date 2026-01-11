@@ -22,15 +22,21 @@ const {
 </section>
 
 <style>
+  .hero__content {
+    gap: var(--s-32);
+  }
+
   .hero__subtitle {
     margin: 0;
     color: var(--muted);
+    font-size: clamp(18px, 1.9vw, 22px);
+    line-height: 1.6;
   }
 
   .hero__actions {
     display: flex;
     align-items: center;
-    gap: var(--s-16);
+    gap: var(--s-12);
     flex-wrap: wrap;
   }
 </style>

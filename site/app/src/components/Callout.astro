@@ -12,7 +12,7 @@ const { text, variant = 'default', class: className } = Astro.props;
     border-left: 4px solid var(--accent);
     background: var(--surface);
     border-radius: var(--radius);
-    padding: var(--s-24);
+    padding: clamp(20px, 2vw, 28px);
     font-family: var(--font-serif);
     font-style: italic;
     font-weight: var(--w-medium);
@@ -21,6 +21,7 @@ const { text, variant = 'default', class: className } = Astro.props;
 
   .callout p {
     margin: 0;
+    line-height: 1.6;
   }
 
   .callout--soft {
