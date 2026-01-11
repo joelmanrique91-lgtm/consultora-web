@@ -4,7 +4,7 @@ import CTASection from '../components/CTASection.astro';
 ---
 
 <Layout>
-  <section class="section">
+  <section class="section experience-section">
     <div class="container stack-lg">
       <header class="reading stack">
         <h1>Experiencia</h1>
@@ -15,94 +15,118 @@ import CTASection from '../components/CTASection.astro';
         </p>
       </header>
 
-      <section class="reading stack">
+      <section class="stack-lg experience-results">
         <h2>Resultados típicos</h2>
-        <ul class="icon-list">
-          <li>Mayor claridad entre áreas.</li>
-          <li>Menos retrabajo.</li>
-          <li>Discursos alineados.</li>
-        </ul>
-      </section>
-
-      <section class="stack">
-        <h2>Sectores</h2>
-        <div class="tags">
-          <span class="tag">Minería</span>
-          <span class="tag">Servicios industriales</span>
-          <span class="tag">Energía</span>
-          <span class="tag">Industria manufacturera</span>
-          <span class="tag">Logística</span>
-          <span class="tag">PYMES B2B</span>
-          <span class="tag">Operación territorial</span>
-        </div>
-      </section>
-
-      <section class="stack-lg">
-        <div class="reading stack">
-          <h2>Tipos de proyectos</h2>
-        </div>
-        <div class="projects-grid cards-grid compact-grid">
-          <article class="card">
-            <h3 class="card__title">Diagnósticos de comunicación interna y externa</h3>
-            <p>Relevamos mensajes, públicos y puntos críticos para ordenar prioridades.</p>
+        <div class="results-grid">
+          <article class="card result-card">
+            <span class="result-card__icon" aria-hidden="true">✓</span>
+            <p>Mayor claridad entre áreas.</p>
           </article>
-          <article class="card">
-            <h3 class="card__title">Planes integrales de comunicación institucional</h3>
-            <p>Definimos objetivos, tácticas y métricas con responsables claros.</p>
+          <article class="card result-card">
+            <span class="result-card__icon" aria-hidden="true">✓</span>
+            <p>Menos retrabajo.</p>
           </article>
-          <article class="card">
-            <h3 class="card__title">Identidad verbal y lineamientos de marca</h3>
-            <p>Claridad en tono, mensajes clave y criterios de comunicación.</p>
-          </article>
-          <article class="card">
-            <h3 class="card__title">Campañas informativas y materiales de soporte</h3>
-            <p>Diseño de piezas con foco en coherencia y continuidad.</p>
-          </article>
-          <article class="card">
-            <h3 class="card__title">Acompañamiento en procesos de cambio organizacional</h3>
-            <p>Orden y seguimiento en proyectos sensibles.</p>
+          <article class="card result-card">
+            <span class="result-card__icon" aria-hidden="true">✓</span>
+            <p>Discursos alineados.</p>
           </article>
         </div>
       </section>
+    </div>
+  </section>
 
-      <section class="reading stack">
+  <section class="section experience-section experience-section--alt">
+    <div class="container stack">
+      <h2>Sectores</h2>
+      <div class="tags">
+        <span class="tag tag--chip">Minería</span>
+        <span class="tag tag--chip">Servicios industriales</span>
+        <span class="tag tag--chip">Energía</span>
+        <span class="tag tag--chip">Industria manufacturera</span>
+        <span class="tag tag--chip">Logística</span>
+        <span class="tag tag--chip">PYMES B2B</span>
+        <span class="tag tag--chip">Operación territorial</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section experience-section">
+    <div class="container stack-lg">
+      <div class="reading stack">
+        <h2>Tipos de proyectos</h2>
+      </div>
+      <div class="experience-grid cards-grid">
+        <article class="card">
+          <h3 class="card__title">Diagnósticos de comunicación interna y externa</h3>
+          <p>Relevamos mensajes, públicos y puntos críticos para ordenar prioridades.</p>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Planes integrales de comunicación institucional</h3>
+          <p>Definimos objetivos, tácticas y métricas con responsables claros.</p>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Identidad verbal y lineamientos de marca</h3>
+          <p>Claridad en tono, mensajes clave y criterios de comunicación.</p>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Campañas informativas y materiales de soporte</h3>
+          <p>Diseño de piezas con foco en coherencia y continuidad.</p>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Acompañamiento en procesos de cambio organizacional</h3>
+          <p>Orden y seguimiento en proyectos sensibles.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section experience-section experience-section--alt">
+    <div class="container stack-lg">
+      <div class="reading stack">
         <h2>Qué resolvemos típicamente</h2>
-        <ul class="icon-list">
-          <li>Falta de claridad sobre mensajes clave y públicos prioritarios.</li>
-          <li>Necesidad de ordenar acciones, responsables y cronograma.</li>
-          <li>Inconsistencias entre lo que se dice y lo que se implementa.</li>
-          <li>Procesos internos sin lineamientos comunes de comunicación.</li>
-          <li>Necesidad de acompañamiento durante proyectos sensibles.</li>
-        </ul>
-      </section>
+      </div>
+      <ul class="experience-list">
+        <li>Falta de claridad sobre mensajes clave y públicos prioritarios.</li>
+        <li>Necesidad de ordenar acciones, responsables y cronograma.</li>
+        <li>Inconsistencias entre lo que se dice y lo que se implementa.</li>
+        <li>Procesos internos sin lineamientos comunes de comunicación.</li>
+        <li>Necesidad de acompañamiento durante proyectos sensibles.</li>
+      </ul>
+    </div>
+  </section>
 
-      <section class="stack-lg">
-        <div class="reading stack">
-          <h2>Entregables habituales</h2>
-        </div>
-        <div class="deliverables-grid cards-grid compact-grid">
-          <article class="card">
-            <h3 class="card__title">Diagnóstico con hallazgos, riesgos y oportunidades</h3>
-          </article>
-          <article class="card">
-            <h3 class="card__title">Plan de comunicación con objetivos, tácticas y métricas</h3>
-          </article>
-          <article class="card">
-            <h3 class="card__title">Guías de tono, mensajes clave y criterios de comunicación</h3>
-          </article>
-          <article class="card">
-            <h3 class="card__title">Tablero de seguimiento con hitos y responsables</h3>
-          </article>
-          <article class="card">
-            <h3 class="card__title">Materiales institucionales y kits de comunicación interna</h3>
-          </article>
-        </div>
-      </section>
+  <section class="section experience-section">
+    <div class="container stack-lg">
+      <div class="reading stack">
+        <h2>Entregables habituales</h2>
+      </div>
+      <div class="experience-grid cards-grid">
+        <article class="card">
+          <h3 class="card__title">Diagnóstico con hallazgos, riesgos y oportunidades</h3>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Plan de comunicación con objetivos, tácticas y métricas</h3>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Guías de tono, mensajes clave y criterios de comunicación</h3>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Tablero de seguimiento con hitos y responsables</h3>
+        </article>
+        <article class="card">
+          <h3 class="card__title">Materiales institucionales y kits de comunicación interna</h3>
+        </article>
+      </div>
+    </div>
+  </section>
 
+  <section class="section experience-section">
+    <div class="container">
       <CTASection
         title="Conversemos sobre tu proyecto"
         text="Podemos ayudarte a ordenar la comunicación y avanzar con claridad."
         ctaHref="/contacto"
+        class="experience-cta"
       />
     </div>
   </section>
@@ -115,45 +139,95 @@ import CTASection from '../components/CTASection.astro';
     gap: var(--space-sm);
   }
 
-  .projects-grid,
-  .deliverables-grid {
+  .experience-section--alt {
+    background: var(--earth-soft);
+  }
+
+  .tag--chip {
+    background: rgba(106, 168, 58, 0.12);
+    border: 1px solid rgba(106, 168, 58, 0.4);
+    color: var(--earth);
+    font-weight: var(--w-semibold);
+    font-size: 0.78rem;
+    padding: 6px 14px;
+  }
+
+  .results-grid {
+    display: grid;
+    gap: var(--space-md);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .result-card {
+    display: flex;
+    gap: var(--s-12);
+    align-items: flex-start;
+  }
+
+  .result-card__icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-soft);
+    color: var(--earth);
+    font-weight: var(--w-semibold);
+  }
+
+  .result-card p {
+    margin: 0;
+    font-weight: var(--w-medium);
+  }
+
+  .experience-grid {
+    gap: var(--space-md);
     align-items: stretch;
   }
 
-  .projects-grid p {
+  .experience-grid .card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-12);
+  }
+
+  .experience-grid p {
     margin: 0;
     color: var(--muted);
     line-height: 1.6;
   }
 
-  .icon-list {
+  .experience-list {
     margin: 0;
-    padding: 0;
-    list-style: none;
+    padding-left: 1.2rem;
     display: grid;
-    gap: var(--space-sm);
+    gap: var(--s-12);
   }
 
-  .icon-list li {
-    display: flex;
-    gap: var(--space-sm);
-    align-items: flex-start;
+  .experience-cta {
+    background: #f6efdd;
   }
 
-  .icon-list li::before {
-    content: '✓';
-    color: var(--color-acento);
-    font-weight: 700;
-  }
-
-  .compact-grid {
-    gap: var(--space-md);
+  @media (min-width: 768px) {
+    .experience-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (min-width: 1024px) {
-    .projects-grid .card,
-    .deliverables-grid .card {
+    .experience-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .experience-grid .card {
       min-height: 220px;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .experience-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

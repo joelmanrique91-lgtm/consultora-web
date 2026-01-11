@@ -73,6 +73,9 @@
   --earth: #7d5f46;
   --earth-soft: #f2ebe1;
   --earth-mid: #c9b199;
+  /* Tokens para fondos alternados y paneles suaves. */
+  --bg-alt: #f2eee0;
+  --bg-soft: #f7f3e7;
 
   --space-sm: 12px;
   --space-md: 24px;

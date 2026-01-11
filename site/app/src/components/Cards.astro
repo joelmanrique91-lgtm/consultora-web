@@ -70,6 +70,21 @@ const { items = [], class: className } = Astro.props;
     line-height: 1.4;
   }
 
+  /* Variante compacta para entregables con menos altura. */
+  .cards--compact .cards__card {
+    gap: var(--s-8);
+  }
+
+  .cards--compact .card__title {
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  }
+
+  .cards--compact .cards__subtitle,
+  .cards--compact .cards__list li {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
   /* Fuerza una columna en móviles para evitar cortes. */
   @media (min-width: 768px) {
     .cards__grid {
