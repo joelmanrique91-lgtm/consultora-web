@@ -29,4 +29,11 @@ export const site = {
     text: 'Coordinar una reunión',
     href: '/contacto',
   },
+  footer: {
+    name: 'Pistacho Estudio',
+    positioning: 'Comunicación institucional estratégica para pymes B2B / industria',
+    email: 'hola@pistachoestudio.com',
+    location: 'San Juan, Argentina',
+    linkedin: null,
+  },
 };
