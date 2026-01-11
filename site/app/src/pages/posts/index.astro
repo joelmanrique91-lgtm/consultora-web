@@ -1,0 +1,154 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('posts', ({ data }) => !data.draft);
+const posts = allPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const formatter = new Intl.DateTimeFormat('es-AR', {
+  day: '2-digit',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<Layout>
+  <main class="posts">
+    <header class="posts__header">
+      <h1>Posts</h1>
+      <p class="posts__lead">
+        Recursos breves para ordenar la comunicación institucional y fortalecer
+        el posicionamiento de tu empresa.
+      </p>
+    </header>
+
+    <section class="posts__grid">
+      {posts.map((post) => (
+        <article class="post-card">
+          <div class="post-card__meta">
+            <span class="post-card__date">{formatter.format(post.data.date)}</span>
+          </div>
+          <h2 class="post-card__title">{post.data.title}</h2>
+          <p class="post-card__description">{post.data.description}</p>
+          <div class="post-card__tags">
+            {post.data.tags.map((tag) => (
+              <span class="post-card__tag">{tag}</span>
+            ))}
+          </div>
+          <a class="post-card__link" href={`/posts/${post.slug}`}>
+            Leer el artículo
+          </a>
+        </article>
+      ))}
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .posts {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .posts__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .posts__lead {
+    max-width: 60ch;
+    color: #8c8c8c;
+    font-size: 1.05rem;
+  }
+
+  .posts__grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1.75rem;
+    border-radius: 18px;
+    border: 1px solid rgba(138, 107, 79, 0.12);
+    background: #ffffff;
+    box-shadow: 0 10px 26px rgba(47, 47, 47, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .post-card__meta {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    color: #8a6b4f;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .post-card__title {
+    margin: 0;
+    color: #2f2f2f;
+  }
+
+  .post-card__description {
+    margin: 0;
+    color: #8c8c8c;
+  }
+
+  .post-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .post-card__tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    background: #cff2a3;
+    color: #2f2f2f;
+    border: 1px solid rgba(94, 159, 46, 0.4);
+  }
+
+  .post-card__link {
+    align-self: flex-start;
+    font-weight: 600;
+    color: #2f2f2f;
+    text-decoration: none;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(139, 203, 60, 0.6);
+    background: rgba(207, 242, 163, 0.45);
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .post-card__link:hover {
+    background: rgba(139, 203, 60, 0.3);
+    border-color: rgba(94, 159, 46, 0.8);
+  }
+
+  .post-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(94, 159, 46, 0.5);
+    box-shadow: 0 14px 30px rgba(47, 47, 47, 0.12);
+  }
+
+  @media (max-width: 768px) {
+    .posts {
+      gap: 2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .post-card,
+    .post-card__link {
+      transition: none;
+    }
+  }
+</style>

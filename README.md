@@ -51,3 +51,9 @@ npm run dev:sync
 ```
 
 Abrir en el navegador: http://localhost:4321
+
+## Crear un post nuevo
+
+1. Crear un archivo `.md` en `site/app/src/content/posts/`.
+2. Completar el frontmatter con `title`, `description`, `date`, `tags` y opcional `draft`.
+3. Guardar el contenido en Markdown y levantar el sitio para ver el nuevo post en `/posts`.
