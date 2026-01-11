@@ -44,16 +44,25 @@
 
   /* Mejora la percepción táctil con radios y bordes suaves. */
   --radius: 12px;
+  --radius-button: 10px;
   --radius-card: 12px;
   --border: rgba(21, 23, 27, 0.12);
   --muted: rgba(47, 47, 47, 0.62);
 
   /* Mejora el contraste con un set de color coherente. */
-  --bg: #f9f4ed;
-  --surface: #ffffff;
-  --text: #252422;
-  --accent: #7fbe3d;
-  --accent-hover: #5a9832;
+  --color-primario: #2f4858;
+  --color-acento: #92c064;
+  --color-fondo: #f6f5f0;
+  --color-superficie: #ffffff;
+  --color-texto: #252422;
+  --color-neutro: #5a5856;
+  --color-alerta: #c0392b;
+
+  --bg: var(--color-fondo);
+  --surface: var(--color-superficie);
+  --text: var(--color-texto);
+  --accent: var(--color-acento);
+  --accent-hover: #6aa83a;
   --accent-soft: #daf3b9;
   --accent-muted: rgba(90, 152, 50, 0.65);
   --earth: #7d5f46;

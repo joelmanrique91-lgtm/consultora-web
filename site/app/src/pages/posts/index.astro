@@ -37,7 +37,7 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
                 <span class="tag">{tag}</span>
               ))}
             </div>
-            <a class="btn-link" href={`/posts/${post.slug}`}>
+            <a class="btn-secondary post-card__cta" href={`/posts/${post.slug}`}>
               Leer el artículo
             </a>
           </article>
@@ -51,7 +51,7 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
   .posts-grid {
     display: grid;
     gap: var(--card-gap);
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: 1fr;
   }
 
   .post-card {
@@ -68,6 +68,10 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
     margin: 0;
     color: var(--muted);
     line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .post-card__tags {
@@ -78,5 +82,15 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
 
   .post-card__title {
     margin: 0;
+  }
+
+  .post-card__cta {
+    align-self: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    .posts-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 </style>

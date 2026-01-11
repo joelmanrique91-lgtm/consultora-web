@@ -111,6 +111,27 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
     padding-left: 1.2rem;
   }
 
+  .post-content :global(h3) {
+    margin-top: var(--s-24);
+    color: var(--text);
+  }
+
+  .post-content :global(img) {
+    margin: var(--s-24) 0;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 24px rgba(47, 47, 47, 0.08);
+  }
+
+  .post-content :global(blockquote) {
+    margin: var(--s-24) 0;
+    padding: var(--s-20);
+    border-left: 4px solid var(--accent);
+    background: var(--earth-soft);
+    border-radius: var(--radius);
+    color: var(--earth);
+  }
+
   .post-takeaways ul {
     display: grid;
     gap: var(--s-8);

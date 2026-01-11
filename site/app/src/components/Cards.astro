@@ -25,7 +25,7 @@ const { items = [], class: className } = Astro.props;
   .cards__grid {
     display: grid;
     gap: var(--card-gap);
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-template-columns: 1fr;
   }
 
   /* Ordena el contenido interno de cada tarjeta. */
@@ -71,9 +71,15 @@ const { items = [], class: className } = Astro.props;
   }
 
   /* Fuerza una columna en móviles para evitar cortes. */
-  @media (max-width: 600px) {
+  @media (min-width: 768px) {
     .cards__grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .cards__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>
