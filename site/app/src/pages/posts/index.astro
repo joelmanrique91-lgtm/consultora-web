@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { getPostSlug } from '../../utils/posts';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort(
@@ -26,7 +27,7 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
 
       <section class="posts-grid cards-grid">
         {posts.map((post) => {
-          const slug = post.slug ?? post.id.replace(/\.mdx?$/, '');
+          const slug = getPostSlug(post);
 
           return (
             <article class="card-post card">
