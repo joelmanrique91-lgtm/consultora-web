@@ -346,6 +346,14 @@ a.btn-link:focus-visible {
   width: auto;
 }
 
+/* Aporta aire y contención suave al logo del header. */
+.header__logo {
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: var(--bg-soft);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
 /* Mantiene la navegación ordenada en varias líneas. */
 .site-nav {
   display: flex;
@@ -419,6 +427,15 @@ a.btn-link:focus-visible {
   font-weight: var(--w-semibold);
   margin: 0;
   color: var(--text);
+}
+
+/* Ajusta tamaño y fondo del logo en el footer. */
+.footer__logo {
+  width: 140px;
+  height: auto;
+  padding: 6px 10px;
+  border-radius: 12px;
+  background: var(--bg-soft);
 }
 
 /* Mantiene datos secundarios alineados y legibles. */
