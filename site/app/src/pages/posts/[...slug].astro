@@ -4,12 +4,13 @@ import CTASection from '../../components/CTASection.astro';
 import Callout from '../../components/Callout.astro';
 import { site } from '../../data/site';
 import { getCollection } from 'astro:content';
+import { getPostSlugSegments } from '../../utils/posts';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts', ({ data }) => !data.draft);
 
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: getPostSlugSegments(post) },
     props: { post },
   }));
 }
