@@ -314,12 +314,18 @@ a.btn-link:focus-visible {
   background-color: rgba(var(--color-fondo-rgb), 0.9);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
-  transition: box-shadow 0.2s ease;
+  transform: translateY(0);
+  transition: box-shadow 0.2s ease, transform 0.18s ease;
 }
 
 /* Agrega profundidad cuando el header se desplaza. */
 .site-header.is-scrolled {
   box-shadow: 0 6px 16px rgba(47, 47, 47, 0.08);
+}
+
+/* Oculta el header al desplazarse hacia abajo sin afectar el layout. */
+.site-header.is-hidden {
+  transform: translateY(-100%);
 }
 
 /* Mejora alineación del header y navegación. */
@@ -517,6 +523,10 @@ a.btn-link:focus-visible {
 
   .btn-primary,
   .btn-secondary {
+    transition: none;
+  }
+
+  .site-header {
     transition: none;
   }
 }
