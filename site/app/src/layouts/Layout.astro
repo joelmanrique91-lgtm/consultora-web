@@ -88,43 +88,42 @@ const isActive = (href) =>
     <a class="btn-primary cta-mobile" href="/contacto" aria-label="Coordinar una reunión">
       Coordinar una reunión
     </a>
+    <script is:inline>
+      const header = document.querySelector('.site-header');
+
+      if (header) {
+        const hideThreshold = 10;
+        const topOffset = 24;
+        let lastScrollY = window.scrollY;
+        let lastToggleY = lastScrollY;
+
+        const updateHeaderState = () => {
+          const currentScrollY = window.scrollY;
+          const isScrollingDown = currentScrollY > lastScrollY + 2;
+          const isScrollingUp = currentScrollY < lastScrollY - 2;
+
+          if (
+            isScrollingDown &&
+            currentScrollY > topOffset &&
+            currentScrollY - lastToggleY > hideThreshold
+          ) {
+            header.classList.add('is-hidden');
+            lastToggleY = currentScrollY;
+          } else if (
+            (isScrollingUp && lastToggleY - currentScrollY > hideThreshold) ||
+            currentScrollY <= topOffset
+          ) {
+            header.classList.remove('is-hidden');
+            lastToggleY = currentScrollY;
+          }
+
+          header.classList.toggle('is-scrolled', currentScrollY > 10);
+          lastScrollY = currentScrollY;
+        };
+
+        updateHeaderState();
+        window.addEventListener('scroll', updateHeaderState, { passive: true });
+      }
+    </script>
   </body>
 </html>
-
-<script>
-  const header = document.querySelector('.site-header');
-
-  if (header) {
-    const hideThreshold = 10;
-    const topOffset = 24;
-    let lastScrollY = window.scrollY;
-    let lastToggleY = lastScrollY;
-
-    const updateHeaderState = () => {
-      const currentScrollY = window.scrollY;
-      const isScrollingDown = currentScrollY > lastScrollY;
-      const isScrollingUp = currentScrollY < lastScrollY;
-
-      if (
-        isScrollingDown &&
-        currentScrollY > topOffset &&
-        currentScrollY - lastToggleY > hideThreshold
-      ) {
-        header.classList.add('is-hidden');
-        lastToggleY = currentScrollY;
-      } else if (
-        (isScrollingUp && lastToggleY - currentScrollY > hideThreshold) ||
-        currentScrollY <= topOffset
-      ) {
-        header.classList.remove('is-hidden');
-        lastToggleY = currentScrollY;
-      }
-
-      header.classList.toggle('is-scrolled', currentScrollY > 10);
-      lastScrollY = currentScrollY;
-    };
-
-    updateHeaderState();
-    window.addEventListener('scroll', updateHeaderState, { passive: true });
-  }
-</script>
