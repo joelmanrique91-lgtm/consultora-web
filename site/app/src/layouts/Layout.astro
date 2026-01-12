@@ -95,11 +95,36 @@ const isActive = (href) =>
   const header = document.querySelector('.site-header');
 
   if (header) {
-    const toggleHeaderShadow = () => {
-      header.classList.toggle('is-scrolled', window.scrollY > 10);
+    const hideThreshold = 10;
+    const topOffset = 24;
+    let lastScrollY = window.scrollY;
+    let lastToggleY = lastScrollY;
+
+    const updateHeaderState = () => {
+      const currentScrollY = window.scrollY;
+      const isScrollingDown = currentScrollY > lastScrollY;
+      const isScrollingUp = currentScrollY < lastScrollY;
+
+      if (
+        isScrollingDown &&
+        currentScrollY > topOffset &&
+        currentScrollY - lastToggleY > hideThreshold
+      ) {
+        header.classList.add('is-hidden');
+        lastToggleY = currentScrollY;
+      } else if (
+        (isScrollingUp && lastToggleY - currentScrollY > hideThreshold) ||
+        currentScrollY <= topOffset
+      ) {
+        header.classList.remove('is-hidden');
+        lastToggleY = currentScrollY;
+      }
+
+      header.classList.toggle('is-scrolled', currentScrollY > 10);
+      lastScrollY = currentScrollY;
     };
 
-    toggleHeaderShadow();
-    window.addEventListener('scroll', toggleHeaderShadow, { passive: true });
+    updateHeaderState();
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
   }
 </script>
