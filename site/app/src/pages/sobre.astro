@@ -99,7 +99,7 @@ const teamMembers = [
             <article class="card team-card">
               {member.image ? (
                 <img
-                  src={member.image}
+                  src={withBase(member.image)}
                   alt={`Foto de ${member.name}`}
                   class="team-card__avatar"
                   width="96"
