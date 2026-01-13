@@ -15,7 +15,7 @@ const teamMembers = [
       'Priorización de iniciativas',
     ],
     linkedin: null,
-    image: '/brand/team-placeholder-1.svg',
+    image: withBase('/brand/team-placeholder-1.svg'),
   },
   {
     name: 'Consultoría & planificación',
@@ -28,7 +28,7 @@ const teamMembers = [
       'Coordinación operativa',
     ],
     linkedin: null,
-    image: '/brand/team-placeholder-2.svg',
+    image: withBase('/brand/team-placeholder-2.svg'),
   },
   {
     name: 'Implementación y acompañamiento',
@@ -41,7 +41,7 @@ const teamMembers = [
       'Mejora continua',
     ],
     linkedin: null,
-    image: '/brand/team-placeholder-3.svg',
+    image: withBase('/brand/team-placeholder-3.svg'),
   },
 ];
 ---
@@ -99,7 +99,7 @@ const teamMembers = [
             <article class="card team-card">
               {member.image ? (
                 <img
-                  src={withBase(member.image)}
+                  src={member.image}
                   alt={`Foto de ${member.name}`}
                   class="team-card__avatar"
                   width="96"
