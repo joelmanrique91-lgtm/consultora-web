@@ -81,7 +81,7 @@ const isActive = (href) =>
             </a>
           )}
         </div>
-        <img src={illustration} alt="Pistacho illustration" />
+        <img src={illustration} alt="Pistacho illustration" loading="lazy" decoding="async" />
       </div>
       <p>© Consultora — Todos los derechos reservados</p>
     </footer>
@@ -96,6 +96,7 @@ const isActive = (href) =>
         const topOffset = 24;
         let lastScrollY = window.scrollY;
         let lastToggleY = lastScrollY;
+        let ticking = false;
 
         const updateHeaderState = () => {
           const currentScrollY = window.scrollY;
@@ -119,10 +120,18 @@ const isActive = (href) =>
 
           header.classList.toggle('is-scrolled', currentScrollY > 10);
           lastScrollY = currentScrollY;
+          ticking = false;
+        };
+
+        const handleScroll = () => {
+          if (!ticking) {
+            ticking = true;
+            window.requestAnimationFrame(updateHeaderState);
+          }
         };
 
         updateHeaderState();
-        window.addEventListener('scroll', updateHeaderState, { passive: true });
+        window.addEventListener('scroll', handleScroll, { passive: true });
       }
     </script>
   </body>

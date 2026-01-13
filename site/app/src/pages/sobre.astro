@@ -97,7 +97,15 @@ const teamMembers = [
           {teamMembers.map((member) => (
             <article class="card team-card">
               {member.image ? (
-                <img src={member.image} alt={`Foto de ${member.name}`} class="team-card__avatar" />
+                <img
+                  src={member.image}
+                  alt={`Foto de ${member.name}`}
+                  class="team-card__avatar"
+                  width="96"
+                  height="96"
+                  loading="lazy"
+                  decoding="async"
+                />
               ) : (
                 <div
                   class="team-card__avatar team-card__avatar--placeholder"
