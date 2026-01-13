@@ -3,6 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import CTASection from '../components/CTASection.astro';
 import { withBase } from '../utils/links';
 
+const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
+
 const teamMembers = [
   {
     name: 'Dirección estratégica',
@@ -120,7 +122,7 @@ const teamMembers = [
                   <h3 class="card__title">{member.name}</h3>
                     <p class="team-card__role">{member.role}</p>
                   </div>
-                  {member.linkedin && (
+                  {isExternalLink(member.linkedin) && (
                     <a class="team-card__link" href={member.linkedin} rel="noopener noreferrer" target="_blank">
                       LinkedIn
                     </a>
