@@ -1,8 +1,10 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 
+const isProd = import.meta.env.PROD;
+
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://dominio.com/consultora/',
-  base: '/consultora',
+  site: isProd ? 'https://dominio.com/consultora/' : 'http://localhost:4321/',
+  base: isProd ? '/consultora' : '/',
 });

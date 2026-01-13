@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import { getPostSlug } from '../../utils/posts';
+import { withBase } from '../../utils/links';
 
 const allPosts = await getCollection('posts', ({ data }) => !data.draft);
 const posts = allPosts.sort(
@@ -42,7 +43,7 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
                   <span class="tag">{tag}</span>
                 ))}
               </div>
-              <a class="btn-secondary post-card__cta" href={`/posts/${slug}`}>
+              <a class="btn-secondary post-card__cta" href={withBase(`/posts/${slug}`)}>
                 Leer el artículo
               </a>
             </article>

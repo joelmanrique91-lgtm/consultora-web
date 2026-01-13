@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../utils/links';
+
 const {
   title = 'Coordinar una reunión',
   description = 'Contanos tu necesidad y te proponemos un plan de trabajo.',
@@ -6,6 +8,7 @@ const {
   buttonText = 'Coordinar una reunión',
   class: className,
 } = Astro.props;
+const resolvedHref = withBase(href);
 ---
 
 <section class:list={["cta-block", className]}>
@@ -13,7 +16,7 @@ const {
     <h3>{title}</h3>
     <p>{description}</p>
   </div>
-  <a class="cta-block__button btn-primary" href={href}>{buttonText}</a>
+  <a class="cta-block__button btn-primary" href={resolvedHref}>{buttonText}</a>
 </section>
 
 <style>
