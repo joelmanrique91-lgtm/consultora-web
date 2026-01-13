@@ -31,3 +31,35 @@ export const withBase = (path) => {
 
   return `${normalizedBase}${path}`;
 };
+
+export const normalizeInternalPath = (path) => {
+  if (!path) {
+    return '/';
+  }
+
+  if (
+    externalLinkPattern.test(path) ||
+    path.startsWith('mailto:') ||
+    path.startsWith('tel:') ||
+    path.startsWith('#')
+  ) {
+    return path;
+  }
+
+  const base = import.meta.env.BASE_URL ?? '/';
+  const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+
+  if (path === normalizedBase || path === base) {
+    return '/';
+  }
+
+  if (path.startsWith(normalizedBase)) {
+    return path.slice(Math.max(normalizedBase.length - 1, 0));
+  }
+
+  if (path.startsWith('/')) {
+    return path;
+  }
+
+  return `/${path}`;
+};
