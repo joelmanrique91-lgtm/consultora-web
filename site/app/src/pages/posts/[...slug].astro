@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import CTASection from '../../components/CTASection.astro';
 import Callout from '../../components/Callout.astro';
 import { site } from '../../data/site';
-import { withBase } from '../../utils/links';
+import { normalizeInternalPath, withBase } from '../../utils/links';
 import { getCollection } from 'astro:content';
 import { getPostSlug } from '../../utils/posts';
 
@@ -62,7 +62,7 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
       <CTASection
         title="Acción recomendada"
         text="Si querés revisar tus mensajes clave y ordenar prioridades, coordinemos una reunión."
-        ctaHref={withBase(site.cta.href)}
+        ctaHref={withBase(normalizeInternalPath(site.cta.href))}
       />
     </div>
   </section>
