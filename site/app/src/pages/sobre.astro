@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import CTASection from '../components/CTASection.astro';
+import { withBase } from '../utils/links';
 
 const teamMembers = [
   {
@@ -140,7 +141,7 @@ const teamMembers = [
       <CTASection
         title="¿Querés ordenar tu comunicación?"
         text="Conversemos sobre el contexto y definamos un plan de trabajo claro."
-        ctaHref="/contacto"
+        ctaHref={withBase('/contacto')}
       />
     </div>
   </section>

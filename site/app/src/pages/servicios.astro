@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import CTASection from '../components/CTASection.astro';
 import { site } from '../data/site';
+import { withBase } from '../utils/links';
 ---
 
 <Layout>
@@ -58,7 +59,7 @@ import { site } from '../data/site';
       <CTASection
         title="¿Te identificás con alguno de estos escenarios?"
         text="Contanos tu necesidad y definimos el plan más adecuado para ordenar tu comunicación institucional."
-        ctaHref={site.cta.href}
+        ctaHref={withBase(site.cta.href)}
       />
     </div>
   </section>

@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import CTASection from '../components/CTASection.astro';
+import { withBase } from '../utils/links';
 ---
 
 <Layout>
@@ -129,7 +130,7 @@ import CTASection from '../components/CTASection.astro';
       <CTASection
         title="Conversemos sobre tu proyecto"
         text="Podemos ayudarte a ordenar la comunicación y avanzar con claridad."
-        ctaHref="/contacto"
+        ctaHref={withBase('/contacto')}
         class="experience-cta"
       />
     </div>
