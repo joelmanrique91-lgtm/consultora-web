@@ -23,6 +23,7 @@ const isActive = (href) => {
 
   return currentPath.startsWith(resolvedHref);
 };
+const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
 ---
 
 <!doctype html>
@@ -93,7 +94,7 @@ const isActive = (href) => {
         <div class="footer__details">
           <a href={`mailto:${site.footer.email}`}>{site.footer.email}</a>
           <span>{site.footer.location}</span>
-          {site.footer.linkedin && (
+          {isExternalLink(site.footer.linkedin) && (
             <a
               href={site.footer.linkedin}
               rel="noopener noreferrer"
