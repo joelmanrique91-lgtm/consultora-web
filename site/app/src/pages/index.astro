@@ -76,7 +76,7 @@ const deliverables = [
     title="Comunicación institucional estratégica para empresas que necesitan orden y claridad"
     subtitle="Ayudamos a pymes industriales y empresas B2B a organizar su comunicación, definir mensajes claros y acompañar la implementación con criterio estratégico."
     ctaHref={withBase('/contacto')}
-    backgroundSrc={pistachoCombined}
+    backgroundSrc={pistachoCombined.src}
     backgroundAlt="Fondo abstracto con sello institucional"
   />
 
@@ -123,7 +123,7 @@ const deliverables = [
       </div>
       <div class="method-layout">
         <div class="method-seal">
-          <img src={seal} alt="Sello de enfoque institucional" width="120" height="120" />
+          <img src={seal.src} alt="Sello de enfoque institucional" width="120" height="120" />
           <p>Sello metodológico: orden, claridad y seguimiento.</p>
         </div>
         <Stepper items={workflowSteps} class="method-steps" />
