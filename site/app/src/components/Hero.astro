@@ -10,6 +10,10 @@ const {
   backgroundAlt = '',
 } = Astro.props;
 const resolvedCtaHref = withBase(ctaHref);
+const resolvedBackgroundSrc =
+  typeof backgroundSrc === 'string'
+    ? backgroundSrc
+    : backgroundSrc?.src ?? backgroundSrc?.href ?? null;
 ---
 
 <section class="hero section">
@@ -23,9 +27,9 @@ const resolvedCtaHref = withBase(ctaHref);
         <a class="btn-primary" href={resolvedCtaHref}>{ctaLabel}</a>
       </div>
     </div>
-    {backgroundSrc && (
+    {resolvedBackgroundSrc && (
       <div class="hero__visual" aria-hidden={backgroundAlt ? undefined : 'true'}>
-        <img src={backgroundSrc} alt={backgroundAlt} loading="lazy" />
+        <img src={resolvedBackgroundSrc} alt={backgroundAlt} loading="lazy" />
       </div>
     )}
   </div>
