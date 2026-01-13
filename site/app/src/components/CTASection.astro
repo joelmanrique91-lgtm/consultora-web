@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../utils/links';
+
 const {
   title,
   text,
@@ -6,6 +8,7 @@ const {
   ctaLabel = 'Coordinar una reunión',
   class: className,
 } = Astro.props;
+const resolvedCtaHref = withBase(ctaHref);
 ---
 
 <section class:list={["cta-section", className]}>
@@ -13,7 +16,7 @@ const {
     <h2>{title}</h2>
     <p>{text}</p>
   </div>
-  <a class="btn-primary" href={ctaHref}>{ctaLabel}</a>
+  <a class="btn-primary" href={resolvedCtaHref}>{ctaLabel}</a>
 </section>
 
 <style>

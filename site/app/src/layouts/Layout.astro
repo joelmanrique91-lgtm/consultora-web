@@ -1,13 +1,28 @@
 ---
 import { site } from '../data/site';
+import { withBase } from '../utils/links';
 import logotype from '../assets/brand/pistacho_logotype.jpg';
 import illustration from '../assets/brand/pistacho_illustration.jpg';
 import '../styles/tokens.css';
 import '../styles/global.css';
 
 const { pathname } = Astro.url;
-const isActive = (href) =>
-  href === '/' ? pathname === '/' : pathname.startsWith(href);
+const base = import.meta.env.BASE_URL ?? '/';
+const normalizePath = (href) => {
+  const normalized = href.endsWith('/') && href.length > 1 ? href.slice(0, -1) : href;
+  return normalized;
+};
+const currentPath = normalizePath(pathname);
+const isActive = (href) => {
+  const resolvedHref = normalizePath(withBase(href));
+  const normalizedBase = normalizePath(base);
+
+  if (resolvedHref === normalizedBase) {
+    return currentPath === normalizedBase;
+  }
+
+  return currentPath.startsWith(resolvedHref);
+};
 ---
 
 <!doctype html>
@@ -21,40 +36,47 @@ const isActive = (href) =>
   <body>
     <header class="site-header">
       <div class="container header__inner">
-        <a class="header__brand" href="/" aria-label="Consultora">
+        <a class="header__brand" href={withBase('/')} aria-label="Consultora">
           <img src={logotype} alt="Consultora" width="160" height="48" />
         </a>
         <nav class="site-nav">
-          <a class={`nav__link${isActive('/') ? ' is-active' : ''}`} href="/"
+          <a
+            class={`nav__link${isActive('/') ? ' is-active' : ''}`}
+            href={withBase('/')}
+          >
             >Home</a
           >
           <a
             class={`nav__link${isActive('/servicios') ? ' is-active' : ''}`}
-            href="/servicios"
+            href={withBase('/servicios')}
             >Servicios</a
           >
           <a
             class={`nav__link${isActive('/sobre') ? ' is-active' : ''}`}
-            href="/sobre"
+            href={withBase('/sobre')}
             >Sobre</a
           >
           <a
             class={`nav__link${isActive('/experiencia') ? ' is-active' : ''}`}
-            href="/experiencia"
+            href={withBase('/experiencia')}
             >Experiencia</a
           >
           <a
             class={`nav__link${isActive('/posts') ? ' is-active' : ''}`}
-            href="/posts"
+            href={withBase('/posts')}
             >Posts</a
           >
           <a
             class={`nav__link${isActive('/contacto') ? ' is-active' : ''}`}
-            href="/contacto"
+            href={withBase('/contacto')}
             >Contacto</a
           >
         </nav>
-        <a class="btn-primary" href="/contacto" aria-label="Coordinar una reunión">
+        <a
+          class="btn-primary"
+          href={withBase('/contacto')}
+          aria-label="Coordinar una reunión"
+        >
           Coordinar una reunión
         </a>
       </div>
@@ -85,7 +107,11 @@ const isActive = (href) =>
       </div>
       <p>© Consultora — Todos los derechos reservados</p>
     </footer>
-    <a class="btn-primary cta-mobile" href="/contacto" aria-label="Coordinar una reunión">
+    <a
+      class="btn-primary cta-mobile"
+      href={withBase('/contacto')}
+      aria-label="Coordinar una reunión"
+    >
       Coordinar una reunión
     </a>
     <script is:inline>

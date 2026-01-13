@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../utils/links';
+
 const {
   title,
   subtitle,
@@ -7,6 +9,7 @@ const {
   backgroundSrc = null,
   backgroundAlt = '',
 } = Astro.props;
+const resolvedCtaHref = withBase(ctaHref);
 ---
 
 <section class="hero section">
@@ -17,7 +20,7 @@ const {
         <p class="hero__subtitle">{subtitle}</p>
       </div>
       <div class="hero__actions">
-        <a class="btn-primary" href={ctaHref}>{ctaLabel}</a>
+        <a class="btn-primary" href={resolvedCtaHref}>{ctaLabel}</a>
       </div>
     </div>
     {backgroundSrc && (

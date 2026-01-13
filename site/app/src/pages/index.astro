@@ -7,6 +7,7 @@ import Cards from '../components/Cards.astro';
 import CTASection from '../components/CTASection.astro';
 import pistachoCombined from '../assets/brand/pistacho_combined.jpg';
 import seal from '../assets/brand/seal.svg';
+import { withBase } from '../utils/links';
 
 const workflowSteps = [
   {
@@ -102,11 +103,11 @@ const deliverables = [
             Nuestro trabajo ordena prioridades, alinea mensajes y establece un ritmo de comunicación
             sostenido para decisiones más seguras.
           </p>
-          <a class="btn-link" href="/servicios">Ver servicios</a>
+          <a class="btn-link" href={withBase('/servicios')}>Ver servicios</a>
         </div>
       </div>
       <div class="section-cta cta-panel">
-        <a class="btn-primary" href="/contacto">Coordinar una reunión</a>
+        <a class="btn-primary" href={withBase('/contacto')}>Coordinar una reunión</a>
       </div>
     </div>
   </section>
@@ -128,7 +129,7 @@ const deliverables = [
         <Stepper items={workflowSteps} class="method-steps" />
       </div>
       <div class="section-cta cta-panel">
-        <a class="btn-primary" href="/contacto">Coordinar una reunión</a>
+        <a class="btn-primary" href={withBase('/contacto')}>Coordinar una reunión</a>
       </div>
     </div>
   </section>
@@ -144,7 +145,7 @@ const deliverables = [
       </div>
       <Cards items={deliverables} class="cards--compact" />
       <div class="section-cta cta-panel">
-        <a class="btn-primary" href="/contacto">Coordinar una reunión</a>
+        <a class="btn-primary" href={withBase('/contacto')}>Coordinar una reunión</a>
       </div>
     </div>
   </section>
