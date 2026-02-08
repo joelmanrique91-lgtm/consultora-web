@@ -8,7 +8,7 @@ const {
   ctaLabel = 'Coordinar una reunión',
   class: className,
 } = Astro.props;
-const resolvedCtaHref = withBase(ctaHref);
+const resolvedCtaHref = withBase(ctaHref, 'CTASection.ctaHref');
 ---
 
 <section class:list={["cta-section", className]}>

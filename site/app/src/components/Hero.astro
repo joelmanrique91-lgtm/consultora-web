@@ -13,8 +13,10 @@ const {
   backgroundSrc = null,
   backgroundAlt = '',
 } = Astro.props;
-const resolvedCtaHref = withBase(ctaHref);
-const resolvedSecondaryHref = secondaryCtaHref ? withBase(secondaryCtaHref) : null;
+const resolvedCtaHref = withBase(ctaHref, 'Hero.ctaHref');
+const resolvedSecondaryHref = secondaryCtaHref
+  ? withBase(secondaryCtaHref, 'Hero.secondaryCtaHref')
+  : null;
 const backgroundData =
   typeof backgroundSrc === 'string'
     ? { src: backgroundSrc }
@@ -23,7 +25,9 @@ const backgroundData =
       : null;
 const backgroundSrcValue = backgroundData?.src ?? backgroundData?.href ?? null;
 const resolvedBackgroundSrc =
-  typeof backgroundSrcValue === 'string' ? withBaseUrl(backgroundSrcValue) : backgroundSrcValue;
+  typeof backgroundSrcValue === 'string'
+    ? withBaseUrl(backgroundSrcValue, 'Hero.backgroundSrc')
+    : backgroundSrcValue;
 const backgroundWidth = backgroundData?.width;
 const backgroundHeight = backgroundData?.height;
 const shouldOptimizeImage = Boolean(
