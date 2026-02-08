@@ -118,6 +118,7 @@ rm -rf node_modules package-lock.json && npm install
 ## Troubleshooting
 - **Puerto ocupado:** `PORT=4400 npm run dev`
 - **Firewall (Windows):** permitir `node.exe` en redes privadas.
+- **Base URL distinta de `/`:** asegurate de usar `withBaseUrl` para assets importados desde `src/assets` (por ejemplo `asset.src`) y `withBase` para navegación interna.
 - **Celular sin acceso:** verificar misma red Wi‑Fi.
 - **Túnel no inicia:** instalá `cloudflared` o usá `npm run dev:tunnel:lt`.
 - **Public URL no aparece:** asegurate de que `cloudflared`/`ngrok` estén instalados y que no haya bloqueos de red.
