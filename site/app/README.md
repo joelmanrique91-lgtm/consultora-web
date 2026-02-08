@@ -1,46 +1,78 @@
-# Astro Starter Kit: Basics
+# Consultora Web (Astro)
 
+## Requisitos
+- Node.js 18+
+- npm
+- (Opcional) `cloudflared` para túneles públicos
+
+## Levantar local
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Verás en consola:
+- **Local** → http://localhost:PUERTO
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+## Probar desde celular en la misma red (LAN)
+```sh
+npm run dev:lan
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Verás en consola:
+- **Local** → http://localhost:PUERTO  
+- **Network** → http://TU_IP_LOCAL:PUERTO
 
-## 🧞 Commands
+**Cómo obtener tu IP local:**
+- **Windows:** `ipconfig` → buscar “IPv4 Address”.
+- **macOS / Linux:** `ifconfig` o `ip a` → buscar IP en tu red (ej. 192.168.x.x).
 
-All commands are run from the root of the project, from a terminal:
+> Asegurate de que el celular y la PC estén en la misma Wi‑Fi.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Probar desde internet (túnel)
+### Opción A (recomendada): Cloudflare Tunnel
+Instalá `cloudflared`:
+https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/
 
-## 👀 Want to learn more?
+Luego:
+```sh
+npm run dev:tunnel
+```
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+La consola mostrará:
+- **Public** → URL pública lista para compartir.
+
+### Opción B: localtunnel (sin instalar binarios)
+```sh
+npm run dev:tunnel:lt
+```
+
+> Usa `npx localtunnel` y puede tardar la primera vez (descarga).
+
+## Modo app (DX/UX)
+```sh
+npm run app
+```
+
+Incluye:
+- Local URL
+- Network URL
+- Public URL (si hay túnel disponible)
+
+Opciones:
+- `npm run app -- --open` abre el navegador local.
+- `npm run app -- --no-tunnel` desactiva el túnel.
+- `npm run app -- --localtunnel` fuerza localtunnel.
+
+## VS Code Tasks
+En VS Code podés ejecutar:
+- **Dev: Local**
+- **Dev: LAN**
+- **Dev: Tunnel**
+- **App: Start**
+
+## Troubleshooting
+- **Puerto ocupado:** `PORT=4400 npm run dev`
+- **Firewall (Windows):** permitir Node.js en redes privadas.
+- **Celular sin acceso:** verificar misma red Wi‑Fi.
+- **Túnel no inicia:** instalá `cloudflared` o usá `npm run dev:tunnel:lt`.
