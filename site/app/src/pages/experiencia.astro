@@ -9,12 +9,39 @@ import { withBase } from '../utils/links';
     <div class="container stack-lg">
       <header class="reading stack">
         <h1>Experiencia</h1>
+        <!-- texto anterior: "Trabajamos en proyectos de comunicación institucional, marketing B2B y procesos de gestión que requieren claridad estratégica y ejecución ordenada. Estas son algunas de las formas en que acompañamos a las organizaciones." -->
         <p>
-          Trabajamos en proyectos de comunicación institucional, marketing B2B y procesos de gestión
-          que requieren claridad estratégica y ejecución ordenada. Estas son algunas de las formas
-          en que acompañamos a las organizaciones.
+          Trabajamos en proyectos de comunicación institucional y marketing B2B que requieren
+          claridad estratégica, prioridades definidas y ejecución ordenada. Estas son algunas de las
+          formas en que acompañamos a las organizaciones.
         </p>
       </header>
+
+      <section class="stack-lg experience-cases">
+        <header class="reading stack">
+          <h2>Micro-casos (anónimos)</h2>
+        </header>
+        <div class="experience-grid cards-grid">
+          <article class="card">
+            <h3 class="card__title">Empresa industrial con expansión regional</h3>
+            <p>Problema: cada área comunicaba con criterios distintos y había mensajes contradictorios.</p>
+            <p>Intervención: diagnóstico, definición de mensajes clave y plan operativo compartido.</p>
+            <p>Resultado: mayor coherencia interna y decisiones comunicadas con un mismo marco.</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">Servicios B2B con múltiples voceros técnicos</h3>
+            <p>Problema: falta de síntesis y pérdida de foco en presentaciones comerciales.</p>
+            <p>Intervención: estructura narrativa, guiones y criterios de validación interna.</p>
+            <p>Resultado: presentaciones más claras y procesos de aprobación simplificados.</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">Operación logística con cambios internos</h3>
+            <p>Problema: comunicación interna fragmentada durante un proceso de reorganización.</p>
+            <p>Intervención: plan de comunicación, tablero de hitos y acompañamiento a líderes.</p>
+            <p>Resultado: mensajes consistentes y mejor coordinación entre equipos.</p>
+          </article>
+        </div>
+      </section>
 
       <section class="stack-lg experience-results experience-results--grouped">
         <header class="reading stack">
@@ -91,11 +118,11 @@ import { withBase } from '../utils/links';
         <h2>Qué resolvemos típicamente</h2>
       </div>
       <ul class="experience-list">
-        <li>Falta de claridad sobre mensajes clave y públicos prioritarios.</li>
-        <li>Necesidad de ordenar acciones, responsables y cronograma.</li>
-        <li>Inconsistencias entre lo que se dice y lo que se implementa.</li>
-        <li>Procesos internos sin lineamientos comunes de comunicación.</li>
-        <li>Necesidad de acompañamiento durante proyectos sensibles.</li>
+        <li>Mensajes clave y públicos prioritarios sin definición común.</li>
+        <li>Acciones, responsables y cronograma sin orden operativo.</li>
+        <li>Inconsistencias entre lo que se comunica y lo que se implementa.</li>
+        <li>Procesos internos sin lineamientos de comunicación compartidos.</li>
+        <li>Necesidad de acompañamiento durante cambios sensibles.</li>
       </ul>
     </div>
   </section>
@@ -146,6 +173,16 @@ import { withBase } from '../utils/links';
 
   .experience-section--alt {
     background: var(--earth-soft);
+  }
+
+  .experience-cases .card {
+    gap: var(--s-8);
+  }
+
+  .experience-cases p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
   }
 
   .tag--chip {

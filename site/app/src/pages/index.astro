@@ -72,9 +72,11 @@ const deliverables = [
 ---
 
 <Layout>
+  <!-- subtitle anterior: "Ayudamos a pymes industriales y empresas B2B a organizar su comunicación, definir mensajes claros y acompañar la implementación con criterio estratégico." -->
   <Hero
     title="Comunicación institucional estratégica para empresas que necesitan orden y claridad"
-    subtitle="Ayudamos a pymes industriales y empresas B2B a organizar su comunicación, definir mensajes claros y acompañar la implementación con criterio estratégico."
+    subtitle="Cuando una empresa crece, aparecen más áreas, más voceros y más mensajes en paralelo.
+Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y pierde coherencia."
     ctaHref={withBase('/contacto')}
     secondaryCtaHref={withBase('/servicios')}
     secondaryCtaLabel="Ver servicios"
@@ -110,6 +112,9 @@ const deliverables = [
       </div>
       <div class="section-cta cta-panel">
         <a class="btn-primary" href={withBase('/contacto')}>Coordinar una reunión</a>
+        <p class="cta-note">
+          En una reunión inicial de 30 a 40 minutos analizamos el contexto y definimos opciones y próximos pasos.
+        </p>
       </div>
     </div>
   </section>
@@ -129,6 +134,32 @@ const deliverables = [
           <p>Sello metodológico: orden, claridad y seguimiento.</p>
         </div>
         <Stepper items={workflowSteps} class="method-steps" />
+      </div>
+      <div class="method-proof">
+        <div class="method-proof__block">
+          <h3>Sectores donde trabajamos</h3>
+          <ul>
+            <li>Industrial y manufactura.</li>
+            <li>Servicios B2B.</li>
+            <li>Energía, logística y operación territorial.</li>
+          </ul>
+        </div>
+        <div class="method-proof__block">
+          <h3>Resultados típicos</h3>
+          <ul>
+            <li>Orden y prioridades compartidas.</li>
+            <li>Mensajes coherentes entre áreas.</li>
+            <li>Menos retrabajo y desvíos.</li>
+          </ul>
+        </div>
+        <div class="method-proof__block">
+          <h3>Entregables estratégicos</h3>
+          <ul>
+            <li>Diagnóstico y mapa de situación.</li>
+            <li>Mensajes clave y lineamientos.</li>
+            <li>Plan de acción y seguimiento.</li>
+          </ul>
+        </div>
       </div>
       <div class="section-cta cta-panel">
         <a class="btn-primary" href={withBase('/contacto')}>Coordinar una reunión</a>
@@ -187,7 +218,7 @@ const deliverables = [
       </div>
       <CTASection
         title="Cuando haya claridad, el siguiente paso es decidir"
-        text="Si buscás ordenar, fortalecer o desarrollar la comunicación de tu empresa, coordinemos una reunión para definir un plan claro."
+        text="Si necesitás ordenar la comunicación de tu empresa, coordinemos una reunión para definir un plan claro."
         ctaHref={withBase('/contacto')}
         class="home-cta"
       />
@@ -281,6 +312,36 @@ const deliverables = [
     background: #f6efdd;
   }
 
+  .cta-note {
+    margin: var(--s-12) 0 0;
+    color: var(--muted);
+    font-size: var(--text-small);
+  }
+
+  .method-proof {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .method-proof__block {
+    border-left: 2px solid rgba(136, 115, 85, 0.2);
+    padding-left: var(--s-16);
+  }
+
+  .method-proof__block h3 {
+    margin: 0 0 var(--s-8);
+    font-size: 1rem;
+    color: var(--earth);
+  }
+
+  .method-proof__block ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    color: var(--muted);
+    display: grid;
+    gap: var(--s-8);
+  }
+
   @media (min-width: 900px) {
     .home-intro {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -293,6 +354,10 @@ const deliverables = [
 
     .method-steps {
       align-self: stretch;
+    }
+
+    .method-proof {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>
