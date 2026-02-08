@@ -16,7 +16,7 @@ const resolvePathValue = (path) => {
   return null;
 };
 
-export const assertStringHref = (value, context = '') => {
+export const assertStringAttr = (name, value, context = '') => {
   if (typeof value === 'string') {
     return value;
   }
@@ -24,11 +24,17 @@ export const assertStringHref = (value, context = '') => {
   if (import.meta.env.DEV) {
     const label = context ? ` (${context})` : '';
     const type = value === null ? 'null' : typeof value;
-    console.warn(`[links] Expected string href${label}, received ${type}.`, value);
+    const error = new Error(
+      `[attrs] Expected ${name} to be a string${label}, received ${type}.`
+    );
+    console.error(error.message, { name, value });
+    throw error;
   }
 
   return null;
 };
+
+export const assertStringHref = (value, context = '') => assertStringAttr('href', value, context);
 
 export const withBase = (path, context = 'withBase') => {
   const resolvedPath = resolvePathValue(path);

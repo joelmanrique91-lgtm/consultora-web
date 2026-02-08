@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { withBase } from '../utils/links';
+import { withBaseUrl } from '../utils/paths';
 
 const {
   title,
@@ -20,7 +21,9 @@ const backgroundData =
     : backgroundSrc && typeof backgroundSrc === 'object'
       ? backgroundSrc
       : null;
-const resolvedBackgroundSrc = backgroundData?.src ?? backgroundData?.href ?? null;
+const backgroundSrcValue = backgroundData?.src ?? backgroundData?.href ?? null;
+const resolvedBackgroundSrc =
+  typeof backgroundSrcValue === 'string' ? withBaseUrl(backgroundSrcValue) : backgroundSrcValue;
 const backgroundWidth = backgroundData?.width;
 const backgroundHeight = backgroundData?.height;
 const shouldOptimizeImage = Boolean(
