@@ -1,4 +1,6 @@
 import { spawn, spawnSync } from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
 import process from 'node:process';
 import { buildUrls, getBase, getHost, getPort } from '../scripts/dev-utils.mjs';
 
@@ -6,6 +8,12 @@ const args = new Set(process.argv.slice(2));
 const shouldOpen = args.has('--open');
 const disableTunnel = args.has('--no-tunnel');
 const useLocaltunnel = args.has('--localtunnel') || args.has('--lt');
+
+const appRoot = path.resolve(new URL('.', import.meta.url).pathname, '..');
+const nodeModulesPath = path.join(appRoot, 'node_modules');
+const hasNodeModules = fs.existsSync(nodeModulesPath);
+const packageLockPath = path.join(appRoot, 'package-lock.json');
+const hasPackageLock = fs.existsSync(packageLockPath);
 
 const host = getHost('0.0.0.0');
 const port = getPort();
@@ -24,6 +32,17 @@ const ensureBinary = (command, friendlyName) => {
 };
 
 log('Starting dev server...');
+log('Running diagnostics (doctor)...');
+spawnSync('node', ['tools/doctor.mjs'], { stdio: 'inherit', shell: true, cwd: appRoot });
+
+if (!hasNodeModules) {
+  log('No se encontró node_modules.');
+  log('Corré: npm install');
+  if (hasPackageLock) {
+    log('Si falla, probá limpiar lockfile y reinstalar.');
+  }
+}
+
 const devArgs = ['dev', '--host', host, '--port', port];
 if (shouldOpen) {
   devArgs.push('--open');

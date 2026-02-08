@@ -71,8 +71,36 @@ En VS Code podés ejecutar:
 - **Dev: Tunnel**
 - **App: Start**
 
+## Diagnóstico (npm 403 / proxy)
+```sh
+npm run doctor
+```
+
+Si aparece 403/407/ENOTFOUND/ETIMEDOUT, probá:
+```sh
+npm config set registry https://registry.npmjs.org/
+npm config set proxy http://usuario:pass@proxy:port
+npm config set https-proxy http://usuario:pass@proxy:port
+npm cache clean --force
+rm -rf node_modules package-lock.json && npm install
+```
+
 ## Troubleshooting
 - **Puerto ocupado:** `PORT=4400 npm run dev`
-- **Firewall (Windows):** permitir Node.js en redes privadas.
+- **Firewall (Windows):** permitir `node.exe` en redes privadas.
 - **Celular sin acceso:** verificar misma red Wi‑Fi.
 - **Túnel no inicia:** instalá `cloudflared` o usá `npm run dev:tunnel:lt`.
+
+## Verificación rápida
+```sh
+npm run doctor
+npm install
+npm run dev
+npm run dev:lan
+npm run dev:tunnel
+npm run app
+```
+
+Checklist con celular:
+- **LAN (misma Wi‑Fi):** abrir la **Network URL**.
+- **Externo:** abrir la **Public URL** del túnel.
