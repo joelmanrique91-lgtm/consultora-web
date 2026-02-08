@@ -30,7 +30,7 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Consultora</title>
   </head>
 
@@ -51,8 +51,8 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
           <span></span>
           <span></span>
         </button>
-        <div class="site-nav__panel" id="site-nav-panel">
-          <nav class="site-nav">
+        <div class="site-nav__panel" id="site-nav-panel" aria-hidden="true" inert>
+          <nav class="site-nav" aria-label="Principal">
             <a
               class={`nav__link${isActive('/') ? ' is-active' : ''}`}
               href={withBase('/')}
@@ -118,7 +118,14 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
             </a>
           )}
         </div>
-        <img src={illustration.src} alt="Pistacho illustration" loading="lazy" decoding="async" />
+        <img
+          src={illustration.src}
+          alt="Pistacho illustration"
+          width={illustration.width}
+          height={illustration.height}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <p>© Consultora — Todos los derechos reservados</p>
     </footer>
@@ -179,16 +186,25 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
       }
 
       if (navToggle && navPanel) {
+        const firstLink = navPanel.querySelector('a');
         const closeMenu = () => {
           navPanel.classList.remove('is-open');
           navToggle.setAttribute('aria-expanded', 'false');
+          navPanel.setAttribute('aria-hidden', 'true');
+          navPanel.setAttribute('inert', '');
           document.body.classList.remove('menu-open');
+          navToggle.focus();
         };
 
         const openMenu = () => {
           navPanel.classList.add('is-open');
           navToggle.setAttribute('aria-expanded', 'true');
+          navPanel.setAttribute('aria-hidden', 'false');
+          navPanel.removeAttribute('inert');
           document.body.classList.add('menu-open');
+          window.requestAnimationFrame(() => {
+            firstLink?.focus();
+          });
         };
 
         navToggle.addEventListener('click', () => {

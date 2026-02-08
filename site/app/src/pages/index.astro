@@ -75,12 +75,12 @@ const deliverables = [
   <!-- subtitle anterior: "Ayudamos a pymes industriales y empresas B2B a organizar su comunicación, definir mensajes claros y acompañar la implementación con criterio estratégico." -->
   <Hero
     title="Comunicación institucional estratégica para empresas que necesitan orden y claridad"
-    subtitle="Cuando una empresa crece, aparecen más áreas, más voceros y más mensajes en paralelo.
-Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y pierde coherencia."
+    subtitle={`Cuando una empresa crece, aparecen más áreas, más voceros y más mensajes en paralelo.
+Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y pierde coherencia.`}
     ctaHref={withBase('/contacto')}
     secondaryCtaHref={withBase('/servicios')}
     secondaryCtaLabel="Ver servicios"
-    backgroundSrc={pistachoCombined.src}
+    backgroundSrc={pistachoCombined}
     backgroundAlt="Fondo abstracto con sello institucional"
   />
 
@@ -231,6 +231,7 @@ Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y p
     display: grid;
     gap: var(--space-md);
     align-items: start;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .home-intro__callout,
@@ -246,6 +247,7 @@ Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y p
     display: grid;
     gap: var(--space-lg);
     align-items: start;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .fit-grid {
@@ -321,6 +323,7 @@ Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y p
   .method-proof {
     display: grid;
     gap: var(--space-md);
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .method-proof__block {

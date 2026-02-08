@@ -13,10 +13,15 @@ const {
 } = Astro.props;
 const resolvedCtaHref = withBase(ctaHref);
 const resolvedSecondaryHref = secondaryCtaHref ? withBase(secondaryCtaHref) : null;
-const resolvedBackgroundSrc =
+const backgroundData =
   typeof backgroundSrc === 'string'
-    ? backgroundSrc
-    : backgroundSrc?.src ?? backgroundSrc?.href ?? null;
+    ? { src: backgroundSrc }
+    : backgroundSrc && typeof backgroundSrc === 'object'
+      ? backgroundSrc
+      : null;
+const resolvedBackgroundSrc = backgroundData?.src ?? backgroundData?.href ?? null;
+const backgroundWidth = backgroundData?.width;
+const backgroundHeight = backgroundData?.height;
 ---
 
 <section class="hero section">
@@ -37,7 +42,15 @@ const resolvedBackgroundSrc =
     </div>
     {resolvedBackgroundSrc && (
       <div class="hero__visual" aria-hidden={backgroundAlt ? undefined : 'true'}>
-        <img src={resolvedBackgroundSrc} alt={backgroundAlt} loading="lazy" />
+        <img
+          src={resolvedBackgroundSrc}
+          alt={backgroundAlt}
+          width={backgroundWidth}
+          height={backgroundHeight}
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
       </div>
     )}
   </div>
@@ -100,6 +113,18 @@ const resolvedBackgroundSrc =
     .hero .container {
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
       align-items: center;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero__actions .btn-primary,
+    .hero__actions .btn-secondary {
+      width: 100%;
     }
   }
 </style>
