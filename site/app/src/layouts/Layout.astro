@@ -1,6 +1,6 @@
 ---
 import { site } from '../data/site';
-import { withBase } from '../utils/links';
+import { assertStringAttr, withBase } from '../utils/links';
 import { getBaseUrl, withBaseUrl } from '../utils/paths';
 import logotype from '../assets/brand/pistacho_logotype.jpg';
 import illustration from '../assets/brand/pistacho_illustration.jpg';
@@ -11,6 +11,10 @@ const { pathname } = Astro.url;
 const base = import.meta.env.BASE_URL ?? '/';
 const baseUrl = getBaseUrl();
 const isDev = import.meta.env.DEV;
+const footerEmail = assertStringAttr('href', site.footer.email, 'footer email') ?? '';
+const footerLinkedin = site.footer.linkedin
+  ? assertStringAttr('href', site.footer.linkedin, 'footer linkedin')
+  : null;
 const normalizePath = (href) => {
   const normalized = href.endsWith('/') && href.length > 1 ? href.slice(0, -1) : href;
   return normalized;
@@ -110,11 +114,11 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
           <p class="footer__brand">{site.footer.name}</p>
           <p class="footer__positioning">{site.footer.positioning}</p>
           <div class="footer__details">
-            <a href={`mailto:${site.footer.email}`}>{site.footer.email}</a>
+            <a href={`mailto:${footerEmail}`}>{footerEmail}</a>
             <span>{site.footer.location}</span>
-            {isExternalLink(site.footer.linkedin) && (
+            {isExternalLink(footerLinkedin) && (
               <a
-                href={site.footer.linkedin}
+                href={footerLinkedin}
                 rel="noopener noreferrer"
                 target="_blank"
               >
