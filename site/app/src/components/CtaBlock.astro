@@ -8,7 +8,7 @@ const {
   buttonText = 'Coordinar una reunión',
   class: className,
 } = Astro.props;
-const resolvedHref = withBase(href);
+const resolvedHref = withBase(href, 'CtaBlock.href');
 ---
 
 <section class:list={["cta-block", className]}>

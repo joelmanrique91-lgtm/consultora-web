@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import CTASection from '../components/CTASection.astro';
 import { withBase } from '../utils/links';
+import { withBaseUrl } from '../utils/paths';
 
 const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
 
@@ -17,7 +18,7 @@ const teamMembers = [
       'Priorización de iniciativas',
     ],
     linkedin: null,
-    image: withBase('/brand/team-placeholder-1.svg'),
+    image: withBaseUrl('/brand/team-placeholder-1.svg', 'Sobre.teamMembers[0].image'),
   },
   {
     name: 'Consultoría & planificación',
@@ -30,7 +31,7 @@ const teamMembers = [
       'Coordinación operativa',
     ],
     linkedin: null,
-    image: withBase('/brand/team-placeholder-2.svg'),
+    image: withBaseUrl('/brand/team-placeholder-2.svg', 'Sobre.teamMembers[1].image'),
   },
   {
     name: 'Implementación y acompañamiento',
@@ -43,7 +44,7 @@ const teamMembers = [
       'Mejora continua',
     ],
     linkedin: null,
-    image: withBase('/brand/team-placeholder-3.svg'),
+    image: withBaseUrl('/brand/team-placeholder-3.svg', 'Sobre.teamMembers[2].image'),
   },
 ];
 ---

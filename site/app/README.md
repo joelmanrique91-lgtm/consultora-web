@@ -128,6 +128,7 @@ rm -rf node_modules package-lock.json && npm install
 npm run doctor
 npm install
 npm run dev
+npm run dev:smoke
 npm run dev:lan
 npm run dev:tunnel
 npm run app

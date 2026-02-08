@@ -11,6 +11,7 @@ const { pathname } = Astro.url;
 const base = import.meta.env.BASE_URL ?? '/';
 const baseUrl = getBaseUrl();
 const isDev = import.meta.env.DEV;
+const faviconHref = withBaseUrl('/favicon.svg', 'Layout.favicon');
 const footerEmail = assertStringAttr('href', site.footer.email, 'footer email') ?? '';
 const footerLinkedin = site.footer.linkedin
   ? assertStringAttr('href', site.footer.linkedin, 'footer linkedin')
@@ -39,6 +40,7 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Consultora</title>
+    <link rel="icon" href={faviconHref} />
   </head>
 
   <body>
