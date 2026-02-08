@@ -22,12 +22,13 @@ npx astro preview --host 0.0.0.0 --port 4321
 
 ## Smoke test (local)
 1. Abrir `http://localhost:4321/`.
-2. Hacer click en el botón del menú del header (mobile o viewport reducido).
-3. Verificar que el panel se abre.
-4. Click en un link del menú: el panel debe cerrarse y navegar.
-5. Volver con el navegador y repetir la apertura.
-6. Con el panel abierto, presionar `Escape`: debe cerrarse y devolver el foco al toggle.
-7. (Opcional) Desactivar JavaScript en DevTools y repetir pasos 2–4: el menú debe abrir/cerrar igual.
+2. En desktop, hacer click en los links del header (Home/Servicios/Posts/etc.) y verificar navegación.
+3. Hacer click en el botón del menú del header (mobile o viewport reducido).
+4. Verificar que el panel se abre.
+5. Click en un link del menú: el panel debe cerrarse y navegar.
+6. Volver con el navegador y repetir la apertura.
+7. Con el panel abierto, presionar `Escape`: debe cerrarse y devolver el foco al toggle.
+8. (Opcional) Desactivar JavaScript en DevTools y repetir pasos 3–5: el menú debe abrir/cerrar igual.
 
 ## Smoke test (LAN)
 1. Abrir `http://<IP_LOCAL>:4321/` desde un dispositivo móvil.
