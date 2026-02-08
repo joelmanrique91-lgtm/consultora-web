@@ -183,13 +183,13 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
       </script>
     )}
     <script is:inline>
-      const header = document.querySelector('.site-header');
-      const navToggle = document.querySelector('.header__toggle');
-      const navPanel = document.querySelector('.site-nav__panel');
-      const navBackdrop = document.querySelector('.site-nav__backdrop');
-      const pageContent = document.querySelector('#page-content');
+      const initHeader = () => {
+        const header = document.querySelector('.site-header');
+        if (!header || header.dataset.headerInit === 'true') {
+          return;
+        }
 
-      if (header) {
+        header.dataset.headerInit = 'true';
         const hideThreshold = 10;
         const topOffset = 24;
         let lastScrollY = window.scrollY;
@@ -230,9 +230,20 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
 
         updateHeaderState();
         window.addEventListener('scroll', handleScroll, { passive: true });
-      }
+      };
 
-      if (navToggle && navPanel) {
+      const initMenu = () => {
+        const navToggle = document.querySelector('.header__toggle');
+        const navPanel = document.querySelector('.site-nav__panel');
+        if (!navToggle || !navPanel || navToggle.dataset.menuInit === 'true') {
+          return;
+        }
+
+        const navBackdrop = document.querySelector('.site-nav__backdrop');
+        const pageContent = document.querySelector('#page-content');
+        const supportsInert = 'inert' in HTMLElement.prototype;
+        navToggle.dataset.menuInit = 'true';
+
         const firstLink = navPanel.querySelector('a');
         const getFocusableElements = () =>
           Array.from(
@@ -246,11 +257,15 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
           }
 
           if (isInert) {
-            pageContent.setAttribute('inert', '');
+            if (supportsInert) {
+              pageContent.setAttribute('inert', '');
+            }
             pageContent.setAttribute('aria-hidden', 'true');
             pageContent.classList.add('is-inert');
           } else {
-            pageContent.removeAttribute('inert');
+            if (supportsInert) {
+              pageContent.removeAttribute('inert');
+            }
             pageContent.removeAttribute('aria-hidden');
             pageContent.classList.remove('is-inert');
           }
@@ -260,7 +275,9 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
           navToggle.setAttribute('aria-expanded', 'false');
           navToggle.setAttribute('aria-label', 'Abrir menú');
           navPanel.setAttribute('aria-hidden', 'true');
-          navPanel.setAttribute('inert', '');
+          if (supportsInert) {
+            navPanel.setAttribute('inert', '');
+          }
           document.body.classList.remove('menu-open');
           setPageInert(false);
           navToggle.focus();
@@ -271,13 +288,22 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
           navToggle.setAttribute('aria-expanded', 'true');
           navToggle.setAttribute('aria-label', 'Cerrar menú');
           navPanel.setAttribute('aria-hidden', 'false');
-          navPanel.removeAttribute('inert');
+          if (supportsInert) {
+            navPanel.removeAttribute('inert');
+          }
           document.body.classList.add('menu-open');
           setPageInert(true);
           window.requestAnimationFrame(() => {
             firstLink?.focus();
           });
         };
+
+        if (!navPanel.classList.contains('is-open')) {
+          navPanel.setAttribute('aria-hidden', 'true');
+          if (supportsInert) {
+            navPanel.setAttribute('inert', '');
+          }
+        }
 
         navToggle.addEventListener('click', () => {
           const isOpen = navPanel.classList.contains('is-open');
@@ -333,7 +359,17 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
             firstElement.focus();
           }
         });
-      }
+      };
+
+      const runInit = () => {
+        initHeader();
+        initMenu();
+      };
+
+      runInit();
+      document.addEventListener('DOMContentLoaded', runInit);
+      document.addEventListener('astro:page-load', runInit);
+      window.addEventListener('pageshow', runInit);
     </script>
   </body>
 </html>
