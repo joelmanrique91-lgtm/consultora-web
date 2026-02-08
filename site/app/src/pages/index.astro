@@ -13,60 +13,60 @@ const workflowSteps = [
   {
     num: '01',
     title: 'Diagnóstico',
-    desc: 'Relevamos el contexto institucional, objetivos y puntos críticos para ordenar prioridades.',
+    desc: 'Relevamos objetivos, actores y puntos críticos internos y externos. Resultado: un mapa claro de situación para decidir con evidencia.',
   },
   {
     num: '02',
     title: 'Estrategia',
-    desc: 'Definimos enfoque, audiencias y mensajes clave para una comunicación consistente.',
+    desc: 'Definimos enfoque, audiencias y mensajes clave compartidos. Resultado: una narrativa institucional coherente y aplicable por todo el equipo.',
   },
   {
     num: '03',
     title: 'Plan de acción',
-    desc: 'Traducimos la estrategia en un plan concreto con responsables, tiempos y hitos.',
+    desc: 'Convertimos la estrategia en prioridades, responsables y tiempos. Resultado: un plan operativo que ordena esfuerzos y evita dispersión.',
   },
   {
     num: '04',
     title: 'Implementación y acompañamiento',
-    desc: 'Trabajamos junto al equipo interno para ejecutar con claridad y seguimiento.',
+    desc: 'Acompañamos la ejecución para sostener consistencia y coordinación interna. Resultado: comunicación alineada en la práctica, no solo en el papel.',
   },
   {
     num: '05',
     title: 'Medición y ajuste',
-    desc: 'Monitoreamos avances, detectamos desvíos y ajustamos para sostener resultados.',
+    desc: 'Revisamos avances, identificamos desvíos y ajustamos criterios. Resultado: continuidad y mejora sostenida del sistema comunicacional.',
   },
 ];
 
 const deliverables = [
   {
     title: 'Diagnóstico institucional (PDF)',
-    subtitle: 'Documento base con hallazgos, mapa de situación y oportunidades de mejora.',
-    items: ['Hallazgos clave', 'Mapa de situación', 'Oportunidades de mejora'],
+    subtitle: 'Documento base con hallazgos, riesgos y oportunidades.',
+    items: ['Valor: permite decidir con claridad qué ordenar primero.'],
   },
   {
     title: 'Mensajes clave',
-    subtitle: 'Lineamientos de narrativa institucional para comunicación interna y externa.',
-    items: ['Narrativa institucional', 'Consistencia interna', 'Coherencia externa'],
+    subtitle: 'Lineamientos de narrativa institucional para uso interno y externo.',
+    items: ['Valor: reduce contradicciones y unifica la voz de la organización.'],
   },
   {
     title: 'Plan estratégico trimestral',
-    subtitle: 'Hoja de ruta con objetivos, prioridades y métricas de seguimiento.',
-    items: ['Objetivos claros', 'Prioridades compartidas', 'Métricas de seguimiento'],
+    subtitle: 'Hoja de ruta con objetivos, prioridades y métricas.',
+    items: ['Valor: ordena recursos y evita la improvisación.'],
   },
   {
     title: 'Calendario editorial',
-    subtitle: 'Planificación mensual de contenidos y responsables para sostener continuidad.',
-    items: ['Planificación mensual', 'Roles definidos', 'Continuidad narrativa'],
+    subtitle: 'Planificación mensual con responsables y criterios editoriales.',
+    items: ['Valor: asegura continuidad y coherencia en cada comunicación.'],
   },
   {
     title: 'Guiones / piezas institucionales',
-    subtitle: 'Guías para presentaciones, comunicados y materiales institucionales.',
-    items: ['Presentaciones claras', 'Comunicados consistentes', 'Materiales institucionales'],
+    subtitle: 'Guías para presentaciones, comunicados y materiales clave.',
+    items: ['Valor: mejora la calidad y consistencia de los mensajes críticos.'],
   },
   {
     title: 'Reportes mensuales',
-    subtitle: 'Resumen de avances, aprendizajes y próximos pasos para la toma de decisiones.',
-    items: ['Avances reales', 'Aprendizajes', 'Próximos pasos'],
+    subtitle: 'Síntesis de avances, aprendizajes y próximos pasos.',
+    items: ['Valor: facilita la toma de decisiones y el seguimiento real.'],
   },
 ];
 ---
@@ -74,12 +74,12 @@ const deliverables = [
 <Layout>
   <!-- subtitle anterior: "Ayudamos a pymes industriales y empresas B2B a organizar su comunicación, definir mensajes claros y acompañar la implementación con criterio estratégico." -->
   <Hero
-    title="Comunicación institucional estratégica para empresas que necesitan orden y claridad"
-    subtitle={`Cuando una empresa crece, aparecen más áreas, más voceros y más mensajes en paralelo.
-Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y pierde coherencia.`}
+    title="Comunicación institucional para ordenar mensajes, decisiones y crecimiento."
+    subtitle={`Cuando la estructura se expande, la comunicación se vuelve dispersa. Diseñamos un sistema común que alinea equipos, reduce contradicciones y sostiene una narrativa clara.`}
     ctaHref={withBase('/contacto')}
+    ctaLabel="Coordinar una reunión de diagnóstico."
     secondaryCtaHref={withBase('/servicios')}
-    secondaryCtaLabel="Ver servicios"
+    secondaryCtaLabel="Conocer el enfoque."
     backgroundSrc={pistachoCombined}
     backgroundAlt="Fondo abstracto con sello institucional"
   />
@@ -89,31 +89,36 @@ Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y p
       <div class="home-intro">
         <div class="home-intro__callout">
           <Callout
-            text="Cuando una empresa crece, la comunicación también tiene que crecer: más áreas, más públicos, más riesgo de incoherencia."
+            text="Cuando la empresa crece, los mensajes se multiplican y el riesgo de incoherencia aumenta."
           />
         </div>
         <div class="home-intro__text stack">
-          <h2>Problema típico en pymes B2B</h2>
+          <h2>Comunicación desordenada: síntomas que frenan el crecimiento.</h2>
           <p>
-            Con el crecimiento aparecen más áreas, más voceros y más mensajes en juego. Sin un
-            sistema común, cada equipo comunica con sus propios criterios y se pierden foco y
-            coherencia.
+            ¿Cada área comunica con criterios distintos? ¿Los mensajes cambian según quién los
+            diga? Esto suele pasar cuando el crecimiento avanza sin un marco institucional
+            compartido.
           </p>
           <p>
-            El resultado suele ser retrabajo, discursos que no se alinean entre sí y oportunidades
-            que se diluyen por falta de claridad institucional.
+            La falta de orden genera retrabajo, desgaste interno y pérdida de claridad ante
+            clientes y aliados. Lo que debería fortalecer la reputación termina debilitándola.
           </p>
           <p>
-            Nuestro trabajo ordena prioridades, alinea mensajes y establece un ritmo de comunicación
-            sostenido para decisiones más seguras.
+            Nuestro trabajo crea un marco común: prioridades claras, mensajes alineados y un ritmo
+            de comunicación sostenible.
           </p>
-          <a class="btn-link" href={withBase('/servicios')}>Ver servicios</a>
+          <a class="btn-link" href={withBase('/servicios')}>
+            Conversar sobre el estado actual de tu comunicación.
+          </a>
         </div>
       </div>
       <div class="section-cta cta-panel">
-        <a class="btn-primary" href={withBase('/contacto')}>Coordinar una reunión</a>
+        <a class="btn-primary" href={withBase('/contacto')}>
+          Conversar sobre el estado actual de tu comunicación.
+        </a>
         <p class="cta-note">
-          En una reunión inicial de 30 a 40 minutos analizamos el contexto y definimos opciones y próximos pasos.
+          En una reunión breve analizamos el contexto y definimos si este enfoque es el adecuado
+          para tu organización.
         </p>
       </div>
     </div>
@@ -124,8 +129,7 @@ Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y p
       <div class="reading stack">
         <h2>Método</h2>
         <p>
-          Proponemos un proceso claro, con foco en orden, coordinación interna y acompañamiento
-          sostenido.
+          Un proceso profesional, con etapas claras y resultados verificables.
         </p>
       </div>
       <div class="method-layout">
@@ -147,22 +151,22 @@ Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y p
         <div class="method-proof__block">
           <h3>Resultados típicos</h3>
           <ul>
-            <li>Orden y prioridades compartidas.</li>
-            <li>Mensajes coherentes entre áreas.</li>
-            <li>Menos retrabajo y desvíos.</li>
+            <li>Mensajes unificados entre áreas.</li>
+            <li>Menos retrabajo.</li>
+            <li>Decisiones más seguras.</li>
           </ul>
         </div>
         <div class="method-proof__block">
           <h3>Entregables estratégicos</h3>
           <ul>
-            <li>Diagnóstico y mapa de situación.</li>
-            <li>Mensajes clave y lineamientos.</li>
+            <li>Diagnóstico institucional.</li>
+            <li>Lineamientos de mensajes.</li>
             <li>Plan de acción y seguimiento.</li>
           </ul>
         </div>
       </div>
       <div class="section-cta cta-panel">
-        <a class="btn-primary" href={withBase('/contacto')}>Coordinar una reunión</a>
+        <a class="btn-primary" href={withBase('/contacto')}>Coordinar una reunión de diagnóstico.</a>
       </div>
     </div>
   </section>
@@ -172,13 +176,13 @@ Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y p
       <div class="reading stack">
         <h2>Entregables</h2>
         <p>
-          Documentación y materiales concretos para sostener la estrategia en el tiempo, con foco
-          en la consistencia y la toma de decisiones.
+          Materiales concretos para sostener la estrategia, alinear equipos y dar continuidad a la
+          comunicación institucional.
         </p>
       </div>
       <Cards items={deliverables} class="cards--compact" />
       <div class="section-cta cta-panel">
-        <a class="btn-primary" href={withBase('/contacto')}>Coordinar una reunión</a>
+        <a class="btn-primary" href={withBase('/contacto')}>Coordinar una reunión de diagnóstico.</a>
       </div>
     </div>
   </section>
@@ -188,8 +192,7 @@ Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y p
       <div class="reading stack">
         <h2>Para quién / Para quién no</h2>
         <p>
-          Buscamos trabajar con equipos que valoran el orden, la planificación y la continuidad como
-          base de la comunicación institucional.
+          Trabajamos con equipos que buscan orden, criterio y continuidad.
         </p>
       </div>
       <div class="fit-grid cards-grid">
@@ -199,9 +202,9 @@ Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y p
             <h3 class="card__title">Para quién</h3>
           </div>
           <ul>
-            <li>Empresas B2B que necesitan ordenar su comunicación institucional.</li>
-            <li>Equipos con múltiples áreas que requieren mensajes coherentes.</li>
-            <li>Direcciones que buscan una hoja de ruta y seguimiento real.</li>
+            <li>Empresas B2B que necesitan alinear su comunicación institucional.</li>
+            <li>Organizaciones con múltiples áreas y voceros que requieren un marco común.</li>
+            <li>Direcciones que quieren una hoja de ruta clara y seguimiento real.</li>
           </ul>
         </article>
         <article class="card fit-card fit-card--negative">
@@ -210,16 +213,17 @@ Sin un sistema compartido, la comunicación se fragmenta, se vuelve reactiva y p
             <h3 class="card__title">Para quién no</h3>
           </div>
           <ul>
-            <li>Organizaciones que buscan acciones aisladas sin planificación.</li>
-            <li>Proyectos que no cuentan con tiempo para alinear equipos internos.</li>
-            <li>Pedidos urgentes sin diagnóstico ni objetivos compartidos.</li>
+            <li>Proyectos aislados sin diagnóstico ni planificación.</li>
+            <li>Equipos que no pueden involucrarse en la alineación interna.</li>
+            <li>Pedidos urgentes sin objetivos compartidos.</li>
           </ul>
         </article>
       </div>
       <CTASection
-        title="Cuando haya claridad, el siguiente paso es decidir"
-        text="Si necesitás ordenar la comunicación de tu empresa, coordinemos una reunión para definir un plan claro."
+        title="La claridad permite decidir con criterio."
+        text="Si tu comunicación hoy es dispersa, conversemos para evaluar un enfoque que ordene mensajes, equipos y prioridades."
         ctaHref={withBase('/contacto')}
+        ctaLabel="Coordinar una reunión de diagnóstico."
         class="home-cta"
       />
     </div>
