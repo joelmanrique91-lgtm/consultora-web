@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "node scripts/dev.mjs",
+    "dev:local": "node scripts/dev.mjs",
     "dev:open": "node scripts/dev.mjs --open",
     "dev:lan": "node scripts/dev.mjs --lan",
     "dev:sync": "node scripts/dev-sync.mjs",
@@ -14,6 +15,8 @@
     "app": "node tools/dev-app.mjs",
     "build": "astro build",
     "preview": "astro preview",
+    "preview:local": "astro preview",
+    "preview:lan": "astro preview --host 0.0.0.0",
     "astro": "astro"
   },
   "dependencies": {
