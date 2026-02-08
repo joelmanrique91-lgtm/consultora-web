@@ -1,36 +1,28 @@
 import { spawn } from 'node:child_process';
+import { buildUrls, getBase, getHost, getPort } from './dev-utils.mjs';
 
-const defaultHost = 'localhost';
-const defaultPort = '4321';
-const defaultBase = '/';
+const args = new Set(process.argv.slice(2));
+const shouldOpen = args.has('--open');
+const isLanMode = args.has('--lan');
 
-const host = process.env.HOST || defaultHost;
-const port = process.env.PORT || defaultPort;
-const basePath = process.env.PUBLIC_BASE_PATH || defaultBase;
-const shouldOpen = process.argv.includes('--open');
+const host = getHost(isLanMode ? '0.0.0.0' : undefined);
+const port = getPort();
+const base = getBase();
+const { localUrl, networkUrl } = buildUrls({ host, port, base });
 
-const normalizeBase = (value) => {
-  if (!value || value === '/') {
-    return '/';
-  }
+console.log('\n[dev] Servidor de desarrollo listo');
+console.log(`[dev] Local   → ${localUrl}`);
+if (networkUrl) {
+  console.log(`[dev] Network → ${networkUrl}`);
+}
+console.log('');
 
-  const trimmed = value.replace(/\/+$/g, '');
-  return trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
-};
-
-const normalizedBase = normalizeBase(basePath);
-const displayHost = host === '0.0.0.0' ? defaultHost : host;
-const displayPath = normalizedBase === '/' ? '/' : `${normalizedBase}/`;
-const url = `http://${displayHost}:${port}${displayPath}`;
-
-console.log(`\n[dev] URL: ${url}\n`);
-
-const args = ['dev', '--host', host, '--port', port];
+const commandArgs = ['dev', '--host', host, '--port', port];
 if (shouldOpen) {
-  args.push('--open');
+  commandArgs.push('--open');
 }
 
-const devProcess = spawn('astro', args, { stdio: 'inherit', shell: true });
+const devProcess = spawn('astro', commandArgs, { stdio: 'inherit', shell: true });
 devProcess.on('exit', (code) => {
   process.exit(code ?? 0);
 });
