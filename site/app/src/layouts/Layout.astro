@@ -49,59 +49,60 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
         <a class="header__brand" href={withBase('/')} aria-label="Consultora">
           <img src={withBaseUrl(logotype.src)} alt="Consultora" width="160" height="48" />
         </a>
-        <button
-          class="header__toggle"
-          type="button"
-          aria-label="Abrir menú"
-          aria-expanded="false"
-          aria-controls="site-nav-panel"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <div class="site-nav__panel" id="site-nav-panel" aria-hidden="true" inert>
-          <nav class="site-nav" aria-label="Principal">
-            <a
-              class={`nav__link${isActive('/') ? ' is-active' : ''}`}
-              href={withBase('/')}
-            >
-              Home</a
-            >
-            <a
-              class={`nav__link${isActive('/servicios') ? ' is-active' : ''}`}
-              href={withBase('/servicios')}
-              >Servicios</a
-            >
-            <a
-              class={`nav__link${isActive('/sobre') ? ' is-active' : ''}`}
-              href={withBase('/sobre')}
-              >Sobre</a
-            >
-            <a
-              class={`nav__link${isActive('/experiencia') ? ' is-active' : ''}`}
-              href={withBase('/experiencia')}
-              >Experiencia</a
-            >
-            <a
-              class={`nav__link${isActive('/posts') ? ' is-active' : ''}`}
-              href={withBase('/posts')}
-              >Posts</a
-            >
-            <a
-              class={`nav__link${isActive('/contacto') ? ' is-active' : ''}`}
-              href={withBase('/contacto')}
-              >Contacto</a
-            >
-          </nav>
-          <a
-            class="btn-primary site-nav__cta"
-            href={withBase('/contacto')}
-            aria-label="Coordinar una reunión"
+        <details class="site-nav__details">
+          <summary
+            class="header__toggle"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="site-nav-panel"
           >
-            Coordinar una reunión
-          </a>
-        </div>
+            <span></span>
+            <span></span>
+            <span></span>
+          </summary>
+          <div class="site-nav__panel" id="site-nav-panel">
+            <nav class="site-nav" aria-label="Principal">
+              <a
+                class={`nav__link${isActive('/') ? ' is-active' : ''}`}
+                href={withBase('/')}
+              >
+                Home</a
+              >
+              <a
+                class={`nav__link${isActive('/servicios') ? ' is-active' : ''}`}
+                href={withBase('/servicios')}
+                >Servicios</a
+              >
+              <a
+                class={`nav__link${isActive('/sobre') ? ' is-active' : ''}`}
+                href={withBase('/sobre')}
+                >Sobre</a
+              >
+              <a
+                class={`nav__link${isActive('/experiencia') ? ' is-active' : ''}`}
+                href={withBase('/experiencia')}
+                >Experiencia</a
+              >
+              <a
+                class={`nav__link${isActive('/posts') ? ' is-active' : ''}`}
+                href={withBase('/posts')}
+                >Posts</a
+              >
+              <a
+                class={`nav__link${isActive('/contacto') ? ' is-active' : ''}`}
+                href={withBase('/contacto')}
+                >Contacto</a
+              >
+            </nav>
+            <a
+              class="btn-primary site-nav__cta"
+              href={withBase('/contacto')}
+              aria-label="Coordinar una reunión"
+            >
+              Coordinar una reunión
+            </a>
+          </div>
+        </details>
         <div class="site-nav__backdrop" aria-hidden="true"></div>
       </div>
     </header>
@@ -232,25 +233,23 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
         window.addEventListener('scroll', handleScroll, { passive: true });
       };
 
-      const initMenu = () => {
-        const navToggle = document.querySelector('.header__toggle');
-        const navPanel = document.querySelector('.site-nav__panel');
-        if (!navToggle || !navPanel || navToggle.dataset.menuInit === 'true') {
+      const initMenu = (root = document) => {
+        const navDetails = root.querySelector('.site-nav__details');
+        if (!navDetails || navDetails.dataset.menuInit === 'true') {
           return;
         }
 
-        const navBackdrop = document.querySelector('.site-nav__backdrop');
-        const pageContent = document.querySelector('#page-content');
-        const supportsInert = 'inert' in HTMLElement.prototype;
-        navToggle.dataset.menuInit = 'true';
+        const navToggle = navDetails.querySelector('.header__toggle');
+        const navPanel = navDetails.querySelector('.site-nav__panel');
+        if (!navToggle || !navPanel) {
+          return;
+        }
 
-        const firstLink = navPanel.querySelector('a');
-        const getFocusableElements = () =>
-          Array.from(
-            navPanel.querySelectorAll(
-              'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
-            )
-          ).filter((element) => !element.hasAttribute('disabled'));
+        const navBackdrop = root.querySelector('.site-nav__backdrop');
+        const pageContent = root.querySelector('#page-content');
+        const supportsInert = 'inert' in HTMLElement.prototype;
+        navDetails.dataset.menuInit = 'true';
+
         const setPageInert = (isInert) => {
           if (!pageContent) {
             return;
@@ -270,49 +269,55 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
             pageContent.classList.remove('is-inert');
           }
         };
-        const closeMenu = () => {
-          navPanel.classList.remove('is-open');
-          navToggle.setAttribute('aria-expanded', 'false');
-          navToggle.setAttribute('aria-label', 'Abrir menú');
-          navPanel.setAttribute('aria-hidden', 'true');
-          if (supportsInert) {
-            navPanel.setAttribute('inert', '');
+
+        const mobileQuery = window.matchMedia('(max-width: 768px)');
+        const syncMenuState = () => {
+          const isMobile = mobileQuery.matches;
+          if (!isMobile) {
+            navDetails.setAttribute('open', '');
           }
-          document.body.classList.remove('menu-open');
-          setPageInert(false);
+          const isOpen = navDetails.hasAttribute('open');
+          navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          navToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+          if (isMobile) {
+            navPanel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+            if (supportsInert) {
+              if (isOpen) {
+                navPanel.removeAttribute('inert');
+              } else {
+                navPanel.setAttribute('inert', '');
+              }
+            }
+            document.body.classList.toggle('menu-open', isOpen);
+            setPageInert(isOpen);
+          } else {
+            navPanel.removeAttribute('aria-hidden');
+            if (supportsInert) {
+              navPanel.removeAttribute('inert');
+            }
+            document.body.classList.remove('menu-open');
+            setPageInert(false);
+          }
+
+          if (isOpen && isMobile) {
+            const firstLink = navPanel.querySelector('a');
+            window.requestAnimationFrame(() => {
+              firstLink?.focus();
+            });
+          }
+        };
+
+        const closeMenu = () => {
+          if (!mobileQuery.matches) {
+            return;
+          }
+          navDetails.removeAttribute('open');
           navToggle.focus();
         };
 
-        const openMenu = () => {
-          navPanel.classList.add('is-open');
-          navToggle.setAttribute('aria-expanded', 'true');
-          navToggle.setAttribute('aria-label', 'Cerrar menú');
-          navPanel.setAttribute('aria-hidden', 'false');
-          if (supportsInert) {
-            navPanel.removeAttribute('inert');
-          }
-          document.body.classList.add('menu-open');
-          setPageInert(true);
-          window.requestAnimationFrame(() => {
-            firstLink?.focus();
-          });
-        };
-
-        if (!navPanel.classList.contains('is-open')) {
-          navPanel.setAttribute('aria-hidden', 'true');
-          if (supportsInert) {
-            navPanel.setAttribute('inert', '');
-          }
-        }
-
-        navToggle.addEventListener('click', () => {
-          const isOpen = navPanel.classList.contains('is-open');
-          if (isOpen) {
-            closeMenu();
-          } else {
-            openMenu();
-          }
-        });
+        syncMenuState();
+        navDetails.addEventListener('toggle', syncMenuState);
+        mobileQuery.addEventListener('change', syncMenuState);
 
         navBackdrop?.addEventListener('click', closeMenu);
 
@@ -323,13 +328,29 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
           }
         });
 
+        if (document.documentElement.dataset.menuKeydownInit === 'true') {
+          return;
+        }
+
+        document.documentElement.dataset.menuKeydownInit = 'true';
         window.addEventListener('keydown', (event) => {
-          if (!navPanel.classList.contains('is-open')) {
+          const activeDetails = document.querySelector('.site-nav__details');
+          const activePanel = activeDetails?.querySelector('.site-nav__panel');
+          const activeToggle = activeDetails?.querySelector('.header__toggle');
+
+          if (
+            !activeDetails ||
+            !activePanel ||
+            !activeToggle ||
+            !activeDetails.hasAttribute('open') ||
+            !mobileQuery.matches
+          ) {
             return;
           }
 
           if (event.key === 'Escape') {
-            closeMenu();
+            activeDetails.removeAttribute('open');
+            activeToggle.focus();
             return;
           }
 
@@ -337,7 +358,12 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
             return;
           }
 
-          const focusableElements = getFocusableElements();
+          const focusableElements = Array.from(
+            activePanel.querySelectorAll(
+              'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex=\"-1\"])'
+            )
+          ).filter((element) => !element.hasAttribute('disabled'));
+
           if (!focusableElements.length) {
             event.preventDefault();
             return;
@@ -354,7 +380,7 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
           } else if (!isShiftPressed && activeElement === lastElement) {
             event.preventDefault();
             firstElement.focus();
-          } else if (!navPanel.contains(activeElement)) {
+          } else if (!activePanel.contains(activeElement)) {
             event.preventDefault();
             firstElement.focus();
           }

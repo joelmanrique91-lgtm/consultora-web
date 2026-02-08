@@ -1,0 +1,213 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const isDiagEnabled = import.meta.env.DEV || import.meta.env.DIAG_ENABLED === '1';
+---
+
+<Layout>
+  <section class="section section--tight">
+    <div class="container">
+      <h1>Header links diagnostic</h1>
+      {!isDiagEnabled ? (
+        <p>Diagnostics are disabled. Set <code>DIAG_ENABLED=1</code> to enable.</p>
+      ) : (
+        <>
+          <p>
+            Abrí esta página, presioná <strong>Run Diagnostics</strong> y revisá el reporte.
+          </p>
+          <div class="section-cta">
+            <button class="btn-primary" id="run-diagnostics" type="button">
+              Run Diagnostics
+            </button>
+            <button class="btn-secondary" id="copy-report" type="button" disabled>
+              Copy Report
+            </button>
+            <button class="btn-secondary" id="save-report" type="button" disabled>
+              Save Report
+            </button>
+          </div>
+          <pre id="diagnostic-output" style="margin-top: 1.5rem; white-space: pre-wrap;"></pre>
+        </>
+      )}
+    </div>
+  </section>
+
+  {isDiagEnabled && (
+    <script is:inline>
+      {`(() => {
+        const runButton = document.getElementById('run-diagnostics');
+        const copyButton = document.getElementById('copy-report');
+        const saveButton = document.getElementById('save-report');
+        const output = document.getElementById('diagnostic-output');
+
+        if (!runButton || !copyButton || !saveButton || !output) {
+          return;
+        }
+
+        const describeNode = (node) => {
+          if (!node || !(node instanceof HTMLElement)) {
+            return null;
+          }
+          const tag = node.tagName.toLowerCase();
+          const id = node.id ? \`#\${node.id}\` : '';
+          const classes = node.classList.length ? \`.\${[...node.classList].join('.')}\` : '';
+          return \`\${tag}\${id}\${classes}\`;
+        };
+
+        const styleSnapshot = (node) => {
+          if (!node || !(node instanceof HTMLElement)) {
+            return null;
+          }
+          const style = window.getComputedStyle(node);
+          return {
+            pointerEvents: style.pointerEvents,
+            position: style.position,
+            zIndex: style.zIndex,
+            display: style.display,
+            visibility: style.visibility,
+            opacity: style.opacity,
+          };
+        };
+
+        const chainToHeader = (node) => {
+          const chain = [];
+          let current = node;
+          while (current && current instanceof HTMLElement) {
+            chain.push(describeNode(current));
+            if (current.tagName.toLowerCase() === 'header') {
+              break;
+            }
+            current = current.parentElement;
+          }
+          return chain;
+        };
+
+        const getMenuState = () => {
+          const details = document.querySelector('details.site-nav__details');
+          const panel = document.querySelector('.site-nav__panel');
+          const backdrop = document.querySelector('.site-nav__backdrop');
+
+          return {
+            detailsOpen: details?.hasAttribute('open') ?? null,
+            bodyMenuOpen: document.body.classList.contains('menu-open'),
+            panel: {
+              ariaHidden: panel?.getAttribute('aria-hidden') ?? null,
+              inert: panel?.hasAttribute('inert') ?? null,
+              style: styleSnapshot(panel),
+            },
+            backdrop: {
+              ariaHidden: backdrop?.getAttribute('aria-hidden') ?? null,
+              style: styleSnapshot(backdrop),
+            },
+          };
+        };
+
+        const analyzeLink = (link) => {
+          const rect = link.getBoundingClientRect();
+          const point = {
+            x: rect.left + rect.width / 2,
+            y: rect.top + rect.height / 2,
+          };
+          const topElement = document.elementFromPoint(point.x, point.y);
+          const href = link.getAttribute('href') || '';
+          const isInvalidHref = !href || href === '#';
+          const isIntercepted = topElement && !link.contains(topElement) && topElement !== link;
+
+          const menuState = getMenuState();
+          const backdropIntercept =
+            menuState.backdrop?.style?.display !== 'none' &&
+            menuState.backdrop?.style?.pointerEvents !== 'none';
+
+          let conclusion = 'OK';
+          if (isInvalidHref) {
+            conclusion = 'INVALID HREF';
+          } else if (isIntercepted) {
+            conclusion = 'CLICK INTERCEPTED';
+          } else if (backdropIntercept) {
+            conclusion = 'BACKDROP INTERCEPT';
+          }
+
+          return {
+            linkText: link.textContent?.trim() || '',
+            href,
+            rect: {
+              x: rect.x,
+              y: rect.y,
+              width: rect.width,
+              height: rect.height,
+            },
+            topElement: describeNode(topElement),
+            topElementChain: chainToHeader(topElement),
+            linkChain: chainToHeader(link),
+            linkStyle: styleSnapshot(link),
+            topElementStyle: styleSnapshot(topElement),
+            menuState,
+            conclusion,
+          };
+        };
+
+        const runDiagnostics = async () => {
+          const header = document.querySelector('header');
+          if (!header) {
+            output.textContent = 'Header not found.';
+            return;
+          }
+
+          const linkNames = ['Home', 'Servicios', 'Posts'];
+          const results = [];
+          for (const name of linkNames) {
+            const link = Array.from(header.querySelectorAll('a')).find((item) => {
+              return item.textContent?.trim() === name;
+            });
+            if (!link) {
+              results.push({ linkText: name, error: 'Link not found' });
+              continue;
+            }
+            results.push(analyzeLink(link));
+          }
+
+          const report = {
+            timestamp: new Date().toISOString(),
+            location: window.location.href,
+            viewport: { width: window.innerWidth, height: window.innerHeight },
+            userAgent: navigator.userAgent,
+            results,
+          };
+
+          output.textContent = JSON.stringify(report, null, 2);
+          copyButton.disabled = false;
+          saveButton.disabled = false;
+
+          copyButton.onclick = async () => {
+            await navigator.clipboard.writeText(JSON.stringify(report, null, 2));
+          };
+
+          saveButton.onclick = async () => {
+            try {
+              const response = await fetch('/api/diag-save', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(report),
+              });
+              if (!response.ok) {
+                throw new Error('Save failed');
+              }
+              const payload = await response.json();
+              output.textContent = JSON.stringify({ ...report, saved: payload }, null, 2);
+            } catch (error) {
+              output.textContent = JSON.stringify(
+                { ...report, saveError: String(error) },
+                null,
+                2
+              );
+            }
+          };
+        };
+
+        runButton.addEventListener('click', () => {
+          runDiagnostics();
+        });
+      })();`}
+    </script>
+  )}
+</Layout>
