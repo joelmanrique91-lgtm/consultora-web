@@ -19,6 +19,7 @@ const port = getPort();
 const base = getBase();
 const { localUrl, networkUrl } = buildUrls({ host, port, base });
 
+
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const devScript = path.join(appRoot, 'scripts', 'dev.mjs');
 
@@ -30,10 +31,25 @@ const CMD = isWin ? 'cmd.exe' : null;
 // -----------------------------
 const log = (message) => console.log(`[tunnel] ${message}`);
 
+const assertFileExists = (filePath, friendlyName) => {
+  if (!fs.existsSync(filePath)) {
+    log(`ERROR: no se encontró ${friendlyName}.`);
+    log(`Path: ${filePath}`);
+    log(`CWD : ${appRoot}`);
+    process.exit(1);
+  }
+};
+
 const ensureBinary = (command, friendlyName) => {
   const result = spawnSync(command, ['--version'], { encoding: 'utf8' });
   if (result.error || result.status !== 0) {
     log(`${friendlyName} no está instalado o no está en PATH.`);
+    log(`Detalle: ${result.error.message}`);
+    return false;
+  }
+  if (result.status !== 0) {
+    log(`${friendlyName} no respondió correctamente (--version).`);
+    if (result.stderr) process.stderr.write(result.stderr);
     return false;
   }
   return true;
@@ -74,14 +90,18 @@ const startDevServer = () => {
   });
 
   return devProcess;
+
+  return devProcess;
 };
 
 const printUrls = () => {
   log(`Local   → ${localUrl}`);
   if (networkUrl) log(`Network → ${networkUrl}`);
+  if (networkUrl) log(`Network → ${networkUrl}`);
 };
 
 const handleTunnelUrl = (url) => {
+  if (!url) return;
   if (!url) return;
   log(`Public  → ${url}`);
   log('Tip: compartí esta URL (link público temporal).');

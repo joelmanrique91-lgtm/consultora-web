@@ -2,10 +2,11 @@ import { spawn, spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import process from 'node:process';
-import { buildUrls, getBase, getHost, getPort, resolveBin } from '../scripts/dev-utils.mjs';
+import { buildUrls, getBase, getHost, getPort } from '../scripts/dev-utils.mjs';
 
 const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const astroBin = resolveBin('astro', appRoot);
+const devScript = path.join(appRoot, 'scripts', 'dev.mjs');
+const tunnelScript = path.join(appRoot, 'scripts', 'dev-tunnel.mjs');
 
 const host = getHost('0.0.0.0');
 const port = getPort();
@@ -15,10 +16,6 @@ const { localUrl } = buildUrls({ host, port, base });
 const log = (message) => console.log(`[share] ${message}`);
 const warn = (message) => console.warn(`[share] ⚠️ ${message}`);
 
-const ensureBinary = (command, args = ['--version']) => {
-  const result = spawnSync(command, args, { encoding: 'utf8' });
-  return result.status === 0;
-};
 
 const waitForServer = async (url, timeoutMs = 20000) => {
   const startedAt = Date.now();
@@ -92,43 +89,30 @@ process.on('SIGINT', shutdown);
 process.on('SIGTERM', shutdown);
 
 log('levantando servidor Astro...');
-devProcess = spawn(astroBin, ['dev', '--host', host, '--port', port], { stdio: 'inherit' });
+devProcess = spawn(process.execPath, [devScript, '--lan'], {
+  cwd: appRoot,
+  stdio: ['ignore', 'pipe', 'pipe'],
+});
+devProcess.on('error', (error) => {
+  warn('error al iniciar el dev server.');
+  console.error(error);
+  warn(`command: ${process.execPath}`);
+  warn(`args: ${[devScript, '--lan'].join(' ')}`);
+  warn(`cwd: ${appRoot}`);
+});
+devProcess.stdout.on('data', (data) => {
+  process.stdout.write(data.toString());
+});
+devProcess.stderr.on('data', (data) => {
+  process.stderr.write(data.toString());
+});
 
 const isReady = await waitForServer(localUrl);
 if (!isReady) {
   warn(`no se pudo confirmar el servidor en ${localUrl}`);
 }
 
-const startCloudflared = () => {
-  log('iniciando túnel con cloudflared...');
-  tunnelProcess = spawn('cloudflared', ['tunnel', '--url', `http://localhost:${port}`], {
-    stdio: ['ignore', 'pipe', 'pipe'],
-  });
-  return tunnelProcess;
-};
-
-const startNgrok = () => {
-  log('iniciando túnel con ngrok...');
-  tunnelProcess = spawn('ngrok', ['http', String(port)], {
-    stdio: ['ignore', 'pipe', 'pipe'],
-  });
-  return tunnelProcess;
-};
-
-const cloudflaredAvailable = ensureBinary('cloudflared', ['--version']);
-const ngrokAvailable = ensureBinary('ngrok', ['version']);
-
-if (!cloudflaredAvailable && !ngrokAvailable) {
-  warn('cloudflared o ngrok no encontrados.');
-  warn('Instalá cloudflared (recomendado):');
-  warn('  winget install Cloudflare.cloudflared');
-  warn('  choco install cloudflared');
-  process.exit(1);
-}
-
-const publicUrlPattern = cloudflaredAvailable
-  ? /https?:\/\/[^\s]*trycloudflare\.com[^\s]*/i
-  : /https?:\/\/[^\s]*ngrok[^\s]*/i;
+const publicUrlPattern = /https?:\/\/[^\s]*(trycloudflare\.com|ngrok)[^\s]*/i;
 
 const processOutput = (data) => {
   const text = data.toString();
@@ -156,5 +140,16 @@ const attachListeners = (proc) => {
   proc.stderr.on('data', processOutput);
 };
 
-const tunnel = cloudflaredAvailable ? startCloudflared() : startNgrok();
-attachListeners(tunnel);
+log('levantando túnel público...');
+tunnelProcess = spawn(process.execPath, [tunnelScript, '--no-dev'], {
+  cwd: appRoot,
+  stdio: ['ignore', 'pipe', 'pipe'],
+});
+tunnelProcess.on('error', (error) => {
+  warn('error al iniciar el túnel.');
+  console.error(error);
+  warn(`command: ${process.execPath}`);
+  warn(`args: ${[tunnelScript, '--no-dev'].join(' ')}`);
+  warn(`cwd: ${appRoot}`);
+});
+attachListeners(tunnelProcess);
