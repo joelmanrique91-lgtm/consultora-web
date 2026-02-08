@@ -371,6 +371,20 @@ a.btn-link:focus-visible {
   gap: var(--s-12);
 }
 
+.site-nav__details {
+  display: flex;
+  align-items: center;
+  gap: var(--s-16);
+}
+
+.site-nav__details > summary {
+  list-style: none;
+}
+
+.site-nav__details > summary::-webkit-details-marker {
+  display: none;
+}
+
 /* Control del menú móvil. */
 .header__toggle {
   display: none;
@@ -410,6 +424,18 @@ a.btn-link:focus-visible {
 
 .site-nav__backdrop {
   display: none;
+  /* Evita interceptar clicks en desktop cuando el overlay está inactivo. */
+  pointer-events: none;
+}
+
+@media (min-width: 769px) {
+  .site-nav__details > summary {
+    display: none;
+  }
+
+  .site-nav__details:not([open]) > .site-nav__panel {
+    display: flex;
+  }
 }
 
 /* Hace los links más clicables. */
@@ -607,7 +633,7 @@ a.btn-link:focus-visible {
     overflow-y: auto;
   }
 
-  .site-nav__panel.is-open {
+  .site-nav__details[open] .site-nav__panel {
     transform: translateX(0);
   }
 
@@ -630,8 +656,9 @@ a.btn-link:focus-visible {
     z-index: 70;
   }
 
-  .site-nav__panel.is-open + .site-nav__backdrop {
+  .site-nav__details[open] + .site-nav__backdrop {
     display: block;
+    pointer-events: auto;
   }
 }
 

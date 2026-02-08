@@ -47,3 +47,17 @@
   - `preview:lan`
 
 Estos cambios no afectan prod ni cambian el comportamiento de scripts existentes.
+
+## Fix menú del header (UI)
+### Causa raíz confirmada
+- El menú mobile dependía 100% de JS y el toggle quedaba inerte si el script no ejecutaba.
+- `initMenu()` capturaba referencias a nodos y marcaba el toggle; tras swaps parciales de Astro, los handlers podían apuntar a nodos obsoletos.
+
+### Solución aplicada
+- Se implementó un fallback no‑JS con `<details>/<summary>` para que el menú abra/cierre incluso si falla JS.
+- El JS quedó como *enhancement* (cerrar con Escape, cerrar al click en link, sincronizar aria y estado de inert) y se re‑inicializa de forma idempotente.
+
+### Archivos tocados
+- `site/app/src/layouts/Layout.astro`
+- `site/app/src/styles/global.css`
+- `docs/HEADER_MENU_SMOKETEST.md`
