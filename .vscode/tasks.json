@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Dev: Local",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": {
+        "cwd": "${workspaceFolder}/site/app"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: LAN",
+      "type": "shell",
+      "command": "npm run dev:lan",
+      "options": {
+        "cwd": "${workspaceFolder}/site/app"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: Tunnel",
+      "type": "shell",
+      "command": "npm run dev:tunnel",
+      "options": {
+        "cwd": "${workspaceFolder}/site/app"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Share: Public Link",
+      "type": "shell",
+      "command": "npm run share",
+      "options": {
+        "cwd": "${workspaceFolder}/site/app"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "App: Start",
+      "type": "shell",
+      "command": "npm run app",
+      "options": {
+        "cwd": "${workspaceFolder}/site/app"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

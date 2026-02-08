@@ -3,8 +3,15 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "node scripts/dev.mjs",
+    "dev:open": "node scripts/dev.mjs --open",
+    "dev:lan": "node scripts/dev.mjs --lan",
     "dev:sync": "node scripts/dev-sync.mjs",
+    "dev:tunnel": "node scripts/dev-tunnel.mjs",
+    "dev:tunnel:lt": "node scripts/dev-tunnel.mjs --localtunnel",
+    "doctor": "node tools/doctor.mjs",
+    "share": "node tools/share.mjs",
+    "app": "node tools/dev-app.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
