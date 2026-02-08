@@ -131,7 +131,7 @@ li + li {
 
 /* Mejora la legibilidad limitando el ancho de lectura. */
 .reading {
-  max-width: var(--reading);
+  max-width: min(var(--reading), var(--reading-ch));
   margin-inline: auto;
 }
 
@@ -367,6 +367,47 @@ a.btn-link:focus-visible {
   gap: var(--s-12);
 }
 
+/* Control del menú móvil. */
+.header__toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.header__toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--text);
+}
+
+.header__toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.site-nav__panel {
+  display: flex;
+  align-items: center;
+  gap: var(--s-16);
+}
+
+.site-nav__cta {
+  white-space: nowrap;
+}
+
+.site-nav__backdrop {
+  display: none;
+}
+
 /* Hace los links más clicables. */
 .site-nav a {
   padding: 0.35rem 0.7rem;
@@ -474,6 +515,11 @@ a.btn-link:focus-visible {
     flex-direction: column;
     align-items: flex-start;
   }
+
+  .site-nav__panel {
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 
 /* Ajusta respiración de secciones en tablet. */
@@ -516,6 +562,63 @@ a.btn-link:focus-visible {
 
   body {
     padding-bottom: var(--s-120);
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  .header__inner {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .header__toggle {
+    display: inline-flex;
+  }
+
+  .site-nav__panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: min(320px, 90vw);
+    background: var(--surface);
+    padding: var(--s-24);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--s-24);
+    transform: translateX(100%);
+    transition: transform 0.2s ease;
+    z-index: 80;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .site-nav__panel.is-open {
+    transform: translateX(0);
+  }
+
+  .site-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .site-nav a {
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+  }
+
+  .site-nav__backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(37, 36, 34, 0.4);
+    z-index: 70;
+  }
+
+  .site-nav__panel.is-open + .site-nav__backdrop {
+    display: block;
   }
 }
 

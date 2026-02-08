@@ -40,46 +40,60 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
         <a class="header__brand" href={withBase('/')} aria-label="Consultora">
           <img src={logotype.src} alt="Consultora" width="160" height="48" />
         </a>
-        <nav class="site-nav">
-          <a
-            class={`nav__link${isActive('/') ? ' is-active' : ''}`}
-            href={withBase('/')}
-          >
-            >Home</a
-          >
-          <a
-            class={`nav__link${isActive('/servicios') ? ' is-active' : ''}`}
-            href={withBase('/servicios')}
-            >Servicios</a
-          >
-          <a
-            class={`nav__link${isActive('/sobre') ? ' is-active' : ''}`}
-            href={withBase('/sobre')}
-            >Sobre</a
-          >
-          <a
-            class={`nav__link${isActive('/experiencia') ? ' is-active' : ''}`}
-            href={withBase('/experiencia')}
-            >Experiencia</a
-          >
-          <a
-            class={`nav__link${isActive('/posts') ? ' is-active' : ''}`}
-            href={withBase('/posts')}
-            >Posts</a
-          >
-          <a
-            class={`nav__link${isActive('/contacto') ? ' is-active' : ''}`}
-            href={withBase('/contacto')}
-            >Contacto</a
-          >
-        </nav>
-        <a
-          class="btn-primary"
-          href={withBase('/contacto')}
-          aria-label="Coordinar una reunión"
+        <button
+          class="header__toggle"
+          type="button"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="site-nav-panel"
         >
-          Coordinar una reunión
-        </a>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="site-nav__panel" id="site-nav-panel">
+          <nav class="site-nav">
+            <a
+              class={`nav__link${isActive('/') ? ' is-active' : ''}`}
+              href={withBase('/')}
+            >
+              >Home</a
+            >
+            <a
+              class={`nav__link${isActive('/servicios') ? ' is-active' : ''}`}
+              href={withBase('/servicios')}
+              >Servicios</a
+            >
+            <a
+              class={`nav__link${isActive('/sobre') ? ' is-active' : ''}`}
+              href={withBase('/sobre')}
+              >Sobre</a
+            >
+            <a
+              class={`nav__link${isActive('/experiencia') ? ' is-active' : ''}`}
+              href={withBase('/experiencia')}
+              >Experiencia</a
+            >
+            <a
+              class={`nav__link${isActive('/posts') ? ' is-active' : ''}`}
+              href={withBase('/posts')}
+              >Posts</a
+            >
+            <a
+              class={`nav__link${isActive('/contacto') ? ' is-active' : ''}`}
+              href={withBase('/contacto')}
+              >Contacto</a
+            >
+          </nav>
+          <a
+            class="btn-primary site-nav__cta"
+            href={withBase('/contacto')}
+            aria-label="Coordinar una reunión"
+          >
+            Coordinar una reunión
+          </a>
+        </div>
+        <div class="site-nav__backdrop" aria-hidden="true"></div>
       </div>
     </header>
 
@@ -117,6 +131,9 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
     </a>
     <script is:inline>
       const header = document.querySelector('.site-header');
+      const navToggle = document.querySelector('.header__toggle');
+      const navPanel = document.querySelector('.site-nav__panel');
+      const navBackdrop = document.querySelector('.site-nav__backdrop');
 
       if (header) {
         const hideThreshold = 10;
@@ -159,6 +176,44 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
 
         updateHeaderState();
         window.addEventListener('scroll', handleScroll, { passive: true });
+      }
+
+      if (navToggle && navPanel) {
+        const closeMenu = () => {
+          navPanel.classList.remove('is-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+          document.body.classList.remove('menu-open');
+        };
+
+        const openMenu = () => {
+          navPanel.classList.add('is-open');
+          navToggle.setAttribute('aria-expanded', 'true');
+          document.body.classList.add('menu-open');
+        };
+
+        navToggle.addEventListener('click', () => {
+          const isOpen = navPanel.classList.contains('is-open');
+          if (isOpen) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        });
+
+        navBackdrop?.addEventListener('click', closeMenu);
+
+        navPanel.addEventListener('click', (event) => {
+          const target = event.target;
+          if (target instanceof HTMLElement && target.tagName === 'A') {
+            closeMenu();
+          }
+        });
+
+        window.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            closeMenu();
+          }
+        });
       }
     </script>
   </body>

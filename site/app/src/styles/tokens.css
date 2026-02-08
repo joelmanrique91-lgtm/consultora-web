@@ -30,27 +30,31 @@
   --w-bold: 700;
 
   /* Mejora la respiración entre bloques con una escala de espaciado clara. */
-  --s-6: 6px;
   --s-8: 8px;
   --s-12: 12px;
   --s-16: 16px;
-  --s-20: 20px;
   --s-24: 24px;
   --s-32: 32px;
-  --s-48: 52px;
-  --s-64: 68px;
-  --s-96: 104px;
-  --s-120: 128px;
+  --s-48: 48px;
+  --s-64: 64px;
+  --s-96: 96px;
+  --s-120: 120px;
 
   /* Mejora el layout manteniendo anchos máximos previsibles. */
   --container: 1200px;
   --reading: 720px;
+  --reading-ch: 64ch;
 
   /* Mejora la percepción táctil con radios y bordes suaves. */
-  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius: var(--radius-md);
   --radius-button: var(--radius);
   --radius-card: var(--radius);
   --border: rgba(21, 23, 27, 0.12);
+  --border-strong: rgba(21, 23, 27, 0.2);
+  --shadow-soft: 0 10px 24px rgba(47, 47, 47, 0.08);
   --muted: rgba(47, 47, 47, 0.62);
 
   /* Mejora el contraste con un set de color coherente. */
@@ -77,9 +81,9 @@
   --bg-alt: #f2eee0;
   --bg-soft: #f7f3e7;
 
-  --space-sm: 12px;
-  --space-md: 24px;
-  --space-lg: 48px;
+  --space-sm: var(--s-12);
+  --space-md: var(--s-24);
+  --space-lg: var(--s-48);
 
   /* Mejora la consistencia de botones y tarjetas con tokens dedicados. */
   --button-font-size: 18px;
