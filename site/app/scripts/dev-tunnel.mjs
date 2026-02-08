@@ -2,106 +2,163 @@ import { spawn, spawnSync } from 'node:child_process';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { buildUrls, getBase, getHost, getPort, resolveBin } from './dev-utils.mjs';
+import { buildUrls, getBase, getHost, getPort } from './dev-utils.mjs';
 
+// -----------------------------
+// Args
+// -----------------------------
 const args = new Set(process.argv.slice(2));
-const useLocaltunnel = args.has('--localtunnel') || args.has('--lt');
+const useLocaltunnel = args.has('--localtunnel') || args.has('--lt') || args.has('--local');
+const skipDevServer = args.has('--no-dev');
 
+// -----------------------------
+// Config
+// -----------------------------
 const host = getHost('0.0.0.0');
 const port = getPort();
 const base = getBase();
 const { localUrl, networkUrl } = buildUrls({ host, port, base });
-const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const astroBin = resolveBin('astro', appRoot);
 
+const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const devScript = path.join(appRoot, 'scripts', 'dev.mjs');
+
+const isWin = process.platform === 'win32';
+const CMD = isWin ? 'cmd.exe' : null;
+
+// -----------------------------
+// Utils
+// -----------------------------
 const log = (message) => console.log(`[tunnel] ${message}`);
 
 const ensureBinary = (command, friendlyName) => {
   const result = spawnSync(command, ['--version'], { encoding: 'utf8' });
-  if (result.status !== 0) {
+  if (result.error || result.status !== 0) {
     log(`${friendlyName} no está instalado o no está en PATH.`);
     return false;
   }
   return true;
 };
 
+const spawnWinCmd = (commandLine, opts = {}) => {
+  // cmd.exe /d /s /c "<commandLine>"
+  return spawn('cmd.exe', ['/d', '/s', '/c', commandLine], {
+    ...opts,
+    shell: false,
+    windowsHide: false,
+  });
+};
+
+// -----------------------------
+// Dev server
+// -----------------------------
 const startDevServer = () => {
   log('iniciando servidor Astro (LAN).');
-  const devProcess = spawn(astroBin, ['dev', '--host', host, '--port', port], {
+
+  const devProcess = spawn(process.execPath, [devScript, '--lan'], {
+    cwd: appRoot,
     stdio: 'inherit',
+    shell: false,
+    windowsHide: false,
   });
+
+  devProcess.on('error', (error) => {
+    log('ERROR al iniciar el dev server.');
+    console.error(error);
+    process.exit(1);
+  });
+
+  // No cerramos el proceso principal si el dev server muere,
+  // pero sí lo reportamos.
   devProcess.on('exit', (code) => {
-    process.exit(code ?? 0);
+    log(`dev server finalizó (code=${code ?? 0})`);
   });
+
+  return devProcess;
 };
 
 const printUrls = () => {
   log(`Local   → ${localUrl}`);
-  if (networkUrl) {
-    log(`Network → ${networkUrl}`);
-  }
+  if (networkUrl) log(`Network → ${networkUrl}`);
 };
 
 const handleTunnelUrl = (url) => {
-  if (!url) {
-    return;
-  }
+  if (!url) return;
   log(`Public  → ${url}`);
-  log('Tip: copiá la URL en el celular o generá un QR con https://www.qr-code-generator.com/');
+  log('Tip: compartí esta URL (link público temporal).');
 };
 
-startDevServer();
-printUrls();
+// -----------------------------
+// Start
+// -----------------------------
+let devProcess = null;
+if (!skipDevServer) {
+  devProcess = startDevServer();
+  printUrls();
+}
 
+// -----------------------------
+// Tunnel
+// -----------------------------
 if (useLocaltunnel) {
   log('levantando túnel con localtunnel.');
-  const ltProcess = spawn(
-    'npx',
-    ['localtunnel', '--port', String(port)],
-    { stdio: ['ignore', 'pipe', 'pipe'] },
-  );
 
-  ltProcess.stdout.on('data', (data) => {
-    const text = data.toString();
+  // Windows-safe: NO spawnear npx.cmd directo (puede dar EINVAL con Node 24)
+  const ltProcess = isWin
+    ? spawnWinCmd(`npx localtunnel --port ${String(port)}`, { cwd: appRoot, stdio: ['ignore', 'pipe', 'pipe'] })
+    : spawn('npx', ['localtunnel', '--port', String(port)], { cwd: appRoot, stdio: ['ignore', 'pipe', 'pipe'] });
+
+  ltProcess.on('error', (error) => {
+    log('ERROR al iniciar localtunnel.');
+    console.error(error);
+    process.exit(1);
+  });
+
+  const onData = (chunk) => {
+    const text = chunk.toString();
     const match = text.match(/https?:\/\/[^\s]+/);
-    if (match) {
-      handleTunnelUrl(match[0]);
-    }
-    process.stdout.write(text);
-  });
+    if (match) handleTunnelUrl(match[0]);
+    return text;
+  };
 
-  ltProcess.stderr.on('data', (data) => {
-    process.stderr.write(data.toString());
-  });
+  ltProcess.stdout.on('data', (data) => process.stdout.write(onData(data)));
+  ltProcess.stderr.on('data', (data) => process.stderr.write(onData(data)));
+
 } else {
+  // Cloudflared
   if (!ensureBinary('cloudflared', 'cloudflared')) {
-    log('Instalalo desde https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/');
-    log('O ejecutá: npm run dev:tunnel:lt (usa localtunnel).');
-    return;
+    log('Instalá cloudflared o usá localtunnel: npm run dev:tunnel:lt');
+    process.exit(1);
   }
 
   log('levantando túnel con cloudflared.');
-  const cfProcess = spawn(
-    'cloudflared',
-    ['tunnel', '--url', `http://localhost:${port}`],
-    { stdio: ['ignore', 'pipe', 'pipe'] },
-  );
-
-  cfProcess.stdout.on('data', (data) => {
-    const text = data.toString();
-    const match = text.match(/https?:\/\/[^\s]+/);
-    if (match) {
-      handleTunnelUrl(match[0]);
-    }
-    process.stdout.write(text);
+  const cfProcess = spawn('cloudflared', ['tunnel', '--url', `http://localhost:${port}`], {
+    cwd: appRoot,
+    stdio: ['ignore', 'pipe', 'pipe'],
+    shell: false,
+    windowsHide: false,
   });
 
-  cfProcess.stderr.on('data', (data) => {
-    const text = data.toString();
-    const match = text.match(/https?:\/\/[^\s]+/);
-    if (match) {
-      handleTunnelUrl(match[0]);
-    }
-    process.stderr.write(text);
+  cfProcess.on('error', (error) => {
+    log('ERROR al iniciar cloudflared.');
+    console.error(error);
+    process.exit(1);
   });
+
+  const onText = (chunk) => {
+    const text = chunk.toString();
+    const match = text.match(/https?:\/\/[^\s]+/);
+    if (match) handleTunnelUrl(match[0]);
+    return text;
+  };
+
+  cfProcess.stdout.on('data', (d) => process.stdout.write(onText(d)));
+  cfProcess.stderr.on('data', (d) => process.stderr.write(onText(d)));
 }
+
+// -----------------------------
+// Cleanup
+// -----------------------------
+process.on('SIGINT', () => {
+  if (devProcess && !devProcess.killed) devProcess.kill();
+  process.exit(0);
+});
