@@ -25,4 +25,9 @@ const site = process.env.PUBLIC_SITE_URL ?? defaultSite;
 export default defineConfig({
   site,
   base,
+  vite: {
+    server: {
+      allowedHosts: ['.trycloudflare.com'],
+    },
+  },
 });
