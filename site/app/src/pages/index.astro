@@ -8,6 +8,7 @@ import CTASection from '../components/CTASection.astro';
 import pistachoCombined from '../assets/brand/pistacho_combined.jpg';
 import seal from '../assets/brand/seal.svg';
 import { withBase } from '../utils/links';
+import { withBaseUrl } from '../utils/paths';
 
 const workflowSteps = [
   {
@@ -134,7 +135,12 @@ const deliverables = [
       </div>
       <div class="method-layout">
         <div class="method-seal">
-          <img src={seal.src} alt="Sello de enfoque institucional" width="120" height="120" />
+          <img
+            src={withBaseUrl(seal.src)}
+            alt="Sello de enfoque institucional"
+            width="120"
+            height="120"
+          />
           <p>Sello metodológico: orden, claridad y seguimiento.</p>
         </div>
         <Stepper items={workflowSteps} class="method-steps" />
