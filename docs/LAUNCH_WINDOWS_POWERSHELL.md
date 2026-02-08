@@ -113,7 +113,21 @@ Stop-Process -Id (Get-NetTCPConnection -LocalPort 4321).OwningProcess -Force
 
 - **El celular no abre la pagina:** verificar misma Wi-Fi, firewall en Windows y usar `npm run dev:lan`.
 - **404 de assets en prod:** confirmar `PUBLIC_BASE_PATH` correcto y que las rutas usen `withBase()`.
+- **La pagina abre pero no responde (menus/botones):** abrir la consola del navegador y revisar errores JS o 404 en scripts/`@vite/client`. Verificar que el menu inicialice (no hay errores en `Layout.astro`) y que el preview use la URL con el `base` correcto.
 - **No aparece URL publica:** si usas tunel, instalar `cloudflared` o usar `npm run dev:tunnel:lt`.
+
+## Smoke check rapido (LAN)
+
+**DEV LAN:**
+```powershell
+npx astro dev --host 0.0.0.0 --port 4321
+```
+
+**PREVIEW LAN (build + preview):**
+```powershell
+npm run build
+npx astro preview --host 0.0.0.0 --port 4321
+```
 
 ## Tunel (opcional)
 
