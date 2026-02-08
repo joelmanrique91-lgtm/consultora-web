@@ -3,7 +3,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "node scripts/dev.mjs",
+    "dev:open": "node scripts/dev.mjs --open",
     "dev:sync": "node scripts/dev-sync.mjs",
     "build": "astro build",
     "preview": "astro preview",
