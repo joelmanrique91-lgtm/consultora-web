@@ -1,4 +1,5 @@
 import { spawn, spawnSync } from 'node:child_process';
+import fs from 'node:fs';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -90,18 +91,14 @@ const startDevServer = () => {
   });
 
   return devProcess;
-
-  return devProcess;
 };
 
 const printUrls = () => {
   log(`Local   → ${localUrl}`);
   if (networkUrl) log(`Network → ${networkUrl}`);
-  if (networkUrl) log(`Network → ${networkUrl}`);
 };
 
 const handleTunnelUrl = (url) => {
-  if (!url) return;
   if (!url) return;
   log(`Public  → ${url}`);
   log('Tip: compartí esta URL (link público temporal).');
