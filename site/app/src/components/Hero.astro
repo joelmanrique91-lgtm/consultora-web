@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { withBase } from '../utils/links';
 
 const {
@@ -22,6 +23,13 @@ const backgroundData =
 const resolvedBackgroundSrc = backgroundData?.src ?? backgroundData?.href ?? null;
 const backgroundWidth = backgroundData?.width;
 const backgroundHeight = backgroundData?.height;
+const shouldOptimizeImage = Boolean(
+  backgroundData &&
+    typeof backgroundData === 'object' &&
+    'src' in backgroundData &&
+    backgroundData.width &&
+    backgroundData.height
+);
 ---
 
 <section class="hero section">
@@ -42,15 +50,27 @@ const backgroundHeight = backgroundData?.height;
     </div>
     {resolvedBackgroundSrc && (
       <div class="hero__visual" aria-hidden={backgroundAlt ? undefined : 'true'}>
-        <img
-          src={resolvedBackgroundSrc}
-          alt={backgroundAlt}
-          width={backgroundWidth}
-          height={backgroundHeight}
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-        />
+        {shouldOptimizeImage ? (
+          <Image
+            src={backgroundData}
+            alt={backgroundAlt}
+            widths={[360, 480, 640, 840]}
+            sizes="(min-width: 900px) 420px, 100vw"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        ) : (
+          <img
+            src={resolvedBackgroundSrc}
+            alt={backgroundAlt}
+            width={backgroundWidth}
+            height={backgroundHeight}
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        )}
       </div>
     )}
   </div>

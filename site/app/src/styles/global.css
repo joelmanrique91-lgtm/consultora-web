@@ -17,6 +17,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.page-content.is-inert {
+  pointer-events: none;
+}
+
 /* Evita desbordes visuales en imágenes y mantiene proporciones. */
 img {
   max-width: 100%;
@@ -588,6 +592,8 @@ a.btn-link:focus-visible {
     right: 0;
     left: 0;
     height: 100vh;
+    height: 100svh;
+    height: 100dvh;
     width: 100%;
     background: var(--surface);
     padding: var(--s-24);

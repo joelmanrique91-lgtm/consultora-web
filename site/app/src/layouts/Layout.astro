@@ -57,7 +57,7 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
               class={`nav__link${isActive('/') ? ' is-active' : ''}`}
               href={withBase('/')}
             >
-              >Home</a
+              Home</a
             >
             <a
               class={`nav__link${isActive('/servicios') ? ' is-active' : ''}`}
@@ -97,50 +97,53 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
       </div>
     </header>
 
-    <main class="site-main">
-      <slot />
-    </main>
+    <div class="page-content" id="page-content">
+      <main class="site-main">
+        <slot />
+      </main>
 
-    <footer class="site-footer">
-      <div class="container footer__content">
-        <p class="footer__brand">{site.footer.name}</p>
-        <p class="footer__positioning">{site.footer.positioning}</p>
-        <div class="footer__details">
-          <a href={`mailto:${site.footer.email}`}>{site.footer.email}</a>
-          <span>{site.footer.location}</span>
-          {isExternalLink(site.footer.linkedin) && (
-            <a
-              href={site.footer.linkedin}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              LinkedIn
-            </a>
-          )}
+      <footer class="site-footer">
+        <div class="container footer__content">
+          <p class="footer__brand">{site.footer.name}</p>
+          <p class="footer__positioning">{site.footer.positioning}</p>
+          <div class="footer__details">
+            <a href={`mailto:${site.footer.email}`}>{site.footer.email}</a>
+            <span>{site.footer.location}</span>
+            {isExternalLink(site.footer.linkedin) && (
+              <a
+                href={site.footer.linkedin}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                LinkedIn
+              </a>
+            )}
+          </div>
+          <img
+            src={illustration.src}
+            alt="Pistacho illustration"
+            width={illustration.width}
+            height={illustration.height}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
-        <img
-          src={illustration.src}
-          alt="Pistacho illustration"
-          width={illustration.width}
-          height={illustration.height}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-      <p>© Consultora — Todos los derechos reservados</p>
-    </footer>
-    <a
-      class="btn-primary cta-mobile"
-      href={withBase('/contacto')}
-      aria-label="Coordinar una reunión"
-    >
-      Coordinar una reunión
-    </a>
+        <p>© Consultora — Todos los derechos reservados</p>
+      </footer>
+      <a
+        class="btn-primary cta-mobile"
+        href={withBase('/contacto')}
+        aria-label="Coordinar una reunión"
+      >
+        Coordinar una reunión
+      </a>
+    </div>
     <script is:inline>
       const header = document.querySelector('.site-header');
       const navToggle = document.querySelector('.header__toggle');
       const navPanel = document.querySelector('.site-nav__panel');
       const navBackdrop = document.querySelector('.site-nav__backdrop');
+      const pageContent = document.querySelector('#page-content');
 
       if (header) {
         const hideThreshold = 10;
@@ -187,21 +190,46 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
 
       if (navToggle && navPanel) {
         const firstLink = navPanel.querySelector('a');
+        const getFocusableElements = () =>
+          Array.from(
+            navPanel.querySelectorAll(
+              'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+            )
+          ).filter((element) => !element.hasAttribute('disabled'));
+        const setPageInert = (isInert) => {
+          if (!pageContent) {
+            return;
+          }
+
+          if (isInert) {
+            pageContent.setAttribute('inert', '');
+            pageContent.setAttribute('aria-hidden', 'true');
+            pageContent.classList.add('is-inert');
+          } else {
+            pageContent.removeAttribute('inert');
+            pageContent.removeAttribute('aria-hidden');
+            pageContent.classList.remove('is-inert');
+          }
+        };
         const closeMenu = () => {
           navPanel.classList.remove('is-open');
           navToggle.setAttribute('aria-expanded', 'false');
+          navToggle.setAttribute('aria-label', 'Abrir menú');
           navPanel.setAttribute('aria-hidden', 'true');
           navPanel.setAttribute('inert', '');
           document.body.classList.remove('menu-open');
+          setPageInert(false);
           navToggle.focus();
         };
 
         const openMenu = () => {
           navPanel.classList.add('is-open');
           navToggle.setAttribute('aria-expanded', 'true');
+          navToggle.setAttribute('aria-label', 'Cerrar menú');
           navPanel.setAttribute('aria-hidden', 'false');
           navPanel.removeAttribute('inert');
           document.body.classList.add('menu-open');
+          setPageInert(true);
           window.requestAnimationFrame(() => {
             firstLink?.focus();
           });
@@ -226,8 +254,39 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
         });
 
         window.addEventListener('keydown', (event) => {
+          if (!navPanel.classList.contains('is-open')) {
+            return;
+          }
+
           if (event.key === 'Escape') {
             closeMenu();
+            return;
+          }
+
+          if (event.key !== 'Tab') {
+            return;
+          }
+
+          const focusableElements = getFocusableElements();
+          if (!focusableElements.length) {
+            event.preventDefault();
+            return;
+          }
+
+          const firstElement = focusableElements[0];
+          const lastElement = focusableElements[focusableElements.length - 1];
+          const isShiftPressed = event.shiftKey;
+          const activeElement = document.activeElement;
+
+          if (isShiftPressed && activeElement === firstElement) {
+            event.preventDefault();
+            lastElement.focus();
+          } else if (!isShiftPressed && activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus();
+          } else if (!navPanel.contains(activeElement)) {
+            event.preventDefault();
+            firstElement.focus();
           }
         });
       }
