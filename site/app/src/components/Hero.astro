@@ -6,10 +6,13 @@ const {
   subtitle,
   ctaHref = withBase('/contacto'),
   ctaLabel = 'Coordinar una reunión',
+  secondaryCtaHref = null,
+  secondaryCtaLabel = '',
   backgroundSrc = null,
   backgroundAlt = '',
 } = Astro.props;
 const resolvedCtaHref = withBase(ctaHref);
+const resolvedSecondaryHref = secondaryCtaHref ? withBase(secondaryCtaHref) : null;
 const resolvedBackgroundSrc =
   typeof backgroundSrc === 'string'
     ? backgroundSrc
@@ -25,6 +28,11 @@ const resolvedBackgroundSrc =
       </div>
       <div class="hero__actions">
         <a class="btn-primary" href={resolvedCtaHref}>{ctaLabel}</a>
+        {resolvedSecondaryHref && secondaryCtaLabel && (
+          <a class="btn-secondary" href={resolvedSecondaryHref}>
+            {secondaryCtaLabel}
+          </a>
+        )}
       </div>
     </div>
     {resolvedBackgroundSrc && (
@@ -46,6 +54,7 @@ const resolvedBackgroundSrc =
   /* Ajusta la separación entre título y CTA. */
   .hero__content {
     gap: var(--s-32);
+    max-width: var(--reading-ch);
   }
 
   /* Ordena el hero en grid para mejor jerarquía visual. */
