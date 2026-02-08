@@ -1,6 +1,7 @@
 ---
 import { site } from '../data/site';
 import { withBase } from '../utils/links';
+import { getBaseUrl, withBaseUrl } from '../utils/paths';
 import logotype from '../assets/brand/pistacho_logotype.jpg';
 import illustration from '../assets/brand/pistacho_illustration.jpg';
 import '../styles/tokens.css';
@@ -8,6 +9,8 @@ import '../styles/global.css';
 
 const { pathname } = Astro.url;
 const base = import.meta.env.BASE_URL ?? '/';
+const baseUrl = getBaseUrl();
+const isDev = import.meta.env.DEV;
 const normalizePath = (href) => {
   const normalized = href.endsWith('/') && href.length > 1 ? href.slice(0, -1) : href;
   return normalized;
@@ -38,7 +41,7 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
     <header class="site-header">
       <div class="container header__inner">
         <a class="header__brand" href={withBase('/')} aria-label="Consultora">
-          <img src={logotype.src} alt="Consultora" width="160" height="48" />
+          <img src={withBaseUrl(logotype.src)} alt="Consultora" width="160" height="48" />
         </a>
         <button
           class="header__toggle"
@@ -120,7 +123,7 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
             )}
           </div>
           <img
-            src={illustration.src}
+            src={withBaseUrl(illustration.src)}
             alt="Pistacho illustration"
             width={illustration.width}
             height={illustration.height}
@@ -138,6 +141,41 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
         Coordinar una reunión
       </a>
     </div>
+    {isDev && (
+      <script is:inline>
+        {`(() => {
+          const base = ${JSON.stringify(baseUrl)};
+          if (!base || base === '/') {
+            return;
+          }
+
+          const isUnsafeAbsolute = (value) =>
+            value.startsWith('/') && !value.startsWith(base) && !value.startsWith('//');
+
+          document.querySelectorAll('[src], [href]').forEach((node) => {
+            if (!(node instanceof HTMLElement)) {
+              return;
+            }
+
+            const src = node.getAttribute('src');
+            if (src && isUnsafeAbsolute(src)) {
+              console.warn('[base-url] src without base prefix:', {
+                tag: node.tagName.toLowerCase(),
+                value: src,
+              });
+            }
+
+            const href = node.getAttribute('href');
+            if (href && isUnsafeAbsolute(href)) {
+              console.warn('[base-url] href without base prefix:', {
+                tag: node.tagName.toLowerCase(),
+                value: href,
+              });
+            }
+          });
+        })();`}
+      </script>
+    )}
     <script is:inline>
       const header = document.querySelector('.site-header');
       const navToggle = document.querySelector('.header__toggle');
