@@ -1,6 +1,7 @@
 ---
 import { site } from '../data/site';
-import { withBase } from '../utils/links';
+import { assertStringAttr, withBase } from '../utils/links';
+import { getBaseUrl, withBaseUrl } from '../utils/paths';
 import logotype from '../assets/brand/pistacho_logotype.jpg';
 import illustration from '../assets/brand/pistacho_illustration.jpg';
 import '../styles/tokens.css';
@@ -8,6 +9,13 @@ import '../styles/global.css';
 
 const { pathname } = Astro.url;
 const base = import.meta.env.BASE_URL ?? '/';
+const baseUrl = getBaseUrl();
+const isDev = import.meta.env.DEV;
+const faviconHref = withBaseUrl('/favicon.svg', 'Layout.favicon');
+const footerEmail = assertStringAttr('href', site.footer.email, 'footer email') ?? '';
+const footerLinkedin = site.footer.linkedin
+  ? assertStringAttr('href', site.footer.linkedin, 'footer linkedin')
+  : null;
 const normalizePath = (href) => {
   const normalized = href.endsWith('/') && href.length > 1 ? href.slice(0, -1) : href;
   return normalized;
@@ -30,93 +38,156 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Consultora</title>
+    <link rel="icon" href={faviconHref} />
   </head>
 
   <body>
     <header class="site-header">
       <div class="container header__inner">
         <a class="header__brand" href={withBase('/')} aria-label="Consultora">
-          <img src={logotype.src} alt="Consultora" width="160" height="48" />
+          <img src={withBaseUrl(logotype.src)} alt="Consultora" width="160" height="48" />
         </a>
-        <nav class="site-nav">
-          <a
-            class={`nav__link${isActive('/') ? ' is-active' : ''}`}
-            href={withBase('/')}
-          >
-            >Home</a
-          >
-          <a
-            class={`nav__link${isActive('/servicios') ? ' is-active' : ''}`}
-            href={withBase('/servicios')}
-            >Servicios</a
-          >
-          <a
-            class={`nav__link${isActive('/sobre') ? ' is-active' : ''}`}
-            href={withBase('/sobre')}
-            >Sobre</a
-          >
-          <a
-            class={`nav__link${isActive('/experiencia') ? ' is-active' : ''}`}
-            href={withBase('/experiencia')}
-            >Experiencia</a
-          >
-          <a
-            class={`nav__link${isActive('/posts') ? ' is-active' : ''}`}
-            href={withBase('/posts')}
-            >Posts</a
-          >
-          <a
-            class={`nav__link${isActive('/contacto') ? ' is-active' : ''}`}
-            href={withBase('/contacto')}
-            >Contacto</a
-          >
-        </nav>
-        <a
-          class="btn-primary"
-          href={withBase('/contacto')}
-          aria-label="Coordinar una reunión"
+        <button
+          class="header__toggle"
+          type="button"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+          aria-controls="site-nav-panel"
         >
-          Coordinar una reunión
-        </a>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="site-nav__panel" id="site-nav-panel" aria-hidden="true" inert>
+          <nav class="site-nav" aria-label="Principal">
+            <a
+              class={`nav__link${isActive('/') ? ' is-active' : ''}`}
+              href={withBase('/')}
+            >
+              Home</a
+            >
+            <a
+              class={`nav__link${isActive('/servicios') ? ' is-active' : ''}`}
+              href={withBase('/servicios')}
+              >Servicios</a
+            >
+            <a
+              class={`nav__link${isActive('/sobre') ? ' is-active' : ''}`}
+              href={withBase('/sobre')}
+              >Sobre</a
+            >
+            <a
+              class={`nav__link${isActive('/experiencia') ? ' is-active' : ''}`}
+              href={withBase('/experiencia')}
+              >Experiencia</a
+            >
+            <a
+              class={`nav__link${isActive('/posts') ? ' is-active' : ''}`}
+              href={withBase('/posts')}
+              >Posts</a
+            >
+            <a
+              class={`nav__link${isActive('/contacto') ? ' is-active' : ''}`}
+              href={withBase('/contacto')}
+              >Contacto</a
+            >
+          </nav>
+          <a
+            class="btn-primary site-nav__cta"
+            href={withBase('/contacto')}
+            aria-label="Coordinar una reunión"
+          >
+            Coordinar una reunión
+          </a>
+        </div>
+        <div class="site-nav__backdrop" aria-hidden="true"></div>
       </div>
     </header>
 
-    <main class="site-main">
-      <slot />
-    </main>
+    <div class="page-content" id="page-content">
+      <main class="site-main">
+        <slot />
+      </main>
 
-    <footer class="site-footer">
-      <div class="container footer__content">
-        <p class="footer__brand">{site.footer.name}</p>
-        <p class="footer__positioning">{site.footer.positioning}</p>
-        <div class="footer__details">
-          <a href={`mailto:${site.footer.email}`}>{site.footer.email}</a>
-          <span>{site.footer.location}</span>
-          {isExternalLink(site.footer.linkedin) && (
-            <a
-              href={site.footer.linkedin}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              LinkedIn
-            </a>
-          )}
+      <footer class="site-footer">
+        <div class="container footer__content">
+          <p class="footer__brand">{site.footer.name}</p>
+          <p class="footer__positioning">{site.footer.positioning}</p>
+          <div class="footer__details">
+            <a href={`mailto:${footerEmail}`}>{footerEmail}</a>
+            <span>{site.footer.location}</span>
+            {isExternalLink(footerLinkedin) && (
+              <a
+                href={footerLinkedin}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                LinkedIn
+              </a>
+            )}
+          </div>
+          <img
+            src={withBaseUrl(illustration.src)}
+            alt="Pistacho illustration"
+            width={illustration.width}
+            height={illustration.height}
+            loading="lazy"
+            decoding="async"
+          />
         </div>
-        <img src={illustration.src} alt="Pistacho illustration" loading="lazy" decoding="async" />
-      </div>
-      <p>© Consultora — Todos los derechos reservados</p>
-    </footer>
-    <a
-      class="btn-primary cta-mobile"
-      href={withBase('/contacto')}
-      aria-label="Coordinar una reunión"
-    >
-      Coordinar una reunión
-    </a>
+        <p>© Consultora — Todos los derechos reservados</p>
+      </footer>
+      <a
+        class="btn-primary cta-mobile"
+        href={withBase('/contacto')}
+        aria-label="Coordinar una reunión"
+      >
+        Coordinar una reunión
+      </a>
+    </div>
+    {isDev && (
+      <script is:inline>
+        {`(() => {
+          const base = ${JSON.stringify(baseUrl)};
+          if (!base || base === '/') {
+            return;
+          }
+
+          const isUnsafeAbsolute = (value) =>
+            value.startsWith('/') && !value.startsWith(base) && !value.startsWith('//');
+
+          document.querySelectorAll('[src], [href]').forEach((node) => {
+            if (!(node instanceof HTMLElement)) {
+              return;
+            }
+
+            const src = node.getAttribute('src');
+            if (src && isUnsafeAbsolute(src)) {
+              console.warn('[base-url] src without base prefix:', {
+                tag: node.tagName.toLowerCase(),
+                value: src,
+              });
+            }
+
+            const href = node.getAttribute('href');
+            if (href && isUnsafeAbsolute(href)) {
+              console.warn('[base-url] href without base prefix:', {
+                tag: node.tagName.toLowerCase(),
+                value: href,
+              });
+            }
+          });
+        })();`}
+      </script>
+    )}
     <script is:inline>
       const header = document.querySelector('.site-header');
+      const navToggle = document.querySelector('.header__toggle');
+      const navPanel = document.querySelector('.site-nav__panel');
+      const navBackdrop = document.querySelector('.site-nav__backdrop');
+      const pageContent = document.querySelector('#page-content');
 
       if (header) {
         const hideThreshold = 10;
@@ -159,6 +230,109 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
 
         updateHeaderState();
         window.addEventListener('scroll', handleScroll, { passive: true });
+      }
+
+      if (navToggle && navPanel) {
+        const firstLink = navPanel.querySelector('a');
+        const getFocusableElements = () =>
+          Array.from(
+            navPanel.querySelectorAll(
+              'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+            )
+          ).filter((element) => !element.hasAttribute('disabled'));
+        const setPageInert = (isInert) => {
+          if (!pageContent) {
+            return;
+          }
+
+          if (isInert) {
+            pageContent.setAttribute('inert', '');
+            pageContent.setAttribute('aria-hidden', 'true');
+            pageContent.classList.add('is-inert');
+          } else {
+            pageContent.removeAttribute('inert');
+            pageContent.removeAttribute('aria-hidden');
+            pageContent.classList.remove('is-inert');
+          }
+        };
+        const closeMenu = () => {
+          navPanel.classList.remove('is-open');
+          navToggle.setAttribute('aria-expanded', 'false');
+          navToggle.setAttribute('aria-label', 'Abrir menú');
+          navPanel.setAttribute('aria-hidden', 'true');
+          navPanel.setAttribute('inert', '');
+          document.body.classList.remove('menu-open');
+          setPageInert(false);
+          navToggle.focus();
+        };
+
+        const openMenu = () => {
+          navPanel.classList.add('is-open');
+          navToggle.setAttribute('aria-expanded', 'true');
+          navToggle.setAttribute('aria-label', 'Cerrar menú');
+          navPanel.setAttribute('aria-hidden', 'false');
+          navPanel.removeAttribute('inert');
+          document.body.classList.add('menu-open');
+          setPageInert(true);
+          window.requestAnimationFrame(() => {
+            firstLink?.focus();
+          });
+        };
+
+        navToggle.addEventListener('click', () => {
+          const isOpen = navPanel.classList.contains('is-open');
+          if (isOpen) {
+            closeMenu();
+          } else {
+            openMenu();
+          }
+        });
+
+        navBackdrop?.addEventListener('click', closeMenu);
+
+        navPanel.addEventListener('click', (event) => {
+          const target = event.target;
+          if (target instanceof HTMLElement && target.tagName === 'A') {
+            closeMenu();
+          }
+        });
+
+        window.addEventListener('keydown', (event) => {
+          if (!navPanel.classList.contains('is-open')) {
+            return;
+          }
+
+          if (event.key === 'Escape') {
+            closeMenu();
+            return;
+          }
+
+          if (event.key !== 'Tab') {
+            return;
+          }
+
+          const focusableElements = getFocusableElements();
+          if (!focusableElements.length) {
+            event.preventDefault();
+            return;
+          }
+
+          const firstElement = focusableElements[0];
+          const lastElement = focusableElements[focusableElements.length - 1];
+          const isShiftPressed = event.shiftKey;
+          const activeElement = document.activeElement;
+
+          if (isShiftPressed && activeElement === firstElement) {
+            event.preventDefault();
+            lastElement.focus();
+          } else if (!isShiftPressed && activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus();
+          } else if (!navPanel.contains(activeElement)) {
+            event.preventDefault();
+            firstElement.focus();
+          }
+        });
       }
     </script>
   </body>

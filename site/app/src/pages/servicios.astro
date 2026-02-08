@@ -51,6 +51,9 @@ import { normalizeInternalPath, withBase } from '../utils/links';
                   ))}
                 </ul>
               </div>
+              <a class="btn-link service-card__cta" href={withBase('/contacto')}>
+                Coordinar una reunión
+              </a>
             </article>
           ))}
         </div>
@@ -71,7 +74,8 @@ import { normalizeInternalPath, withBase } from '../utils/links';
   }
 
   .service-card {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: var(--space-md);
   }
 
@@ -118,6 +122,10 @@ import { normalizeInternalPath, withBase } from '../utils/links';
     left: 0;
     color: var(--color-acento);
     font-weight: 700;
+  }
+
+  .service-card__cta {
+    margin-top: auto;
   }
 
   @media (min-width: 768px) {

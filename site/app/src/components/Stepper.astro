@@ -29,19 +29,21 @@ const { items = [], class: className } = Astro.props;
     display: grid;
     grid-template-columns: auto 1fr;
     column-gap: var(--s-16);
-    row-gap: var(--s-6);
+    row-gap: var(--s-8);
     align-items: start;
-    padding: var(--s-16) 0;
-    border-bottom: 1px solid rgba(47, 47, 47, 0.12);
+    padding: var(--s-16);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: 0 6px 16px rgba(47, 47, 47, 0.05);
   }
 
   .stepper__item:first-child {
-    padding-top: 0;
+    margin-top: 0;
   }
 
   .stepper__item:last-child {
-    padding-bottom: 0;
-    border-bottom: none;
+    margin-bottom: 0;
   }
 
   /* Mejora la jerarquía numérica con un badge visible. */
@@ -60,7 +62,7 @@ const { items = [], class: className } = Astro.props;
 
   /* Reduce el espacio superior para títulos compactos. */
   .stepper__body h3 {
-    margin: 0 0 var(--s-6);
+    margin: 0 0 var(--s-8);
   }
 
   /* Mantiene descripción legible y secundaria. */

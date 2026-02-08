@@ -28,6 +28,7 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
 <Layout>
   <section class="section">
     <div class="container stack-lg">
+      <a class="btn-link post-backlink" href={withBase('/posts')}>← Volver a Posts</a>
       <header class="post-header reading stack">
         <p class="post-date small">{formatter.format(post.data.date)}</p>
         <h1>{post.data.title}</h1>
@@ -73,6 +74,10 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
     border-bottom: 1px solid var(--border);
     padding-bottom: var(--s-24);
     gap: var(--s-12);
+  }
+
+  .post-backlink {
+    align-self: flex-start;
   }
 
   .post-description {
@@ -127,7 +132,7 @@ const formatter = new Intl.DateTimeFormat('es-AR', {
 
   .post-content :global(blockquote) {
     margin: var(--s-24) 0;
-    padding: var(--s-20);
+    padding: var(--s-24);
     border-left: 4px solid var(--accent);
     background: var(--earth-soft);
     border-radius: var(--radius);

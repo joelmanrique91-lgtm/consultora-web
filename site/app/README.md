@@ -41,6 +41,7 @@ npm run dev:tunnel
 
 La consola mostrará:
 - **Public** → URL pública lista para compartir.
+> La URL `trycloudflare` cambia en cada ejecución.
 
 ### Opción B: localtunnel (sin instalar binarios)
 ```sh
@@ -48,6 +49,24 @@ npm run dev:tunnel:lt
 ```
 
 > Usa `npx localtunnel` y puede tardar la primera vez (descarga).
+
+## Arranque rápido (recomendado)
+```sh
+npm run tunnel
+```
+
+**Windows (doble click):**
+- `scripts/win/run_tunnel.cmd`
+
+> El túnel expone el servidor **dev** de Astro, así que el hot-reload funciona sin reiniciar.
+
+## Actualizar y correr
+```sh
+npm run update-and-run
+```
+
+**Windows (doble click):**
+- `scripts/win/run_update_and_tunnel.cmd`
 
 ## Share link (túnel público automático)
 ```sh
@@ -99,6 +118,7 @@ rm -rf node_modules package-lock.json && npm install
 ## Troubleshooting
 - **Puerto ocupado:** `PORT=4400 npm run dev`
 - **Firewall (Windows):** permitir `node.exe` en redes privadas.
+- **Base URL distinta de `/`:** asegurate de usar `withBaseUrl` para assets importados desde `src/assets` (por ejemplo `asset.src`) y `withBase` para navegación interna.
 - **Celular sin acceso:** verificar misma red Wi‑Fi.
 - **Túnel no inicia:** instalá `cloudflared` o usá `npm run dev:tunnel:lt`.
 - **Public URL no aparece:** asegurate de que `cloudflared`/`ngrok` estén instalados y que no haya bloqueos de red.
@@ -108,6 +128,7 @@ rm -rf node_modules package-lock.json && npm install
 npm run doctor
 npm install
 npm run dev
+npm run dev:smoke
 npm run dev:lan
 npm run dev:tunnel
 npm run app

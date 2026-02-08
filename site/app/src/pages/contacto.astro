@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
 const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
 const hasContactEndpoint = Boolean(contactEndpoint);
 ---
@@ -34,6 +35,27 @@ const hasContactEndpoint = Boolean(contactEndpoint);
         </div>
 
         <div class="contact-layout__form">
+          {!hasContactEndpoint && (
+            <div class="contact-unavailable card" role="status" aria-live="polite">
+              <h2>Formulario temporalmente no disponible</h2>
+              <p>Mientras lo resolvemos, podés escribirnos por estas vías:</p>
+              <div class="contact-unavailable__actions">
+                <a class="btn-secondary" href={`mailto:${site.footer.email}`}>
+                  {site.footer.email}
+                </a>
+                {site.footer.linkedin && (
+                  <a
+                    class="btn-link"
+                    href={site.footer.linkedin}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    LinkedIn
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
           <form
             class="contact-form card"
             id="contact-form"
@@ -168,6 +190,29 @@ const hasContactEndpoint = Boolean(contactEndpoint);
     align-items: stretch;
     margin-bottom: var(--s-32);
     background: var(--surface);
+  }
+
+  .contact-unavailable {
+    display: grid;
+    gap: var(--s-12);
+    background: var(--earth-soft);
+  }
+
+  .contact-unavailable h2 {
+    margin: 0;
+    font-size: clamp(20px, 2.2vw, 26px);
+  }
+
+  .contact-unavailable p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .contact-unavailable__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-12);
+    align-items: center;
   }
 
   .contact-form__grid {

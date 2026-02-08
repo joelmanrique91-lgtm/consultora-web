@@ -8,7 +8,7 @@ const {
   ctaLabel = 'Coordinar una reunión',
   class: className,
 } = Astro.props;
-const resolvedCtaHref = withBase(ctaHref);
+const resolvedCtaHref = withBase(ctaHref, 'CTASection.ctaHref');
 ---
 
 <section class:list={["cta-section", className]}>
@@ -23,7 +23,7 @@ const resolvedCtaHref = withBase(ctaHref);
   .cta-section {
     display: flex;
     flex-direction: column;
-    gap: var(--s-20);
+    gap: var(--s-24);
     padding: clamp(24px, 3vw, 40px);
     border-radius: var(--radius);
     background: var(--earth-soft);

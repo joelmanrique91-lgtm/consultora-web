@@ -1,19 +1,42 @@
 ---
+import { Image } from 'astro:assets';
 import { withBase } from '../utils/links';
+import { withBaseUrl } from '../utils/paths';
 
 const {
   title,
   subtitle,
   ctaHref = withBase('/contacto'),
   ctaLabel = 'Coordinar una reunión',
+  secondaryCtaHref = null,
+  secondaryCtaLabel = '',
   backgroundSrc = null,
   backgroundAlt = '',
 } = Astro.props;
-const resolvedCtaHref = withBase(ctaHref);
-const resolvedBackgroundSrc =
+const resolvedCtaHref = withBase(ctaHref, 'Hero.ctaHref');
+const resolvedSecondaryHref = secondaryCtaHref
+  ? withBase(secondaryCtaHref, 'Hero.secondaryCtaHref')
+  : null;
+const backgroundData =
   typeof backgroundSrc === 'string'
-    ? backgroundSrc
-    : backgroundSrc?.src ?? backgroundSrc?.href ?? null;
+    ? { src: backgroundSrc }
+    : backgroundSrc && typeof backgroundSrc === 'object'
+      ? backgroundSrc
+      : null;
+const backgroundSrcValue = backgroundData?.src ?? backgroundData?.href ?? null;
+const resolvedBackgroundSrc =
+  typeof backgroundSrcValue === 'string'
+    ? withBaseUrl(backgroundSrcValue, 'Hero.backgroundSrc')
+    : backgroundSrcValue;
+const backgroundWidth = backgroundData?.width;
+const backgroundHeight = backgroundData?.height;
+const shouldOptimizeImage = Boolean(
+  backgroundData &&
+    typeof backgroundData === 'object' &&
+    'src' in backgroundData &&
+    backgroundData.width &&
+    backgroundData.height
+);
 ---
 
 <section class="hero section">
@@ -25,11 +48,36 @@ const resolvedBackgroundSrc =
       </div>
       <div class="hero__actions">
         <a class="btn-primary" href={resolvedCtaHref}>{ctaLabel}</a>
+        {resolvedSecondaryHref && secondaryCtaLabel && (
+          <a class="btn-secondary" href={resolvedSecondaryHref}>
+            {secondaryCtaLabel}
+          </a>
+        )}
       </div>
     </div>
     {resolvedBackgroundSrc && (
       <div class="hero__visual" aria-hidden={backgroundAlt ? undefined : 'true'}>
-        <img src={resolvedBackgroundSrc} alt={backgroundAlt} loading="lazy" />
+        {shouldOptimizeImage ? (
+          <Image
+            src={backgroundData}
+            alt={backgroundAlt}
+            widths={[360, 480, 640, 840]}
+            sizes="(min-width: 900px) 420px, 100vw"
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        ) : (
+          <img
+            src={resolvedBackgroundSrc}
+            alt={backgroundAlt}
+            width={backgroundWidth}
+            height={backgroundHeight}
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+        )}
       </div>
     )}
   </div>
@@ -46,6 +94,7 @@ const resolvedBackgroundSrc =
   /* Ajusta la separación entre título y CTA. */
   .hero__content {
     gap: var(--s-32);
+    max-width: var(--reading-ch);
   }
 
   /* Ordena el hero en grid para mejor jerarquía visual. */
@@ -91,6 +140,18 @@ const resolvedBackgroundSrc =
     .hero .container {
       grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
       align-items: center;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero__actions .btn-primary,
+    .hero__actions .btn-secondary {
+      width: 100%;
     }
   }
 </style>
