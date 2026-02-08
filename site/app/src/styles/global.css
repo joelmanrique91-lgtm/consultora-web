@@ -438,16 +438,6 @@ a.btn-link:focus-visible {
   }
 }
 
-@media (min-width: 769px) {
-  .site-nav__details > summary {
-    display: none;
-  }
-
-  .site-nav__details:not([open]) > .site-nav__panel {
-    display: flex;
-  }
-}
-
 /* Hace los links más clicables. */
 .site-nav a {
   display: inline-flex;

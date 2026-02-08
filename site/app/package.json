@@ -22,9 +22,14 @@
     "preview": "astro preview",
     "preview:local": "astro preview",
     "preview:lan": "astro preview --host 0.0.0.0",
-    "astro": "astro"
+    "astro": "astro",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
     "astro": "^5.16.8"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.2"
   }
 }
