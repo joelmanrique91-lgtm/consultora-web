@@ -2,18 +2,20 @@ import { spawn, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
-import { buildUrls, getBase, getHost, getPort } from '../scripts/dev-utils.mjs';
+import { fileURLToPath } from 'node:url';
+import { buildUrls, getBase, getHost, getPort, resolveBin } from '../scripts/dev-utils.mjs';
 
 const args = new Set(process.argv.slice(2));
 const shouldOpen = args.has('--open');
 const disableTunnel = args.has('--no-tunnel');
 const useLocaltunnel = args.has('--localtunnel') || args.has('--lt');
 
-const appRoot = path.resolve(new URL('.', import.meta.url).pathname, '..');
+const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const nodeModulesPath = path.join(appRoot, 'node_modules');
 const hasNodeModules = fs.existsSync(nodeModulesPath);
 const packageLockPath = path.join(appRoot, 'package-lock.json');
 const hasPackageLock = fs.existsSync(packageLockPath);
+const astroBin = resolveBin('astro', appRoot);
 
 const host = getHost('0.0.0.0');
 const port = getPort();
@@ -23,7 +25,7 @@ const { localUrl, networkUrl } = buildUrls({ host, port, base });
 const log = (message) => console.log(`[app] ${message}`);
 
 const ensureBinary = (command, friendlyName) => {
-  const result = spawnSync(command, ['--version'], { encoding: 'utf8', shell: true });
+  const result = spawnSync(command, ['--version'], { encoding: 'utf8' });
   if (result.status !== 0) {
     log(`${friendlyName} no está instalado o no está en PATH.`);
     return false;
@@ -33,7 +35,7 @@ const ensureBinary = (command, friendlyName) => {
 
 log('Starting dev server...');
 log('Running diagnostics (doctor)...');
-spawnSync('node', ['tools/doctor.mjs'], { stdio: 'inherit', shell: true, cwd: appRoot });
+spawnSync('node', ['tools/doctor.mjs'], { stdio: 'inherit', cwd: appRoot });
 
 if (!hasNodeModules) {
   log('No se encontró node_modules.');
@@ -47,7 +49,7 @@ const devArgs = ['dev', '--host', host, '--port', port];
 if (shouldOpen) {
   devArgs.push('--open');
 }
-const devProcess = spawn('astro', devArgs, { stdio: 'inherit', shell: true });
+const devProcess = spawn(astroBin, devArgs, { stdio: 'inherit' });
 
 log(`Local URL: ${localUrl}`);
 if (networkUrl) {
@@ -68,7 +70,7 @@ if (!disableTunnel) {
     const ltProcess = spawn(
       'npx',
       ['localtunnel', '--port', String(port)],
-      { stdio: ['ignore', 'pipe', 'pipe'], shell: true },
+      { stdio: ['ignore', 'pipe', 'pipe'] },
     );
 
     ltProcess.stdout.on('data', (data) => {
@@ -88,7 +90,7 @@ if (!disableTunnel) {
     const cfProcess = spawn(
       'cloudflared',
       ['tunnel', '--url', `http://localhost:${port}`],
-      { stdio: ['ignore', 'pipe', 'pipe'], shell: true },
+      { stdio: ['ignore', 'pipe', 'pipe'] },
     );
 
     cfProcess.stdout.on('data', (data) => {

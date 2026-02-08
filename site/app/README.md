@@ -49,6 +49,16 @@ npm run dev:tunnel:lt
 
 > Usa `npx localtunnel` y puede tardar la primera vez (descarga).
 
+## Share link (túnel público automático)
+```sh
+npm run share
+```
+
+Requiere `cloudflared` (recomendado) o `ngrok` instalado en PATH.
+
+Salida esperada:
+```text
+
 ## Modo app (DX/UX)
 ```sh
 npm run app
@@ -69,6 +79,7 @@ En VS Code podés ejecutar:
 - **Dev: Local**
 - **Dev: LAN**
 - **Dev: Tunnel**
+- **Share: Public Link**
 - **App: Start**
 
 ## Diagnóstico (npm 403 / proxy)
@@ -90,6 +101,7 @@ rm -rf node_modules package-lock.json && npm install
 - **Firewall (Windows):** permitir `node.exe` en redes privadas.
 - **Celular sin acceso:** verificar misma red Wi‑Fi.
 - **Túnel no inicia:** instalá `cloudflared` o usá `npm run dev:tunnel:lt`.
+- **Public URL no aparece:** asegurate de que `cloudflared`/`ngrok` estén instalados y que no haya bloqueos de red.
 
 ## Verificación rápida
 ```sh

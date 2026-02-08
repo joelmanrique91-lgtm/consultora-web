@@ -1,6 +1,8 @@
 import { spawn, spawnSync } from 'node:child_process';
 import process from 'node:process';
-import { buildUrls, getBase, getHost, getPort } from './dev-utils.mjs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+import { buildUrls, getBase, getHost, getPort, resolveBin } from './dev-utils.mjs';
 
 const args = new Set(process.argv.slice(2));
 const useLocaltunnel = args.has('--localtunnel') || args.has('--lt');
@@ -9,11 +11,13 @@ const host = getHost('0.0.0.0');
 const port = getPort();
 const base = getBase();
 const { localUrl, networkUrl } = buildUrls({ host, port, base });
+const appRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const astroBin = resolveBin('astro', appRoot);
 
 const log = (message) => console.log(`[tunnel] ${message}`);
 
 const ensureBinary = (command, friendlyName) => {
-  const result = spawnSync(command, ['--version'], { encoding: 'utf8', shell: true });
+  const result = spawnSync(command, ['--version'], { encoding: 'utf8' });
   if (result.status !== 0) {
     log(`${friendlyName} no está instalado o no está en PATH.`);
     return false;
@@ -23,9 +27,8 @@ const ensureBinary = (command, friendlyName) => {
 
 const startDevServer = () => {
   log('iniciando servidor Astro (LAN).');
-  const devProcess = spawn('astro', ['dev', '--host', host, '--port', port], {
+  const devProcess = spawn(astroBin, ['dev', '--host', host, '--port', port], {
     stdio: 'inherit',
-    shell: true,
   });
   devProcess.on('exit', (code) => {
     process.exit(code ?? 0);
@@ -55,7 +58,7 @@ if (useLocaltunnel) {
   const ltProcess = spawn(
     'npx',
     ['localtunnel', '--port', String(port)],
-    { stdio: ['ignore', 'pipe', 'pipe'], shell: true },
+    { stdio: ['ignore', 'pipe', 'pipe'] },
   );
 
   ltProcess.stdout.on('data', (data) => {
@@ -81,7 +84,7 @@ if (useLocaltunnel) {
   const cfProcess = spawn(
     'cloudflared',
     ['tunnel', '--url', `http://localhost:${port}`],
-    { stdio: ['ignore', 'pipe', 'pipe'], shell: true },
+    { stdio: ['ignore', 'pipe', 'pipe'] },
   );
 
   cfProcess.stdout.on('data', (data) => {

@@ -1,4 +1,7 @@
 import os from 'node:os';
+import path from 'node:path';
+
+const binName = (name) => (process.platform === 'win32' ? `${name}.cmd` : name);
 
 const defaultHost = 'localhost';
 const defaultPort = '4321';
@@ -38,4 +41,9 @@ export const buildUrls = ({ host, port, base }) => {
   const networkUrl = ip ? `http://${ip}:${port}${displayPath}` : null;
 
   return { localUrl, networkUrl, displayPath };
+};
+
+export const resolveBin = (name, appRoot) => {
+  const localBin = path.join(appRoot, 'node_modules', '.bin', binName(name));
+  return localBin;
 };

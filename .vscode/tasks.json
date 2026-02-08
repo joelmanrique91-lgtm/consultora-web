@@ -29,6 +29,15 @@
       "problemMatcher": []
     },
     {
+      "label": "Share: Public Link",
+      "type": "shell",
+      "command": "npm run share",
+      "options": {
+        "cwd": "${workspaceFolder}/site/app"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "App: Start",
       "type": "shell",
       "command": "npm run app",

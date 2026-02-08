@@ -10,6 +10,7 @@
     "dev:tunnel": "node scripts/dev-tunnel.mjs",
     "dev:tunnel:lt": "node scripts/dev-tunnel.mjs --localtunnel",
     "doctor": "node tools/doctor.mjs",
+    "share": "node tools/share.mjs",
     "app": "node tools/dev-app.mjs",
     "build": "astro build",
     "preview": "astro preview",
