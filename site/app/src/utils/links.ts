@@ -1,66 +1,99 @@
 const externalLinkPattern = /^(?:[a-z][a-z0-9+.-]*:)?\/\//i;
 
-export const withBase = (path) => {
-  const resolvedPath = typeof path === 'string' ? path : path?.href;
-  if (!resolvedPath) {
+const resolvePathValue = (path) => {
+  if (typeof path === 'string') {
+    return path;
+  }
+
+  if (path instanceof URL) {
+    return path.toString();
+  }
+
+  if (path && typeof path === 'object' && typeof path.href === 'string') {
+    return path.href;
+  }
+
+  return null;
+};
+
+export const assertStringHref = (value, context = '') => {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  if (import.meta.env.DEV) {
+    const label = context ? ` (${context})` : '';
+    const type = value === null ? 'null' : typeof value;
+    console.warn(`[links] Expected string href${label}, received ${type}.`, value);
+  }
+
+  return null;
+};
+
+export const withBase = (path, context = 'withBase') => {
+  const resolvedPath = resolvePathValue(path);
+  const safePath = assertStringHref(resolvedPath ?? path, context);
+  if (!safePath) {
     return import.meta.env.BASE_URL ?? '/';
   }
 
   if (
-    externalLinkPattern.test(resolvedPath) ||
-    resolvedPath.startsWith('mailto:') ||
-    resolvedPath.startsWith('tel:') ||
-    resolvedPath.startsWith('#')
+    externalLinkPattern.test(safePath) ||
+    safePath.startsWith('mailto:') ||
+    safePath.startsWith('tel:') ||
+    safePath.startsWith('#')
   ) {
-    return resolvedPath;
+    return safePath;
   }
 
   const base = import.meta.env.BASE_URL ?? '/';
   const normalizedBase = base.endsWith('/') ? base : `${base}/`;
 
-  if (resolvedPath === '/' || resolvedPath === normalizedBase) {
+  if (safePath === '/' || safePath === normalizedBase) {
     return normalizedBase;
   }
 
-  if (resolvedPath.startsWith(normalizedBase)) {
-    return resolvedPath;
+  if (safePath.startsWith(normalizedBase)) {
+    return safePath;
   }
 
-  if (resolvedPath.startsWith('/')) {
-    return `${normalizedBase}${resolvedPath.slice(1)}`;
+  if (safePath.startsWith('/')) {
+    return `${normalizedBase}${safePath.slice(1)}`;
   }
 
-  return `${normalizedBase}${resolvedPath}`;
+  return `${normalizedBase}${safePath}`;
 };
 
-export const normalizeInternalPath = (path) => {
-  if (!path) {
+export const normalizeInternalPath = (path, context = 'normalizeInternalPath') => {
+  const resolvedPath = resolvePathValue(path);
+  const safePath = assertStringHref(resolvedPath ?? path, context);
+  if (!safePath) {
     return '/';
   }
 
   if (
-    externalLinkPattern.test(path) ||
-    path.startsWith('mailto:') ||
-    path.startsWith('tel:') ||
-    path.startsWith('#')
+    externalLinkPattern.test(safePath) ||
+    safePath.startsWith('mailto:') ||
+    safePath.startsWith('tel:') ||
+    safePath.startsWith('#')
   ) {
-    return path;
+    return safePath;
   }
 
   const base = import.meta.env.BASE_URL ?? '/';
   const normalizedBase = base.endsWith('/') ? base : `${base}/`;
 
-  if (path === normalizedBase || path === base) {
+  if (safePath === normalizedBase || safePath === base) {
     return '/';
   }
 
-  if (path.startsWith(normalizedBase)) {
-    return path.slice(Math.max(normalizedBase.length - 1, 0));
+  if (safePath.startsWith(normalizedBase)) {
+    return safePath.slice(Math.max(normalizedBase.length - 1, 0));
   }
 
-  if (path.startsWith('/')) {
-    return path;
+  if (safePath.startsWith('/')) {
+    return safePath;
   }
 
-  return `/${path}`;
+  return `/${safePath}`;
 };
