@@ -41,6 +41,33 @@ Codex será utilizado como apoyo para:
 🟢 Proyecto inicializado  
 🔜 Definición de estructura del sitio y stack tecnológico
 
+## Cómo levantar
+
+> Requiere Node.js 18+ y npm.
+
+```sh
+cd site/app
+npm install
+npm run dev
+```
+
+URL esperada (por defecto): http://localhost:4321/
+
+Comando opcional para abrir el navegador automáticamente:
+
+```sh
+cd site/app
+npm run dev:open
+```
+
+### Variables de entorno
+
+Duplicá `site/app/.env.example` como `.env` y ajustá:
+- `HOST` y `PORT` para el servidor de desarrollo.
+- `PUBLIC_BASE_PATH` si vas a servir el sitio desde un subpath (ej. `/consultora`).
+- `PUBLIC_SITE_URL` para definir el URL base usado en `astro.config.mjs`.
+- `PUBLIC_CONTACT_FORM_ENDPOINT` para habilitar el envío del formulario.
+
 ## Desarrollo local con actualización automática
 
 Para probar el proyecto Astro con sincronización automática desde la rama `main`:
@@ -64,6 +91,19 @@ cd site/app
 export PUBLIC_CONTACT_FORM_ENDPOINT="https://formspree.io/f/tu-endpoint"
 npm run dev
 ```
+
+## Build y preview
+
+```sh
+cd site/app
+npm run build
+npm run preview
+```
+
+## Troubleshooting
+
+- **Puerto ocupado**: cambiá `PORT` en `.env` o ejecutá `PORT=4400 npm run dev`.
+- **Sitio en subpath**: configurá `PUBLIC_BASE_PATH=/consultora` y `PUBLIC_SITE_URL=https://dominio.com/consultora/`.
 
 ## Crear un post nuevo
 
