@@ -41,6 +41,7 @@ npm run dev:tunnel
 
 La consola mostrará:
 - **Public** → URL pública lista para compartir.
+> La URL `trycloudflare` cambia en cada ejecución.
 
 ### Opción B: localtunnel (sin instalar binarios)
 ```sh
@@ -48,6 +49,24 @@ npm run dev:tunnel:lt
 ```
 
 > Usa `npx localtunnel` y puede tardar la primera vez (descarga).
+
+## Arranque rápido (recomendado)
+```sh
+npm run tunnel
+```
+
+**Windows (doble click):**
+- `scripts/win/run_tunnel.cmd`
+
+> El túnel expone el servidor **dev** de Astro, así que el hot-reload funciona sin reiniciar.
+
+## Actualizar y correr
+```sh
+npm run update-and-run
+```
+
+**Windows (doble click):**
+- `scripts/win/run_update_and_tunnel.cmd`
 
 ## Share link (túnel público automático)
 ```sh
