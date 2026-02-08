@@ -58,14 +58,6 @@ Requiere `cloudflared` (recomendado) o `ngrok` instalado en PATH.
 
 Salida esperada:
 ```text
-==============================
-✅ SHARE READY
-Local : http://localhost:4321/
-Public: https://xxxxx.trycloudflare.com
-==============================
-```
-
-La Public URL se copia al portapapeles automáticamente.
 
 ## Modo app (DX/UX)
 ```sh
