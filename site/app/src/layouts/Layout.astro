@@ -235,7 +235,7 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
 
       const initMenu = (root = document) => {
         const navDetails = root.querySelector('.site-nav__details');
-        if (!navDetails || navDetails.dataset.menuInit === 'true') {
+        if (!navDetails) {
           return;
         }
 
@@ -248,7 +248,7 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
         const navBackdrop = root.querySelector('.site-nav__backdrop');
         const pageContent = root.querySelector('#page-content');
         const supportsInert = 'inert' in HTMLElement.prototype;
-        navDetails.dataset.menuInit = 'true';
+        const isInitialized = navDetails.dataset.menuInit === 'true';
 
         const setPageInert = (isInert) => {
           if (!pageContent) {
@@ -271,6 +271,13 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
         };
 
         const mobileQuery = window.matchMedia('(max-width: 768px)');
+        const addMediaListener = (query, handler) => {
+          if (typeof query.addEventListener === 'function') {
+            query.addEventListener('change', handler);
+          } else if (typeof query.addListener === 'function') {
+            query.addListener(handler);
+          }
+        };
         const syncMenuState = () => {
           const isMobile = mobileQuery.matches;
           if (!isMobile) {
@@ -315,76 +322,79 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
           navToggle.focus();
         };
 
-        syncMenuState();
-        navDetails.addEventListener('toggle', syncMenuState);
-        mobileQuery.addEventListener('change', syncMenuState);
+        if (!isInitialized) {
+          navDetails.dataset.menuInit = 'true';
+          navDetails.addEventListener('toggle', syncMenuState);
+          addMediaListener(mobileQuery, syncMenuState);
 
-        navBackdrop?.addEventListener('click', closeMenu);
+          navBackdrop?.addEventListener('click', closeMenu);
 
-        navPanel.addEventListener('click', (event) => {
-          const target = event.target;
-          if (target instanceof HTMLElement && target.tagName === 'A') {
-            closeMenu();
+          navPanel.addEventListener('click', (event) => {
+            const target = event.target;
+            const link = target instanceof Element ? target.closest('a') : null;
+            if (link) {
+              closeMenu();
+            }
+          });
+
+          if (document.documentElement.dataset.menuKeydownInit !== 'true') {
+            document.documentElement.dataset.menuKeydownInit = 'true';
+            window.addEventListener('keydown', (event) => {
+              const activeDetails = document.querySelector('.site-nav__details');
+              const activePanel = activeDetails?.querySelector('.site-nav__panel');
+              const activeToggle = activeDetails?.querySelector('.header__toggle');
+
+              if (
+                !activeDetails ||
+                !activePanel ||
+                !activeToggle ||
+                !activeDetails.hasAttribute('open') ||
+                !mobileQuery.matches
+              ) {
+                return;
+              }
+
+              if (event.key === 'Escape') {
+                activeDetails.removeAttribute('open');
+                activeToggle.focus();
+                return;
+              }
+
+              if (event.key !== 'Tab') {
+                return;
+              }
+
+              const focusableElements = Array.from(
+                activePanel.querySelectorAll(
+                  'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex=\"-1\"])'
+                )
+              ).filter((element) => !element.hasAttribute('disabled'));
+
+              if (!focusableElements.length) {
+                event.preventDefault();
+                return;
+              }
+
+              const firstElement = focusableElements[0];
+              const lastElement = focusableElements[focusableElements.length - 1];
+              const isShiftPressed = event.shiftKey;
+              const activeElement = document.activeElement;
+
+              if (isShiftPressed && activeElement === firstElement) {
+                event.preventDefault();
+                lastElement.focus();
+              } else if (!isShiftPressed && activeElement === lastElement) {
+                event.preventDefault();
+                firstElement.focus();
+              } else if (!activePanel.contains(activeElement)) {
+                event.preventDefault();
+                firstElement.focus();
+              }
+            });
           }
-        });
-
-        if (document.documentElement.dataset.menuKeydownInit === 'true') {
-          return;
         }
 
-        document.documentElement.dataset.menuKeydownInit = 'true';
-        window.addEventListener('keydown', (event) => {
-          const activeDetails = document.querySelector('.site-nav__details');
-          const activePanel = activeDetails?.querySelector('.site-nav__panel');
-          const activeToggle = activeDetails?.querySelector('.header__toggle');
-
-          if (
-            !activeDetails ||
-            !activePanel ||
-            !activeToggle ||
-            !activeDetails.hasAttribute('open') ||
-            !mobileQuery.matches
-          ) {
-            return;
-          }
-
-          if (event.key === 'Escape') {
-            activeDetails.removeAttribute('open');
-            activeToggle.focus();
-            return;
-          }
-
-          if (event.key !== 'Tab') {
-            return;
-          }
-
-          const focusableElements = Array.from(
-            activePanel.querySelectorAll(
-              'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex=\"-1\"])'
-            )
-          ).filter((element) => !element.hasAttribute('disabled'));
-
-          if (!focusableElements.length) {
-            event.preventDefault();
-            return;
-          }
-
-          const firstElement = focusableElements[0];
-          const lastElement = focusableElements[focusableElements.length - 1];
-          const isShiftPressed = event.shiftKey;
-          const activeElement = document.activeElement;
-
-          if (isShiftPressed && activeElement === firstElement) {
-            event.preventDefault();
-            lastElement.focus();
-          } else if (!isShiftPressed && activeElement === lastElement) {
-            event.preventDefault();
-            firstElement.focus();
-          } else if (!activePanel.contains(activeElement)) {
-            event.preventDefault();
-            firstElement.focus();
-          }
-        });
+        syncMenuState();
       };
 
       const runInit = () => {
