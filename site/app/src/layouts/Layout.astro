@@ -11,6 +11,7 @@ const { pathname } = Astro.url;
 const base = import.meta.env.BASE_URL ?? '/';
 const baseUrl = getBaseUrl();
 const isDev = import.meta.env.DEV;
+const isDiagEnabled = isDev || import.meta.env.DIAG_ENABLED === '1';
 const faviconHref = withBaseUrl('/favicon.svg', 'Layout.favicon');
 const footerEmail = assertStringAttr('href', site.footer.email, 'footer email') ?? '';
 const footerLinkedin = site.footer.linkedin
@@ -183,6 +184,60 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
         })();`}
       </script>
     )}
+    {isDiagEnabled && (
+      <script is:inline>
+        {`(() => {
+          const describeNode = (node) => {
+            if (!node || !(node instanceof HTMLElement)) {
+              return null;
+            }
+            const tag = node.tagName.toLowerCase();
+            const id = node.id ? \`#\${node.id}\` : '';
+            const classes = node.classList.length ? \`.\${[...node.classList].join('.')}\` : '';
+            return \`\${tag}\${id}\${classes}\`;
+          };
+
+          const captureClick = (event) => {
+            const target = event.target instanceof HTMLElement ? event.target : null;
+            const hit = document.elementFromPoint(event.clientX, event.clientY);
+            const isOverlay =
+              hit instanceof HTMLElement &&
+              /(overlay|backdrop|scrim|drawer)/i.test(hit.className || hit.id || '');
+            const style = (node) => {
+              if (!node || !(node instanceof HTMLElement)) {
+                return null;
+              }
+              const computed = window.getComputedStyle(node);
+              const rect = node.getBoundingClientRect();
+              return {
+                pointerEvents: computed.pointerEvents,
+                position: computed.position,
+                zIndex: computed.zIndex,
+                display: computed.display,
+                opacity: computed.opacity,
+                visibility: computed.visibility,
+                rect: {
+                  x: Math.round(rect.x),
+                  y: Math.round(rect.y),
+                  width: Math.round(rect.width),
+                  height: Math.round(rect.height),
+                },
+              };
+            };
+
+            if (target) {
+              console.info('[header-click-debug]', {
+                target: describeNode(target),
+                elementFromPoint: describeNode(hit),
+                overlayStyle: isOverlay ? style(hit) : null,
+              });
+            }
+          };
+
+          window.addEventListener('click', captureClick, true);
+        })();`}
+      </script>
+    )}
     <script is:inline>
       const initHeader = () => {
         const header = document.querySelector('.site-header');
@@ -280,8 +335,8 @@ const isExternalLink = (href) => typeof href === 'string' && href.length > 0;
         };
         const syncMenuState = () => {
           const isMobile = mobileQuery.matches;
-          if (!isMobile) {
-            navDetails.setAttribute('open', '');
+          if (!isMobile && navDetails.hasAttribute('open')) {
+            navDetails.removeAttribute('open');
           }
           const isOpen = navDetails.hasAttribute('open');
           navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
