@@ -426,6 +426,8 @@ a.btn-link:focus-visible {
   display: none;
   /* Evita interceptar clicks en desktop cuando el overlay está inactivo. */
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
 @media (min-width: 769px) {
@@ -435,6 +437,10 @@ a.btn-link:focus-visible {
 
   .site-nav__details:not([open]) > .site-nav__panel {
     display: flex;
+  }
+
+  .site-nav__backdrop {
+    display: none !important;
   }
 }
 
@@ -649,15 +655,17 @@ a.btn-link:focus-visible {
   }
 
   .site-nav__backdrop {
-    display: none;
+    display: block;
     position: fixed;
     inset: 0;
     background: rgba(37, 36, 34, 0.4);
     z-index: 70;
+    opacity: 0;
+    pointer-events: none;
   }
 
-  .site-nav__details[open] + .site-nav__backdrop {
-    display: block;
+  body.menu-open .site-nav__backdrop {
+    opacity: 1;
     pointer-events: auto;
   }
 }
