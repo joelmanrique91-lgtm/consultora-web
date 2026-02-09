@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { site } from '../data/site';
-const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT;
+
+const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT?.trim();
 const hasContactEndpoint = Boolean(contactEndpoint);
+const contactEmail = site.footer.email;
 ---
 
 <Layout>
@@ -35,33 +37,13 @@ const hasContactEndpoint = Boolean(contactEndpoint);
         </div>
 
         <div class="contact-layout__form">
-          {!hasContactEndpoint && (
-            <div class="contact-unavailable card" role="status" aria-live="polite">
-              <h2>Formulario temporalmente no disponible</h2>
-              <p>Mientras lo resolvemos, podés escribirnos por estas vías:</p>
-              <div class="contact-unavailable__actions">
-                <a class="btn-secondary" href={`mailto:${site.footer.email}`}>
-                  {site.footer.email}
-                </a>
-                {site.footer.linkedin && (
-                  <a
-                    class="btn-link"
-                    href={site.footer.linkedin}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    LinkedIn
-                  </a>
-                )}
-              </div>
-            </div>
-          )}
           <form
             class="contact-form card"
             id="contact-form"
             method="POST"
             action={hasContactEndpoint ? contactEndpoint : undefined}
             data-endpoint={hasContactEndpoint ? contactEndpoint : undefined}
+            data-email={contactEmail}
           >
             <div class="contact-form__grid">
               <label class="contact-form__field">
@@ -125,14 +107,9 @@ const hasContactEndpoint = Boolean(contactEndpoint);
             </label>
 
             <div class="contact-form__actions">
-              <button class="btn-primary" type="submit" disabled={!hasContactEndpoint}>
+              <button class="btn-primary" type="submit">
                 Coordinar primera conversación
               </button>
-              {!hasContactEndpoint && (
-                <p class="contact-form__status is-error" role="status" aria-live="polite">
-                  Formulario temporalmente no disponible.
-                </p>
-              )}
               <p class="contact-form__status" role="status" aria-live="polite"></p>
             </div>
           </form>
@@ -192,28 +169,6 @@ const hasContactEndpoint = Boolean(contactEndpoint);
     background: var(--surface);
   }
 
-  .contact-unavailable {
-    display: grid;
-    gap: var(--s-12);
-    background: var(--earth-soft);
-  }
-
-  .contact-unavailable h2 {
-    margin: 0;
-    font-size: clamp(20px, 2.2vw, 26px);
-  }
-
-  .contact-unavailable p {
-    margin: 0;
-    color: var(--muted);
-  }
-
-  .contact-unavailable__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-12);
-    align-items: center;
-  }
 
   .contact-form__grid {
     display: grid;
@@ -329,6 +284,20 @@ const hasContactEndpoint = Boolean(contactEndpoint);
 <script>
   const form = document.querySelector('#contact-form');
   const status = document.querySelector('.contact-form__status');
+  const formatMailtoBody = (values) => {
+    const lines = [
+      `Nombre: ${values.name}`,
+      `Empresa: ${values.company}`,
+      `Email: ${values.email}`,
+      values.phone ? `Teléfono: ${values.phone}` : null,
+      values.industry ? `Rubro: ${values.industry}` : null,
+      values.goal ? `Objetivo: ${values.goal}` : null,
+      '',
+      values.message,
+    ].filter(Boolean);
+
+    return lines.join('\n');
+  };
 
   if (form && status) {
     form.addEventListener('submit', async (event) => {
@@ -345,8 +314,20 @@ const hasContactEndpoint = Boolean(contactEndpoint);
 
       const endpoint = form.dataset.endpoint;
       if (!endpoint) {
-        status.textContent = 'Formulario temporalmente no disponible.';
-        status.classList.add('is-error');
+        const data = new FormData(form);
+        const values = Object.fromEntries(data.entries());
+        const email = form.dataset.email;
+
+        if (!email) {
+          status.textContent = 'No se pudo enviar el mensaje. Intentá nuevamente.';
+          status.classList.add('is-error');
+          return;
+        }
+
+        const subject = encodeURIComponent('Nueva consulta desde el sitio web');
+        const body = encodeURIComponent(formatMailtoBody(values));
+        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+        status.textContent = 'Abrimos tu correo para completar el envío.';
         return;
       }
 
