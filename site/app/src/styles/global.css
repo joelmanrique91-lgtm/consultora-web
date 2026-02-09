@@ -664,7 +664,7 @@ a.btn-link:focus-visible {
     pointer-events: none;
   }
 
-  body.menu-open .site-nav__backdrop {
+  .site-nav__details[open] ~ .site-nav__backdrop {
     opacity: 1;
     pointer-events: auto;
   }
