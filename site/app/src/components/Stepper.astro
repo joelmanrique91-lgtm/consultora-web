@@ -51,13 +51,13 @@ const { items = [], class: className } = Astro.props;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2rem;
+    height: 2rem;
     border-radius: 999px;
-    background: var(--accent-soft);
-    color: var(--earth);
-    font-weight: var(--w-semibold);
-    font-size: var(--text-small);
+    background: color-mix(in srgb, var(--accent-soft) 70%, transparent);
+    color: var(--earth-mid);
+    font-weight: var(--w-medium);
+    font-size: 0.85rem;
   }
 
   /* Reduce el espacio superior para títulos compactos. */
